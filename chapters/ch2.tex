@@ -1,3 +1,5 @@
+% !TeX root = ../main.tex
+
 \chapter{Fundamentos teóricos}
 
 Neste capítulo apresentamos os conceitos que são necessários para a compreensão das técnicas e das metodologias propostas neste trabalho. Aplicamos tais técnicas em experimentos de recuperação de imagens pelo conteúdo, tópico abordado na seção \ref{chap:CBIR}.
@@ -478,7 +480,7 @@ E = \frac{1}{L}\int\limits_{l}K^2(l)dl
 Interpretando a equação \ref{eq:be} sob a perspectiva de processamento de sinais, observa-se que a energia de dobramento corresponde a um escalar cujo valor é a energia média do sinal de curvatura.
 
 \begin{comment}
-A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavisação do contorno e cálculo da curvatura. 
+A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavização do contorno e cálculo da curvatura. 
 \end{comment}
 
 A energia de dobramento multiescala foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo.
@@ -514,7 +516,7 @@ z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac
 \end{equation}
  $ n = 0\: \ldots \: N-1$.
   
-No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas gaussiando $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
+No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas Gaussiando $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
 n = 0 \: \ldots \: N-1$:
 
 
@@ -640,7 +642,7 @@ Sendo a transformação \emph{PCA} linear, temos que
  \mathbf{a_{2}}&
  \cdots&
  \mathbf{a_{p}}
- \end{pmatrix}$ é a matriz de tranformação, $\mathbf{x} = \begin{pmatrix} x_1&x_2&\ldots&x_p\end{pmatrix}^T$ e $\mathbf{y} = \begin{pmatrix}y_1&y_2&\ldots&y_p\end{pmatrix}^T$ vetores de variáveis aleatórias e $\mathbf{a_1}\text{ a }\mathbf{a_p}$ vetores dos coeficientes da base de transformação.
+ \end{pmatrix}$ é a matriz de transformação, $\mathbf{x} = \begin{pmatrix} x_1&x_2&\ldots&x_p\end{pmatrix}^T$ e $\mathbf{y} = \begin{pmatrix}y_1&y_2&\ldots&y_p\end{pmatrix}^T$ vetores de variáveis aleatórias e $\mathbf{a_1}\text{ a }\mathbf{a_p}$ vetores dos coeficientes da base de transformação.
  
 Logo, cada variável de saída $y_i$ é obtida através da combinação linear das variáveis de entrada pela seguinte equação:
  
