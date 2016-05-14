@@ -2,9 +2,7 @@
 
 \chapter{Fundamentos teóricos}
 
-Neste capítulo apresentamos os conceitos que são necessários para a compreensão das técnicas e das metodologias propostas neste trabalho. Aplicamos tais técnicas em experimentos de recuperação de imagens pelo conteúdo, tópico abordado na seção \ref{chap:CBIR}.
-
-Na seção \ref{chap:contour} destacamos os métodos de extração de características do contorno das formas para obtenção de descritores. Enfatizamos nesta seção as técnicas baseadas em assinaturas, em particular a curvatura, a distância ao centróide, a sequência de ângulos e os invariantes integrais. Utilizamos essas assinaturas para propor uma métrica de avaliação de similaridade entre formas. Nessa mesma seção apresentamos as representações multiescala, a partir da qual desenvolvemos uma nova proposta de descritor multiescala de formas.
+Neste capítulo apresentamos os conceitos necessários para a compreensão das técnicas e metodologias propostas neste trabalho, as quais são aplicadas em experimentos de recuperação de imagens pelo conteúdo. Destacamos ainda os métodos de extração de características do contorno das formas para obtenção de descritores. Enfatizamos neste capítulo as técnicas baseadas em assinaturas, em particular a curvatura, a distância ao centróide, a sequência de ângulos e os invariantes integrais. Utilizamos essas assinaturas para propor uma métrica de avaliação de similaridade entre formas. Apresentamos ainda as representações multiescala, a partir da qual desenvolvemos uma nova proposta de descritor multiescala de formas.
 
 
 \section{\label{chap:CBIR} Sistemas de recuperação de imagens pelo conteúdo}
@@ -26,7 +24,7 @@ Sistemas \emph{CBIR} realizam buscas em bases multimídia utilizando o conteúdo
 \end{comment}
 
 
-Na Figura \ref{fig:cbir} temos a arquitetura de um sistema \emph{CBIR} clássico, sendo este composto pelos seguintes componentes \cite{Torres:2006}:
+A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \emph{CBIR} clássico, sendo este composto pelos seguintes componentes \cite{Torres:2006}:
 
 \begin{alineas}
 \item Módulo de interação com usuário: através desse módulo o usuário fornece como entrada ao sistema uma imagem de consulta e visualiza, como saída, os resultados das buscas. É também através desse módulo que são realizadas a inserção e a remoção de imagens da base de imagens, sendo esse último processo, destacado em linhas tracejadas, realizado pelo administrador do sistema;  
@@ -73,7 +71,7 @@ Métodos de representação por transformação empregam transformadas como Wave
 
 Por último, os métodos por correspondência, ou alinhamento, representam as formas diretamente no domínio espacial. Esses métodos determinam o grau de similaridade entre duas formas tentando alinhá-las e medindo a diferença residual existente entre as mesmas.
 
-\citeonline{Belongie:2002} propôs um descritor do contorno da forma denominado de \emph{shape context} que permite avaliar a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
+\citeonline{Belongie:2002} propuseram um descritor do contorno da forma denominado de \emph{shape context} que avalia a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
 
 
 \begin{comment}
@@ -103,7 +101,7 @@ Uma medida de distância entre dois vetores $p$ e $q$ é considerada uma métric
 \item Desigualdade triangular: $d(p,r) + d(r,q) \geq d(p,q)$.
 \end{alineas}
 
-Para as representações vetoriais dentro de um mesmo espaço dimensional, distâncias simples entre vetores, de baixo custo computacional, como as apresentadas na tabela \ref{tbl:distance}, são empregadas. Já nos casos aonde a representação das imagens resulta em descrições de dimensões distintas, técnicas mais elaboradas, que utilizam programação dinâmica, são necessárias. Dentre essas técnicas a \emph{DSW} (\emph{Dynamic space warping}) tem sido empregada na avaliação de similaridade entre formas a partir de assinaturas extraídas dos seus contornos \cite{Alajlan20117}. 
+Para as representações vetoriais dentro de um mesmo espaço dimensional, distâncias simples entre vetores, de baixo custo computacional, como as apresentadas na Tabela \ref{tbl:distance}, são empregadas. Já nos casos aonde a representação das imagens resulta em descrições de dimensões distintas, técnicas mais elaboradas, que utilizam programação dinâmica, são necessárias. Dentre essas técnicas a \emph{DSW} (\emph{Dynamic space warping}) tem sido empregada na avaliação de similaridade entre formas a partir de assinaturas extraídas dos seus contornos \cite{Alajlan20117}. 
 
 \begin{table}
 \centering
@@ -133,11 +131,11 @@ Dentre os atributos dos quais se realizam a extração de características, a fo
 
 Obter uma representação, ou descrição, de objetos a partir de formas planas é uma tarefa complexa. Isso porque quando projetamos os objetos tridimensionais do mundo real em duas dimensões, perdemos as informações de uma das dimensões. Como resultado temos uma representação bidimensional parcial do objeto projetado. O problema torna-se ainda mais complexo se levarmos em conta que a forma é frequentemente corrompida por ruídos, defeitos, distorções arbitrárias e oclusões.
 
-\citeonline{Zhang:2004} classificam as técnicas de representação de formas em duas grandes classes de métodos: os baseados em contorno e os baseados em região. Nos métodos baseados em região as características são extraídas de toda região da forma. Já nos métodos baseados em contorno as características são extraídas apenas da borda. Os referidos autores ainda subdividem cada classe de métodos em métodos estruturais e globais. Essa subdivisão é baseada em se a forma como um todo é utilizada na representação ou se a representação é obtida de partes, segmentos e seções das formas. 
+\citeonline{Zhang:2004} classificam as técnicas de representação de formas em duas grandes classes de métodos: os baseados em contorno e os baseados em região. Nos métodos baseados em região as características são extraídas de toda região da forma, enquanto que nos métodos baseados em contorno, as características são extraídas apenas da borda. Os referidos autores ainda subdividem cada classe de métodos em métodos estruturais e globais. Essa subdivisão é baseada em se a forma como um todo é utilizada na representação ou se a representação é obtida de partes, segmentos e seções das formas. 
 
-A figura \ref{fig:folha_contorno1} ilustra as etapas envolvidas no processo de representação de uma forma. Temos nesse caso a segmentação da imagem por limiar seguida da extração do contorno. Com base no contorno, consegue-se obter uma variedade de representações, na forma de sinais, adequadas para as tarefas de comparação, classificação e reconhecimento de formas.
+A Figura \ref{fig:folha_contorno1} ilustra as etapas envolvidas no processo de representação de uma forma. Temos nesse caso a segmentação da imagem por limiar seguida da extração do contorno. Com base no contorno, obtém-se uma variedade de representações, na forma de sinais, adequadas para as tarefas de comparação, classificação e reconhecimento de formas.
 
-Em nosso trabalho  enfatizamos a aplicação de técnicas de processamento de sinais para a obtenção de representações globais do contorno das formas, uma vez que tais técnicas têm sido empregadas com sucesso para esse propósito \cite{Costa:2009}. Nesta seção apresentamos algumas dessas representações. 
+Neste trabalho  enfatizamos a aplicação de técnicas de processamento de sinais para a obtenção de representações globais do contorno das formas, uma vez que tais técnicas têm sido empregadas com sucesso para esse propósito \cite{Costa:2009}. 
 
 \begin{comment}
 Técnicas baseadas em contorno de formas exploram apenas a região da borda da forma. Há dois tipos de abordagens para extração de características do contorno das formas: global e estrutural. Na abordagem global a forma não é dividida em sub-partes e um vetor de características que representa toda a borda é obtido para representar a forma. Na abordagem estrutural a borda da forma é particionada em segmentos, denominados de primitivas mediante algum critério. A representação final é geralmente uma cadeia de caracteres, um grafo ou uma árvore.
@@ -152,7 +150,7 @@ Técnicas baseadas em contorno de formas exploram apenas a região da borda da f
 \caption{\label{fig:folha_contorno1} Obtenção da forma e do contorno da imagem de uma folha.}
 %\includegraphics[width=\textwidth,clip,trim=12mm 188mm 27mm 75mm]{figura_folha.png}
 \includegraphics[width=\textwidth,clip,trim=10mm 145mm 36mm 26mm]{figura_folha_v3.png}
-\legend{Fonte: próprio autor}
+%\legend{Fonte: próprio autor}
 \end{figure}
 
 \subsection{\label{sec:Assinatura}Representações por assinaturas
@@ -166,30 +164,31 @@ Algumas assinaturas são mais sensíveis a ruído e a pequenas distorções dos 
 
 Várias assinaturas vêm sendo empregadas na literatura para descrição de formas nas mais diversas aplicações, tais como a distância ao centróide, as coordenadas complexas, ângulo tangente, ângulo acumulativo, curvatura, área e comprimento da corda \cite{Zhang:2004}.
 
-\subsubsection{\label{sec:Rep_par}Coordenadas paramétricas}
+\subsubsection*{\label{sec:Rep_par}Coordenadas paramétricas}
 A representação por coordenadas paramétricas consiste nas coordenadas dos pontos amostrados do contorno, representados a partir de um sistema de coordenadas pré-estabelecido, percorrendo-o sequencialmente em sentido horário ou anti-horário. Para o contorno discreto $\mathbf{C}$, com $N$ amostras, representado num sistema de coordenadas cartesianas, tal processo origina um conjunto de tuplas $\mathbf{C}[n] = \big(\mathbf{x}[n]\:\text{,}\:\mathbf{y}[n]\big)$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$, cujas componentes $\mathbf{x}[n]$ e $\mathbf{y}[n]$ são sinais discretos vetoriais das coordenadas amostradas do contorno.
 
-Na figura \ref{fig:folha_contorno} estão representados os sinais obtidos para o contorno da folha da figura \ref{fig:folha_contorno1} com a amostragem $N = 280$ pontos. Em vermelho está destacado o ponto de origem aonde a varredura, em sentido horário, se inicia. Os dois pontos observados aonde a evolução do sinal $\mathbf{x}[n]$ inverte sua tendência (de crescente para decrescente e de decrescente para crescente) correspondem aos pontos mais salientes da folha. Já o platô observado no sinal $\mathbf{y}[n]$ corresponde a região da parte inferior da folha, em que quase não se observa variações do contorno ao longo do eixo $Y$.
+Na Figura \ref{fig:folha_contorno} estão representados os sinais obtidos para o contorno da folha da Figura \ref{fig:folha_contorno1} com a amostragem $N = 280$ pontos. Em vermelho está destacado o ponto de origem aonde a varredura, em sentido horário, se inicia. Os dois pontos observados aonde a evolução do sinal $\mathbf{x}[n]$ inverte sua tendência (de crescente para decrescente e de decrescente para crescente) correspondem aos pontos mais salientes da folha. Já o platô observado no sinal $\mathbf{y}[n]$ corresponde a região da parte inferior da folha, em que quase não se observa variações do contorno ao longo do eixo $Y$.
    
 \begin{figure} 
 \caption{\label{fig:folha_contorno} Processo de obtenção da representação paramétrica do contorno da folha da figura \ref{fig:folha_contorno1}.}
-\includegraphics[width=\textwidth,clip,trim= 12mm 23mm 10mm 77mm]{figura_folha_v3.png}
-\legend{Fonte: próprio autor}
+\includegraphics[width=\textwidth,clip,trim= 12mm 30mm 10mm 77mm]{figura_folha_v3.png}
+%\legend{Fonte: próprio autor}
 \end{figure}
 
 Outra representação paramétrica para o contorno é obtida compondo-se um sinal complexo $\mathbf{z}[n] = \mathbf{x}[n] + j\mathbf{y}[n]$, $j = \sqrt{-1}$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$. Essa representação é conveniente quando se deseja realizar extração de características do contorno através de operações de processamento de sinais. A figura \ref{fig:folha_complex} ilustra o módulo e a fase da representação complexa do contorno da folha da figura \ref{fig:folha_contorno1}. 
 
 \begin{figure} 
-\caption{\label{fig:folha_complex} Representação paramétrica do contorno da folha da figura \ref{fig:folha_contorno1} como sinal complexo.}
-\includegraphics[width=\textwidth]{folha_complex_v3.png}
-\legend{Fonte: próprio autor}
+\caption{\label{fig:folha_complex} Representação paramétrica do contorno da folha da Figura \ref{fig:folha_contorno1} como sinal complexo.}
+\centering
+\includegraphics[width=0.75\textwidth]{folha_complex_v3.png}
+%\legend{Fonte: próprio autor}
 \end{figure} 
 
-Embora sejam descritivas, as representações por coordenadas paramétricas apresentam o inconveniente de não serem invariantes a translação, rotação ou escalamento das formas. Por isso são consideradas representações intermediárias, pois outras assinaturas, com propriedades de invariância, podem ser obtidas partindo-se de tais representações \cite{Kindratenko:2003}.
+Embora sejam descritivas, as representações por coordenadas paramétricas apresentam o inconveniente de não serem invariantes a translação, rotação ou escalamento das formas. Por isso são consideradas \color{red} representações intermediárias (????) \color{black}, pois outras assinaturas, com propriedades de invariância, podem ser obtidas partindo-se de tais representações \cite{Kindratenko:2003}.
 
-\subsubsection{Curvatura\label{sec:curvatura}}
+\subsubsection*{Curvatura\label{sec:curvatura}}
 
-A curvatura é uma assinatura do contorno da forma com importantes propriedades geométricas, o que motiva sua utilização para obtenção de descritores. Há evidências biológicas de que as propriedades desta assinatura sejam exploradas pelo sistema de visão dos primatas nas tarefas de reconhecimento de formas \cite{Costa:2009}. Na tabela \ref{tbl:curv} estão destacadas as principais propriedades que a curvatura apresenta.  
+A curvatura é uma assinatura do contorno da forma com importantes propriedades geométricas, o que motiva sua utilização para obtenção de descritores. Há evidências biológicas de que as propriedades desta assinatura sejam exploradas pelo sistema de visão dos primatas nas tarefas de reconhecimento de formas \cite{Costa:2009}. Na Tabela \ref{tbl:curv} estão destacadas as principais propriedades que a curvatura apresenta.  
 
 \begin{table}
 \centering
@@ -208,53 +207,55 @@ Cruzamentos de zero & Pontos de inflexão \\ \bottomrule
 \legend{Fonte: \citeonline{Costa:2009}}
 \end{table}
 
-Sua função $K(l)$, para uma curva contínua fechada $C = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que encontra-se parametrizada em $l \in [0\text{,}L]$, é definida como sendo \cite{Kindratenko:2003}:
+A função curvatura ($K(l)$), para uma curva contínua fechada $C = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que encontra-se parametrizada em $l \in [0\text{,}L]$, é definida como sendo \cite{Kindratenko:2003}:
 
 \begin{equation} \label{eq:curvatura}
-K(l) = \frac{x^{'}(l)y^{''}(l)-x^{''}(l)y^{'}(l)}{((x^{''}(l))^{2}+(y^{''}(l))^{2})^{\frac{3}{2}}}
+K(l) = \frac{x^{'}(l)y^{''}(l)-x^{''}(l)y^{'}(l)}{((x^{''}(l))^{2}+(y^{''}(l))^{2})^{\frac{3}{2}}}\text{,}
 \end{equation}
 
-, sendo $\big(x^{'}(l) \text{, }y^{'}(l)\big)$ e $\big(x^{''}(l)\text{ , }y^{''}(l)\big)$ as derivadas primeira e segunda das coordenadas paramétricas da curva, respectivamente.
+\noindent 
+sendo $\big(x^{'}(l) \text{, }y^{'}(l)\big)$ e $\big(x^{''}(l)\text{ , }y^{''}(l)\big)$ as derivadas primeira e segunda das coordenadas paramétricas da curva, respectivamente.
 
-Sob o aspecto computacional, o cálculo da curvatura do contorno de uma forma requer que o mesmo seja espacialmente amostrado e discretizado. Tal processo torna o cálculo das derivadas da equação \ref{eq:curvatura} extremamente ruidoso e inviável, o que limita a aplicação direta da curvatura para a obtenção de descritores. 
+Sob o aspecto computacional, o cálculo da curvatura do contorno de uma forma requer que o mesmo seja espacialmente amostrado e discretizado. Tal processo torna o cálculo das derivadas da Equação \ref{eq:curvatura} sensível ao ruído e inviável, o que limita a aplicação direta da curvatura para a obtenção de descritores. 
 
-Na figura \ref{fig:cir1} temos a ilustração de tal efeito para uma imagem de forma circular. A esquerda está representado o gráfico da curvatura teórica, obtida analiticamente, pela aplicação da equação \ref{eq:curvatura} ao contorno parametrizado de um círculo de mesmo raio que o círculo da imagem central. Já a direita, temos a curvatura obtida computacionalmente a partir do contorno discreto do círculo da imagem no centro da referida figura. Nota-se no gráfico que a curvatura teórica (à esquerda) tem um valor constante $K(l) = \frac{1}{r}$, sendo $r$ o raio do círculo, enquanto que na curvatura obtida computacionalmente ocorrem variações significativas em torno do valor teórico esperado.
+A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. A Figura \ref{fig:cir1}a representa o gráfico da curvatura teórica, obtida analiticamente, pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Já na  Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $K(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico tesperado.
+\color {red}  TODO: COLOCAR a,b,c NA FIGURA \ref{fig:cir1} \color{black}
 
 \begin{figure}[h!]
   \caption{\label{fig:cir1} Efeito do ruído na estimativa computacional da curvatura para uma forma circular.}
   \centering
-  \includegraphics[width=\textwidth]{curv_cir.png}
-  \legend{Fonte: próprio autor}
+  \includegraphics[width=\textwidth, clip, trim=20mm 5mm 0mm 0mm]{curv_cir.png}
+  %\legend{Fonte: próprio autor}
 \end{figure}
 
-Diversas estratégias foram propostas na literatura para contornar o problema da sensibilidade a ruído do cálculo computacional da curvatura. Trabalhos clássicos, como os de \citeonline{5009188} e \citeonline{LynnBeus1987291} buscam estimar a curvatura a partir do ângulo formado entre vetores obtidos a partir dos pontos do contorno. Já \citeonline{Cazals:2003} e \citeonline{Shi20022051} apresentam trabalhos que utilizam métodos para estimação da curvatura por interpolação de pontos. 
+Diversas estratégias foram propostas na literatura para contornar o problema da sensibilidade ao ruído do cálculo computacional da curvatura. Trabalhos clássicos, como os de \citeonline{5009188} e \citeonline{LynnBeus1987291} estimam a curvatura a partir do ângulo formado entre vetores obtidos a partir dos pontos do contorno. \citeonline{Cazals:2003} e \citeonline{Shi20022051} apresentaram trabalhos que utilizavam métodos para estimação da curvatura por interpolação de pontos. 
 
-\citeonline{149591} apresentam um método que suaviza o contorno, através da convolução do mesmo com um filtro passa-baixas gaussiano, antes de se calcular a curvatura.
+\citeonline{149591} introduziram um método que suaviza o contorno, através da convolução do mesmo com um filtro passa-baixas \color{red}gaussiano\color{black}, antes de se calcular a curvatura.
 
 \begin{figure}[h!]
- \caption{\label{fig:curv_folha} Curvatura estimada do contorno da folha da figura \ref{fig:folha_contorno1} através de método computacional.}
+ \caption{\label{fig:curv_folha} Curvatura estimada do contorno da folha da Figura \ref{fig:folha_contorno1} através de método computacional.}
   \centering
-  \includegraphics[width=\textwidth]{curv_folha_v2.png}
-\legend{Fonte: próprio autor}
+  \includegraphics[width=0.75\textwidth]{curv_folha_v2.png}
+%\legend{Fonte: próprio autor}
 \end{figure}
 
-A figura \ref{fig:curv_folha} mostra a curvatura estimada, para o contorno da folha da figura \ref{fig:folha_contorno1}, através desse último método. O contorno foi previamente suavizado com um filtro gaussiano com desvio padrão $\sigma = 20$. Os pontos aonde a curvatura apresenta os picos em destaque correspondem aos pontos salientes da folha. 
+A Figura \ref{fig:curv_folha} mostra a curvatura estimada, para o contorno da folha da Figura \ref{fig:folha_contorno1}, através do método proposto por \citeonline{149591}. O contorno foi previamente suavizado com um filtro gaussiano com desvio padrão $\sigma = 20$. Os pontos aonde a curvatura apresenta os picos em destaque correspondem aos pontos salientes da folha. 
 
 \begin{comment}
 Particularmente, métodos de extração de características multiescala do contorno a partir da curvatura conseguem superar o problema supracitado aplicando filtragens passa-baixa a representação paramétrica do contorno antes de se calcular a curvatura. 
 \end{comment}
 
-\subsubsection{Distância ao centróide}
+\subsubsection*{Distância ao centróide}
 Uma assinatura simples pode ser obtida calculando-se a distância de cada coordenada do contorno ao centróide da forma. Esse último consiste, para um contorno discreto de $N$ amostras, em um vetor calculado, a partir das coordenadas do contorno, pela seguinte equação: 
 
 \begin{equation}
-\big(x_{c}\:\text{,}\:y_{c}\big) = \Big(\frac{1}{N}\sum^{N}_{i=0}{\mathbf{x}[i]}\:\text{,}\:\frac{1}{N}\sum^{N}_{i=0}{\mathbf{y}[i]}\Big)
+\big(x_{c}\:\text{,}\:y_{c}\big) = \Big(\frac{1}{N}\sum^{N}_{i=0}{\mathbf{x}[i]}\:\text{,}\:\frac{1}{N}\sum^{N}_{i=0}{\mathbf{y}[i]}\Big)\text{.}
 \end{equation}
 
 O sinal da distância ao centróide $\mathbf{dc}[n]$ é dado por:
 
 \begin{equation}
-\mathbf{dc}[n] = \sqrt{(\mathbf{x}[n] - x_c)^2 + (\mathbf{y}[n] - y_c)^2}
+\mathbf{dc}[n] = \sqrt{(\mathbf{x}[n] - x_c)^2 + (\mathbf{y}[n] - y_c)^2}\text{.}
 \end{equation}
 
 Essa assinatura tem a propriedade de ser invariante a translação da forma, o que a torna independente do sistema de coordenadas adotado na parametrização do contorno. Embora não seja invariante a escala e a rotação, tais invariâncias podem ser obtidas, como sugerem alguns trabalhos. 
@@ -264,44 +265,42 @@ Empregando um processo de sub-amostragem e de normalização pelo maior valor, \
 Já \citeonline{Zhang:02} utilizam a distância ao centróide como assinatura para se obter os descritores de Fourier. Tal estratégia garante as propriedades de invariância a rotação e a escala.
 
 \begin{figure}[h!]
-  \caption{\label{fig:cd} Assinatura da distância ao centróide para o contorno da folha da figura \ref{fig:folha_contorno1}}
+  \caption{\label{fig:cd} Assinatura da distância ao centróide para o contorno da folha da Figura \ref{fig:folha_contorno1}}
   \centering
-  \includegraphics[width=\textwidth]{cd_v2.png}
-  \legend{Fonte: próprio autor}
+  \includegraphics[width=0.75\textwidth]{cd_v2.png}
+  %\legend{Fonte: próprio autor}
 \end{figure}
 
-A figura \ref{fig:cd} ilustra a assinatura da distância ao centróide para a folha da figura \ref{fig:folha_contorno1}. Neste exemplo, a assinatura foi normalizada a partir da distância máxima ao centróide, que corresponde ao ponto vermelho demarcado tanto no gráfico como no contorno. 
+A Figura \ref{fig:cd} ilustra a assinatura da distância ao centróide para a folha da Figura \ref{fig:folha_contorno1}. Neste exemplo, a assinatura foi normalizada a partir da distância máxima ao centróide, que corresponde ao ponto vermelho demarcado tanto no gráfico como no contorno. 
 
-\subsubsection{Sequência de ângulos}
+\subsubsection*{Sequência de ângulos}
 
-A assinatura de sequência de ângulos é obtida a partir do ângulo formado entre vetores construídos a partir das coordenadas do contorno parametrizado conforme ilustrado na figura \ref{fig:angulo}. 
+A assinatura de sequência de ângulos é obtida a partir do ângulo formado entre vetores construídos a partir das coordenadas do contorno parametrizado conforme ilustrado na Figura \ref{fig:angulo}. 
 
 Para um dado ponto pertencente ao contorno, de coordenadas $(x_i\:\text{,}\:y_i)$, obtemos os vetores $\overrightarrow{v_1}$ e $\overrightarrow{v_2}$. O primeiro vetor é formado pela diferença entre as coordenadas $(x_i\:\text{,}\:y_i)$ e $(x_{i-p}\:\text{,}\:y_{i-p})$, enquanto o segundo vetor é formado pela diferença entre as coordenadas $(x_{i+p}\:\text{,}\:y_{i+p})$ e $(x_i\:\text{,}\:y_i)$. 
 
 Da propriedade do produto interno, temos a seguinte relação dessas coordenadas com o ângulo $\theta_i$, formado entre os vetores $\overrightarrow{v_1}$ e $\overrightarrow{v_2}$:
 
 \begin{equation}
-\overrightarrow{v_1}. \overrightarrow{v_2} = |\overrightarrow{v_1}||\overrightarrow{v_2}|\cos{\theta_i}=(x_i-x_{i-p})(x_{i+p}-x_i)+(y_i-y_{i-p})(y_{i+p}-y_i).
+\overrightarrow{v_1}. \overrightarrow{v_2} = |\overrightarrow{v_1}||\overrightarrow{v_2}|\cos{\theta_i}=(x_i-x_{i-p})(x_{i+p}-x_i)+(y_i-y_{i-p})(y_{i+p}-y_i)\text{.}
 \end{equation}
 
 Logo, o ângulo $\theta_i$ é calculado através da seguinte expressão:
 
 \begin{equation}
-\theta_i = \arccos{\Big[\frac{(x_i-x_{i-p})(x_{i+p}-x_i)+(y_i-y_{i-p})(y_{i+p}-y_i)}{\sqrt{\big[(x_i-x_{i-p})^2+(y_i-y_{i-p})^2\big]\big[(x_{i+p}-x_i)^2+(y_{i+p}-y_i)^2\big]}}\Big]}
+\theta_i = \arccos{\Big[\frac{(x_i-x_{i-p})(x_{i+p}-x_i)+(y_i-y_{i-p})(y_{i+p}-y_i)}{\sqrt{\big[(x_i-x_{i-p})^2+(y_i-y_{i-p})^2\big]\big[(x_{i+p}-x_i)^2+(y_{i+p}-y_i)^2\big]}}\Big]}\text{.}
 \end{equation}
 
-O parâmetro $p$ controla a sensibilidade da assinatura a características locais do contorno. Valores grandes desse parâmetro resultam em uma assinatura menos sensível a características locais, enquanto que valores pequenos fazem com que a assinatura seja mais sensível a características locais. 
-
-Em \cite{Fotopoulou:2013} essa assinatura foi empregada para identificação de espécies vegetais a partir do contorno das folhas.
+O parâmetro $p$ controla a sensibilidade da assinatura a características locais do contorno. Valores grandes desse parâmetro resultam em uma assinatura menos sensível a características locais, enquanto que valores pequenos fazem com que a assinatura seja mais sensível a características locais.  Em \cite{Fotopoulou:2013} essa assinatura foi empregada para identificação de espécies vegetais a partir do contorno das folhas.
 
 \begin{figure}[h!]
   \caption{\label{fig:angulo} Ilustração geométrica do método de obtenção da assinatura de sequência de ângulos.}
   \centering
-  \includegraphics[width=0.35\textwidth]{angulo.png}
-  \legend{Fonte: próprio autor}
+  \includegraphics[width=0.2\textwidth]{angulo.png}
+  %\legend{Fonte: próprio autor}
 \end{figure}
 
-\subsubsection{Invariantes integrais}
+\subsubsection*{Invariantes integrais}
 
 Uma vez que as assinaturas obtidas através de operadores diferenciais são sensíveis a ruídos e a pequenas deformações do contorno, \citeonline{Manay:2006} propuseram os invariantes integrais como uma representação inerentemente robusta a estes artefatos.
 
@@ -314,21 +313,27 @@ A função
     1 & \quad |p-x|\leq r\\
     0 & \quad |p-x|> r
   \end{array} \right.
-\end{equation} indica se um ponto $x$ pertence ou não ao interior de um disco $B_r$,  centrado em $p$ e de raio $r$.
+\end{equation} 
+
+\noindent
+indica se um ponto $x$ pertence ou não ao interior de um disco $B_r$,  centrado em $p$ e de raio $r$.
 
 Empregando a função acima especificada, obtém-se uma assinatura invariante integral através da seguinte equação: 
 
 \begin{equation}
-A(p) = \int_{\overline{C}}{B_r(p,x)dx}
-\end{equation}, sendo $p \in [0,L]$ e $L$ o perímetro do contorno.
+A(p) = \int_{\overline{C}}{B_r(p,x)dx}\text{,}
+\end{equation} 
 
-A figura \ref{fig:Aii} ilustra, do ponto de vista geométrico, o processo de obtenção da assinatura invariante integral. O disco $B_r(p)$ é centrado em cada ponto $p(s)$ pertencente ao contorno e a área de interseção entre $B_r(p)$ e a região interna ao contorno $\overline{C}(s)$ é determinada.
+\noindent
+sendo $p \in [0,L]$ e $L$ o perímetro do contorno.
+
+A Figura \ref{fig:Aii} ilustra, do ponto de vista geométrico, o processo de obtenção da assinatura invariante integral. O disco $B_r(p)$ é centrado em cada ponto $p(s)$ pertencente ao contorno e a área de interseção entre $B_r(p)$ e a região interna ao contorno $\overline{C}(s)$ é determinada.
 
 \begin{figure}[h!]
   \caption{\label{fig:Aii} Ilustração geométrica do método de obtenção da assinatura invariante integral.}
   \centering
-  \includegraphics[width=0.75\textwidth]{aii.png}
-  \legend{Fonte: \citeonline{Manay:2006}}
+  \includegraphics[width=0.75\textwidth, clip, trim = 0mm 55mm 0mm 40mm]{aii.png}
+  \legend{Fonte: \citeonline{Manay:2006}.}
 \end{figure}
 
 \subsection{Representações multiescala\label{chap:multiescala}} 
@@ -359,64 +364,50 @@ Esta técnica se baseia no método proposto por \citeonline{Witkin:1983} e \cite
   \caption{\label{fig:ms} Método de análise multiescala a partir da assinatura do contorno de uma forma.}
   \centering
   \includegraphics[width=0.45\textwidth]{feature_extraction.eps}
-  \legend{Fonte: próprio autor}
+ % \legend{Fonte: próprio autor}
 \end{figure}
 
-A figura \ref{fig:ms} ilustra o processo para obtenção de uma representação multiescala de um sinal unidimensional discreto $k[n]$ que represente o contorno de uma forma, tal como as assinaturas apresentadas na sessão \ref{sec:Assinatura}. Emprega-se nesse processo uma função de transformação $F[n,\sigma]$, geralmente com características de filtragem passa-baixas e com frequência de corte $\sigma$. Na função de transformação, a referida frequência de corte corresponde ao fator de escala na qual o sinal $k[n]$ será analisado. 
+A Figura \ref{fig:ms} ilustra o processo para obtenção de uma representação multiescala de um sinal unidimensional discreto $k[n]$ que represente o contorno de uma forma, tal como as assinaturas apresentadas na Seção \ref{sec:Assinatura}. Emprega-se nesse processo uma função de transformação $F[n,\sigma]$, geralmente com características de filtragem passa-baixas e com frequência de corte $\sigma$. Na função de transformação, a referida frequência de corte corresponde ao fator de escala na qual o sinal $k[n]$ será analisado. 
 
 Para um vetor de escalas $\sigma = (\sigma_1\:\sigma_2\:\ldots\:\sigma_M) $, a representação multiescala consiste em um vetor de sinais $k[n,\sigma] = (k[n,\sigma_1]\:k[n,\sigma_2]\:\ldots\:k[n,\sigma_N])$, sendo cada termo $k[n,\sigma_i]$ obtido através de
 \begin{equation}\label{eq:ms1}
-k[n,\sigma_i] = F[n,\sigma_i]*k[n]\text{.}
+k[n,\sigma_i] = F[n,\sigma_i]*k[n]\text{,}
 \end{equation}
 
-Na equação \ref{eq:ms1}, o operador $*$ denota a convolução entre o sinal $k[n]$ e a transformação $F[n,\sigma_i]$. Logo, cada elemento de $k[n,\sigma]$ corresponde ao sinal $k[n]$ analisado na escala $\sigma_i$.
+\noindent
+ aonde o operador $*$ denota a convolução entre o sinal $k[n]$ e a transformação $F[n,\sigma_i]$.  Assim, cada elemento de $k[n,\sigma]$ corresponde ao sinal $k[n]$ analisado na escala $\sigma_i$.
 
-No caso de curvas planas, tal abordagem permite descrevê-las em vários níveis de detalhes e de abstração a partir de suas assinaturas. 
+No caso de curvas planas, a análise multiescala permite descrevê-las em vários níveis de detalhes e de abstração a partir de suas assinaturas, tornando a representação mais discriminativa que os métodos que empregam medidas quantitativas globais, como área, perímetro e compacidade, devido a sua robustez e estabilidade \cite{4756134}.    
 
-Em análise de formas, a representação multiescala é mais discriminativa que os métodos que empregam medidas quantitativas globais, como área, perímetro e compacidade, devido a sua robustez e estabilidade \cite{4756134}.    
+\subsubsection*{Curvaturas Multiescala\label{subsec:curvMS}}
 
-\subsubsection{Curvaturas Multiescala\label{subsec:curvMS}}
-
-Inspirados na técnica de \citeonline{Witkin:1983} e \citeonline{Koenderink:1984}, \citeonline{149591} propuseram um método para análise multiescala do contorno através da assinatura da curvatura. O referido método emprega como função de transformação um filtro passa-baixas gaussiano, $g_{\sigma}(l) = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{l^2}{2\sigma^2}}$, que suaviza o contorno antes de se calcular a sua curvatura. 
-
-Nesse caso, o ajuste do desvio padrão da função Gaussiana ($\sigma^2$) atua como fator de escala, regulando a largura de banda do filtro e o nível de suavização do contorno.
+Inspirados na técnica de \citeonline{Witkin:1983} e \citeonline{Koenderink:1984}, \citeonline{149591} propuseram um método para análise multiescala do contorno através da assinatura da curvatura. O referido método emprega como função de transformação um filtro passa-baixas gaussiano, $g_{\sigma}(l) = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{l^2}{2\sigma^2}}$, que suaviza o contorno antes do cálculo de sua curvatura. Nesse caso, o ajuste do desvio padrão da função gaussiana ($\sigma^2$) atua como fator de escala, regulando a largura de banda do filtro e o nível de suavização do contorno.
 
 %Desta forma, o sinal da curvatura é obtido em múltiplas escalas uma vez que a suavização do contorno possibilita o cálculo das derivadas. 
 
-No caso contínuo temos as coordenadas do contorno suavizado realizando a convolução entre as coordenadas do contorno parametrizado $C(l) = (x(l)\text{,}y(l))$ e o filtro Gaussiano:  
+
+\color{red}TODO: NESTA SEÇÃO ENXUGAR EQUAÇÕES (OCUPAM MUITO ESPAÇO) \today\color{black}
+
+
+No caso contínuo temos as coordenadas do contorno suavizado realizando a convolução entre as coordenadas do contorno parametrizado $C(l) = (x(l)\text{,}y(l))$ e o filtro gaussiano:  
 
 \begin{equation}
-x_{\sigma}(l) = x(l) * g_{\sigma}(l) = \int^{\infty}_{-\infty}{x(v)\frac{1}{\sigma\sqrt{2\pi}}e^{\frac{(l-v)^2}{2\sigma^2}}}dv
+x_{\sigma}(l) = x(l) * g_{\sigma}(l) = \int^{\infty}_{-\infty}{x(v)g_{\sigma}(l-v)}dv \text{ e}
 \end{equation}
 \begin{equation}
-y_{\sigma}(l) = y(l) * g_{\sigma}(l)=\int^{\infty}_{-\infty}{y(v)\frac{1}{\sigma\sqrt{2\pi}}e^{\frac{(l-v)^2}{2\sigma^2}}}dv
-\end{equation}.
+y_{\sigma}(l) = y(l) * g_{\sigma}(l)=\int^{\infty}_{-\infty}{y(v)g_{\sigma}(l-v)}dv
+\end{equation}\text{.}
 
-Para o cálculo das derivadas $(x^{'}_{\sigma}(l),y^{'}_{\sigma}(l))$ e $(x^{''}_{\sigma}(l),y^{''}_{\sigma}(l))$, necessárias para o cálculo da curvatura do contorno suavizado, temos:
+Para o cálculo das derivadas $x^{'}_{\sigma}(l)\text{, }y^{'}_{\sigma}(l)\text{, }x^{''}_{\sigma}(l) \text{ e }y^{''}_{\sigma}(l)$, necessárias para o cálculo da curvatura do contorno suavizado, temos, pelas propriedades da convolução, $x^{'}_{\sigma}(l) = x(l) * g^{'}_{\sigma}(l)\text{, }y^{'}_{\sigma}(l) = y(l) * g^{'}_{\sigma}(l)\text{, }x^{''}_{\sigma}(l) = x(l) * g^{''}_{\sigma}(l)\text{ e }
+y^{''}_{\sigma}(l) = y(l) * g^{''}_{\sigma}(l)$.
 
-\begin{equation}
-x^{'}_{\sigma}(l) = (x(l) * g_{\sigma}(l))^{'} = x(l) * g^{'}_{\sigma}(l)
-\end{equation}
-
-\begin{equation}
-y^{'}_{\sigma}(l) = (y(l) * g_{\sigma}(l))^{'} = y(l) * g^{'}_{\sigma}(l)
-\end{equation}
-
-\begin{equation}
-x^{''}_{\sigma}(l) = (x(l) * g_{\sigma}(l))^{''} = x(l) * g^{''}_{\sigma}(l)
-\end{equation}
-
-\begin{equation}
-y^{''}_{\sigma}(l) = (x(l) * g_{\sigma}(l))^{''} = y(l) * g^{''}_{\sigma}(l)
-\end{equation}
-
-e o cálculo da curvatura do contorno suavizado $K(l,\sigma)$ se dá através da equação \ref{eq:curvatura}, substituindo-se $x^{'}(l)\text{,}\:y^{'}(l)\text{,}\:x^{''}(l)\:\text{,}\:y^{''}(l)$ por $x^{'}_{\sigma}(l)\text{,}\:y^{'}_{\sigma}(l)\text{,}\:x^{''}_{\sigma}(l)\:\text{,}\:y^{''}_{\sigma}(l)$, respectivamente, ou seja
+O cálculo da curvatura do contorno suavizado $K_{\sigma}(l)$ se dá através da equação \ref{eq:curvatura}, substituindo-se $x^{'}(l)\text{, }\:y^{'}(l)\text{, }\:x^{''}(l)\:\text{ e }\:y^{''}(l)$ por $x^{'}_{\sigma}(l)\text{, }\:y^{'}_{\sigma}(l)\text{, }\:x^{''}_{\sigma}(l)\:\text{ e }\:y^{''}_{\sigma}(l)$, respectivamente, ou seja,
 
 \begin{equation} \label{eq:curvatura_ms}
-K(l,\sigma) = \frac{x_{\sigma}^{'}(l)y_{\sigma}^{''}(l)-x_{\sigma}^{''}(l)y_{\sigma}^{'}(l)}{((x_{\sigma}^{''}(l))^{2}+(y_{\sigma}^{''}(l))^{2})^{\frac{3}{2}}}\text{.}
+K_{\sigma}(l) = \frac{x_{\sigma}^{'}(l)y_{\sigma}^{''}(l)-x_{\sigma}^{''}(l)y_{\sigma}^{'}(l)}{((x_{\sigma}^{''}(l))^{2}+(y_{\sigma}^{''}(l))^{2})^{\frac{3}{2}}}\text{.}
 \end{equation}
 
-Uma outra abordagem utilizada para se calcular a curvatura multiescala, que foi proposta por \citeonline{Cesar:1996} e adotada nesta tese, opera com a representação do contorno no domínio da frequência. A partir da transformada de Fourier das coordenadas do contorno suavizado $X_{\sigma}(f) = F\big\{x_{\sigma}(l)\big\}$ e $Y_{\sigma}(f) = F\big\{y_{\sigma}(l)\big\}$ , os referidos autores calculam derivadas utilizando a propriedade da derivada da transformada de Fourier, ou seja:
+Uma outra abordagem utilizada para se calcular a curvatura multiescala, que foi proposta por \citeonline{Cesar:1996} e adotada nesta tese, opera com a representação do contorno no domínio da frequência. A partir da transformada de Fourier das coordenadas do contorno suavizado $X_{\sigma}(f) = F\big\{x_{\sigma}(l)\big\}$ e $Y_{\sigma}(f) = F\big\{y_{\sigma}(l)\big\}$. Os referidos autores calculam derivadas utilizando a propriedade da derivada da transformada de Fourier, ou seja:
 
 \begin{equation}
 x_{\sigma}^{'}(l) = F^{-1}\big\{2 \pi j f  X_{\sigma}(f)\big\}
@@ -432,7 +423,7 @@ x_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 X_{\sigma}(f)\big\}
 
 \begin{equation}
 y_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 Y_{\sigma}(f)\big\}
-\end{equation}, aonde $F^{-1}\big\{X(f)\big\}$ denota a transformada de Fourier inversa do sinal $X(f)$:
+\end{equation}, aonde $F^{-1}\big\{X(f)\big\}$ denota a transformada de Fourier inversa do sinal $X(f)$.
 
 \begin{comment}
 \begin{equation}
@@ -444,7 +435,7 @@ x(l) = F^{-1}\big\{X(f)\big\} \int\limits^\infty_\infty X(f)e^{2 \pi j f l}df
 \end{equation}
 \end{comment}
 
-Na suavização do contorno no domínio da frequência, ao invés da convolução, realiza-se o produto dos sinais $X(f)$ e $Y(f)$ com a transformada de Fourier da expressão do filtro Gaussiano:
+Na suavização do contorno no domínio da frequência, ao invés da convolução, realiza-se o produto dos sinais $X(f)$ e $Y(f)$ com a transformada de Fourier da expressão do filtro gaussiano:
 
 \begin{equation}
 X_\sigma(f) = X(f).G_\sigma(f)
@@ -465,65 +456,63 @@ G_\sigma(f) = F\big\{ g_{\sigma}(l)\big\} = e^{-2 \pi^2 f^2 \sigma^2}\text{.}
   \legend{Fonte: próprio autor}
 \end{figure}
 
-Temos na figura \ref{fig:curv_ms} a evolução do sinal de curvatura do contorno da folha da figura \ref{fig:folha_contorno1} para diferentes níveis de suavização. Os picos da curvatura que se preservam nas escalas de baixa resolução correspondem às informações mais salientes do contorno, que o caracterizam globalmente. Já informações de detalhes, que tendem a desaparecer nas escalas de baixa resolução e se preservam nas escalas de alta resolução, representam as características mais especificas do contorno.
+A Figura \ref{fig:curv_ms} ilustra a evolução do sinal de curvatura do contorno da folha da Figura \ref{fig:folha_contorno1} para diferentes níveis de suavização. Os picos da curvatura que se preservam nas escalas de baixa resolução correspondem às informações mais salientes do contorno, que o caracterizam globalmente. As informações de detalhes, que tendem a desaparecer nas escalas de baixa resolução e se preservam nas escalas de alta resolução, representam as características mais especificas do contorno.
 
-\subsubsection{Energia de dobramento multiescala\label{subsec:BE}}
+\subsubsection*{Energia de dobramento multiescala\label{subsec:BE}}
 
 \citeonline{Young:1974} propuseram a energia de dobramento como uma medida de complexidade para análise de formas biológicas. Conceitualmente, esta é definida como sendo a energia necessária para se modificar uma forma, através de deformações, ao seu estado de menor energia, ou seja, um círculo do mesmo perímetro da forma deformada.
 
 A maneira mais direta de se obter a energia de dobramento de um contorno fechado é a partir de sua curvatura pela seguinte expressão:
 
 \begin{equation}\label{eq:be}
-E = \frac{1}{L}\int\limits_{l}K^2(l)dl
-\end{equation}, sendo L o perímetro do contorno e a integral calculada ao longo do comprimento de seu arco.
-
-Interpretando a equação \ref{eq:be} sob a perspectiva de processamento de sinais, observa-se que a energia de dobramento corresponde a um escalar cujo valor é a energia média do sinal de curvatura.
+E = \frac{1}{L}\int\limits_{l}K^2(l)dl\text{,}
+\end{equation}
+\noindent
+sendo $L$ o perímetro do contorno e a integral calculada ao longo do comprimento de seu arco. O resultado da equação \ref{eq:be} é um escalar que representa a energia média do sinal da curvatura.
 
 \begin{comment}
 A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavização do contorno e cálculo da curvatura. 
 \end{comment}
 
-A energia de dobramento multiescala foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo.
-
-Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a energia de dobramento é dada por: 
+A energia de dobramento multiescala foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo. Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a energia de dobramento é dada por: 
 
 \begin{equation}
 E_{be} = \frac{L^{2}}{N}\sum_{n=0}^{N-1}K^{2}[n]\text{,}
 \label{eq:ebe}
 \end{equation}
-
+\noindent
 sendo o perímetro do contorno elevado ao quadrado ($L^2$) uma constante de normalização para que o descritor tenha invariância a escala. A curvatura discreta $K[n]$ é calculada a partir de $z[n]$ através da seguinte expressão:
 
 \begin{equation}
 K[n] = \frac{-Im(z^{'}[n](z^{''}[n])^{*})}{|z^{'}[n]|^3} \text{,}
 \label{eq:kn}
 \end{equation}
-
+\noindent
 aonde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda e $z^{*}[n]$ o conjugado de $z[n]$. 
 
-A energia de dobramento multiescala resulta da versão discreta da curvatura multiescala. De maneira análoga àquela apresentada na sessão \ref{subsec:curvMS}, podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através da propriedade da derivada da transformada de Fourier. No caso discreto, a transformada de Fourier de $z[n]$ dada por 
+A energia de dobramento multiescala resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier. No caso discreto, a transformada de Fourier de $z[n]$ é dada por: \color{red}ENXUGAR EQUAÇÕES \color{black} 
 
 \begin{equation}
 Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n].e^{\frac{-j2\pi ns}{N}} \text{,}
 \end{equation}
 
-$s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)$,
+$s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)$.
 
-e a transformada inversa 
+ A transformada inversa é dada por  
 
 \begin{equation}
 z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac{j2\pi n s}{N}}\text{,}
 \end{equation}
  $ n = 0\: \ldots \: N-1$.
   
-No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas Gaussiando $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
+No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas gaussiando $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
 n = 0 \: \ldots \: N-1$:
 
 
 \begin{equation}
 Z_\sigma[s] = Z[s].F\big\{g_\sigma[n]\big\}\text{,}
 \end{equation}
-
+\noindent
  sendo as referidas derivadas do contorno suavizado:
 \begin{equation}
 z_\sigma'[n] = F^{-1}\big\{j2\pi s Z_\sigma[s]\big\}
@@ -535,7 +524,7 @@ z_\sigma''[n] = F^{-1}\big\{-(2\pi s)^2 Z_\sigma[s]\big\}\text{.}
 O processo de filtragem passa-baixas diminui a energia espectral da representação complexa do contorno resultando no encolhimento do seu perímetro. Uma estratégia para compensar tal efeito é normalizar o contorno suavizado com a razão entre o perímetro do contorno não suavizado ($L$) e o seu perímetro ($L_{\sigma}$) \cite{Cesar:1996,Costa:1997}:
 
 \begin{equation}
-\breve{z}_{\sigma}[n] = \frac{L}{L_{\sigma}}z_{\sigma}[n],
+\breve{z}_{\sigma}[n] = \frac{L}{L_{\sigma}}z_{\sigma}[n]\text{.}
 \end{equation}
 
 \begin{comment}
@@ -570,14 +559,14 @@ NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ 
 \end{equation}
 \end{comment}
 
-Substituindo $K[n]$ por $K[n,\sigma]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na representação multiescala da energia de dobramento:
+Substituindo $K[n]$ por $K_{\sigma}[n]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na representação multiescala da energia de dobramento:
 
 \begin{equation}
-NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ , }\log{E_{\sigma_{M}}}).
+NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ , }\log{E_{\sigma_{M}}})\text{.}
 \label{eq:nmbe}
 \end{equation}
 
-\subsubsection{Dimensão Fractal multiescala (DFM)}
+\subsubsection*{Dimensão Fractal multiescala (DFM)}
 
 O conceito de fractal, introduzido por \citeonline{Mandelbrot:2000}, está intimamente relacionado com a auto-similaridade ou escala de uma forma, o que por sua vez estabelece a noção de dimensão fractal.
 
@@ -598,6 +587,8 @@ DFM = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 \end{equation}
 
 \noindent aonde  $D_f(t) = 2 - \frac{du(t)}{dt}$, $t = \log{r}$ e $u(t) = \log{A(t)}$.
+
+\color{red} ******************* PAREI AQUI \today ********************\color{black}
 
 \section{Técnicas de visualização de dados}
 
