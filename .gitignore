@@ -1,5 +1,6 @@
 *.log
-*.pdf
+*-eps-converted-to.pdf
+main.pdf
 *.aux
 *.bbl
 *.blg
