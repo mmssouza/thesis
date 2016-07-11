@@ -1,12 +1,76 @@
 \chapter{Metodologia}
 \label{chap:MatMet}
 
-\section{Divergência em avaliação de similaridade de formas}
+O Capítulo \ref{chap:ch1} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do seu contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes, sendo esse ajuste dependente da natureza da aplicação, ou seja,  das características da base de imagens e do propósito ao qual o sistema de reconhecimento se destina.
+
+Os descritores entropia multiescala, apresentado no Capítulo \ref{chap:ch2}, e a energia de dobramento multiescala requerem o ajuste dos seguintes parâmetros: o número e os valores dos fatores de escala utilizados na representação das formas. Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
+ 
+
+\section{Ajuste de parâmetros}
+A metodologia para escolha de parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. Essa metodologia melhora a representação do descritor utilizando métodos de otimização evolutivos para minimizar uma função custo que corresponde a mediana do erro absoluto da silhouette dos descritores ($MAD$). O que motivou a escolha dessa função custo é sua robustez a valores extremos \cite{Rousseeuw:1987:2}, sendo sua equação 
+
+\begin{equation}
+\label{eq:mad}
+MAD = \operatorname{mediana}\big(|s_i - 1|_{i =1,\:2,\:\cdots,\:L}\big)\text{,}
+\end{equation}
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=\textwidth,trim = 14mm 164mm 0mm 24mm,clip]{Final_Flux.pdf}
+\caption{The proposed approach for evolutionary optimization of a multiscale shape descriptor.} 
+\label{fig:Avaliacao}
+\end{figure*}
+
+\noindent aonde $S = \{s_1,s_2,\cdots,s_L\}$ é o conjunto das \emph{silhouettes} calculadas para $L$ descritores de forma. Os operadores $|.|$  e {$mediana ( )$} retornam o valor absoluto e a mediana de um conjunto de valores, respectivamente.
+
+A Silhouette \cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, levando em conta as distâncias médias entre-classes e intra-classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
+\begin{equation}
+s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
+\end{equation}
+
+\noindent sendo $a_i$ a dissimilaridade média entre o objeto $i$ e os demais objetos pertencentes a mesma classe de $a_i$ e $b_i$ é a dissimilaridade média do objeto $i$ e a classe vizinha mais próxima de $i$, excluída sua própria classe. 
+
+Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é alto. Um valor de silhouette próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
+
+Os valores da função objetivo $MAD$ assume valores no intervalo $[0,2]$. De forma análoga a silhouette, um valor igual a zero desta função indica que a estrutura dos clusters é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos clusters é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
+
+A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como se dá o ajuste dos parâmetros do descritor multiescala dentro da metodologia proposta, bem como esta avalia a qualidade do descritor obtido com os parâmetros otimizados.  Primeiramente, é amostrado na base de folhas um sub-conjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor multiescala que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas.
+
+O desempenho do descritor, em termos de agrupamento das formas, é avaliado qualitativamente e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{multidimensional scaling} \cite{cox:2000}. Esses algoritmos produzem projeções bi-dimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas. Já na avaliação quantitativa são analisadas métricas de avaliação obtidas em experimentos de classificação supervisionada (precisão e revocação), de recuperação de formas (bulls-eye) e a medida silhouette \cite{Rousseeuw:1987} média por classe. 
+
+A silhouette média por classe avalia tanto a coesão como a separação das classes através da distância entre os vetores de características. Já as métricas de precisão e revocação são medidas clássicas na avaliação do desempenho de descritores em experimentos de classificação supervisionada. Na classificação supervisionada, os classificadores utilizados foram Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002},  o discriminante linear de Fisher (LDA) \cite{Webb:2002} e o discriminante quadrático (QDA) \cite{Fukunaga:1990}.  Antes da classificação com os classificadores NB e \emph{Knn} foi utilizado o discriminante linear de Fisher para transformar os dados \cite{Webb:2002}. Já para classificação com os classificadores LDA e QUA aplicou-se a análise das componentes principais para descorrelacionar os dados. Os experimentos realizados de recuperação de imagens pelo conteúdo visam avaliar o desempenho dos descritores de formas e das medidas de similaridade estudadas neste trabalho. As metodologias utilizadas nesses experimentos são as mesmas encontradas em diversos trabalhos de recuperação de formas da literatura.
+
+Foram realizados experimentos em duas bases de imagens de formas binárias: a Kimia, de 99 formas, e a MPEG-7 CE-Shape-1 de 1400 formas. Ambas as bases estão apresentadas no Apêndice deste trabalho.
+
+A  Figura \ref{fig:metodo_cbir} ilustra a metodologia dos experimentos de recuperação de formas.  Primeiramente realiza-se a extração de características das formas da base de imagens de formas binárias com o método de descrição sob avaliação. O mesmo processo de extração de características é aplicado a imagem de uma forma de consulta. Esse processo resulta numa base de dados com os vetores de características associados às formas utilizadas no experimento. 
+
+Com a medida de similaridade avalia-se o grau de correspondência existente entre o vetor de características da forma de consulta e os vetores associados a cada uma das formas da base. Tem-se assim como resultado uma lista de imagens recuperadas em ordem decrescente de similaridade à forma de consulta. Todo esse processo é realizado repetidamente tomando-se cada forma da base de imagens como forma de consulta e recuperando-se as demais.
+
+\begin{figure}[h!]
+  \caption{\label{fig:metodo_cbir} Metodologia empregada para os experimentos de recuperação de formas pelo conteúdo.}
+  \centering
+  \includegraphics[width=0.55\textwidth]{Metodologia1.jpg}
+\end{figure}
+
+Na avaliação do desempenho dos experimentos duas medidas são utilizadas: o número total de acertos por posição recuperada e a medida Bull-eye.
+
+A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Tendo esta base 99 formas, igualmente distribuídas em 9 classes, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
+
+A medida Bull-eye também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Essa medida é calculada para a base MPEG-7 CE-Shape-1 da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes a mesma classe da forma de consulta dentre as 40 primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas poro forma}$. 
 
 
-A avaliação de similaridade entre formas a partir de medidas de divergência requer que as informações das assinaturas, abordadas na Seção \ref{sec:Assinatura} do Capítulo \ref{chap:contour}, sejam tratadas como variáveis aleatórias e que suas distribuições de probabilidade sejam estimadas. 
+\section{Avaliação de similaridade de formas}
+ \label{Sec:method}
+ 
+O método proposto para a avaliação de similaridade entre formas combina medidas de divergência com assinaturas do contorno das formas. A Figura \ref{fig:metodo_distancia} ilustra a metodologia aplicando-a a duas formas A e B. Uma vez extraído o contorno são calculadas quatro assinaturas daquelas abordadas na Seção \ref{sec:Assinatura} do Capítulo \ref{chap:contour}: curvatura \cite{149591,Costa:2009}, sequência de ângulos (AS) \cite{Fotopoulou:2013}, distância ao centróide (CD) \cite{Costa:2009} e invariante integral de área (AII) \cite{Manay:2006}. O próximo passo estima as distribuições de probabilidade dessas assinaturas através de histogramas. Um ponto considerado na determinação dos histogramas é o ajuste dos parâmetros utilizados na estimação das distribuições, que são o número de intervalos (bins) e a faixa de valores. Um número de intervalos grande torna a estimação sensível a ruído, enquanto um número pequeno desse parâmetro resulta em uma descrição com poder de discriminação pobre. Já a má escolha da faixa de valores resulta em perda de informação na descrição, o que também degrada o poder de discriminação.  Assim, a faixa de valores foi padronizada normalizando-se as assinaturas das formas, enquanto os números de intervalos (um parâmetro para cada assinatura) foram obtidos por otimização para maximizar o desempenho do descritor, conforme o método da Seção ??. 
 
-A  Figura \ref{fig:metodo_distancia} ilustra como divergentes podem ser aplicados na avaliação da similaridade entre duas formas A e B. No método em questão, as distribuições de probabilidade de quatro assinaturas distintas dos contornos das formas são estimadas, através de histogramas, para em seguida se calcular as medidas de divergência. Uma medida de similaridade é então obtida  a partir da média ponderada das medidas de divergência.
+Finalmente, as medidas de divergência $D(a,b)$ entre os histogramas correspondentes das formas A e B são calculados, resultando em quatro medidas de dissimilaridade, uma para cada par de assinaturas ($d_{1}$, $d_{2}$, $d_{3}$ e $d_{4}$), sendo a medida de dissimilaridade final $d(A,B) = d_{1}+d_{2}+d_{3}+d_{4}$. Cabe aqui mencionar que, por ser uma medida de dissimilaridade, quanto menor o valor de $d(A,B)$ maior a similaridade entre as formas $A$ e $B$. 
+
+Realizou-se experimentos de recuperação de formas para avaliar o qualidade do método em questão para diferentes funções de divergência.
+
+%A avaliação de similaridade entre formas a partir de medidas de divergência requer que as informações das assinaturas, abordadas na Seção \ref{sec:Assinatura} do Capítulo \ref{chap:contour}, sejam tratadas como variáveis aleatórias e que suas distribuições de probabilidade sejam estimadas. 
+
+%A  Figura \ref{fig:metodo_distancia} ilustra como divergentes podem ser aplicados na avaliação da similaridade entre duas formas A e B. No método em questão, as distribuições de probabilidade de quatro assinaturas distintas dos contornos das formas são estimadas, através de histogramas, para em seguida se calcular as medidas de divergência. Uma medida de similaridade é então obtida  a partir da média ponderada das medidas de divergência.
 
 \begin{figure}[h!]
   \caption{\label{fig:metodo_distancia} Método para avaliação da similaridade entre duas formas A e B utilizando distância estocástica e histogramas das assinaturas do contorno das formas.}
@@ -32,66 +96,22 @@ A avaliação de qualidade dos descritores se dá qualitativamente e quantitativ
 
 Na avaliação quantitativa (Figura \ref{fig:metodo_4}e) utilizamos os rótulos e os vetores de características das formas para calculamos a medida de avaliação de agrupamentos \emph{Silhouette} \cite{Rousseeuw:1987}. Valores médios dessa medida, por classe de formas, indica a habilidade dos descritores em discriminar formas que pertençam a classes distintas e de agrupar formas que pertençam a uma mesma classe.
 \end{comment}
-\section{Ajuste de parâmetros}
-A metodologia proposta para escolha de parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. Essa metodologia melhora a representação do descritor utilizando métodos de otimização evolutivos para minimizar uma função custo que corresponde a mediana do erro absoluto da silhouette dos descritores ($MAD$). O que motivou a escolha dessa função custo é sua robustez a valores extremos \cite{Rousseeuw:1987:2}, sendo sua equação 
 
-\begin{equation}
-\label{eq:mad}
-MAD = \operatorname{mediana}\big(|s_i - 1|_{i =1,\:2,\:\cdots,\:L}\big)\text{,}
-\end{equation}
-
-\noindent aonde $S = \{s_1,s_2,\cdots,s_L\}$ é o conjunto das \emph{silhouettes} calculadas para $L$ descritores de forma. Os operadores $|.|$  e {$mediana ( )$} retornam o valor absoluto e a mediana de um conjunto de valores, respectivamente.
-
-A Silhouette \cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, levando em conta as distâncias médias entre-classes e intra-classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
-\begin{equation}
-s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
-\end{equation}
-
-\noindent sendo $a_i$ a dissimilaridade média entre o objeto $i$ e os demais objetos pertencentes a mesma classe de $a_i$ e $b_i$ é a dissimilaridade média do objeto $i$ e a classe vizinha mais próxima de $i$, excluída sua própria classe. 
-
-Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é alto. Um valor de silhouette próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
-
-Os valores da função objetivo $MAD$ assume valores no intervalo $[0,2]$. De forma análoga a silhouette, um valor igual a zero desta função indica que a estrutura dos clusters é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos clusters é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
-
-A Figura  \ref{fig:Avaliacao} ilustra como a metodologia proposta ajusta os parâmetros do descritor multiescala, bem como esta avalia a qualidade do descritor obtido com os parâmetros otimizados. Primeiramente, é amostrado na base de folhas um sub-conjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor multiescala que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas.
-
-\begin{figure*}
-\centering
-\includegraphics[width=\textwidth,trim = 14mm 164mm 0mm 24mm,clip]{Final_Flux.pdf}
-\caption{The proposed approach for evolutionary optimization of a multiscale shape descriptor.} 
-\label{fig:Avaliacao}
-\end{figure*}
-
-O desempenho do descritor, em termos de agrupamento das formas, é avaliado qualitativamente e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{multidimensional scaling} \cite{cox:2000}. Esses algoritmos produzem projeções bi-dimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas. Já na avaliação quantitativa são analisadas métricas de avaliação obtidas em experimentos de classificação supervisionada (precisão e revocação), de recuperação de formas (bulls-eye) e a medida silhouette \cite{Rousseeuw:1987} média por classe. 
-
-A silhouette média por classe avalia tanto a coesão como a separação das classes através da distância entre os vetores de características. Já as métricas de precisão e revocação são medidas clássicas na avaliação do desempenho de descritores em experimentos de classificação supervisionada. Na classificação supervisionada, os classificadores utilizados foram Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002},  o discriminante linear de Fisher (LDA) \cite{Webb:2002} e o discriminante quadrático (QDA) \cite{Fukunaga:1990}.  Antes da classificação com os classificadores NB e \emph{Knn} foi utilizado o discriminante linear de Fisher para transformar os dados \cite{Webb:2002}. Já para classificação com os classificadores LDA e QUA aplicou-se a análise das componentes principais para descorrelacionar os dados. Os experimentos realizados de recuperação de imagens pelo conteúdo visam avaliar o desempenho dos descritores de formas e das medidas de similaridade estudadas neste trabalho. As metodologias utilizadas nesses experimentos são as mesmas encontradas em diversos trabalhos de recuperação de formas da literatura.
-
-Foram realizados experimentos em duas bases de imagens de formas binárias: a Kimia, de 99 formas, e a MPEG-7 CE-Shape-1 de 1400 formas. Ambas as bases estão apresentadas no Apêndice deste trabalho.
-
-A  Figura \ref{fig:metodo_cbir} ilustra a metodologia dos experimentos de recuperação de formas.  Primeiramente realiza-se a extração de características das formas da base de imagens de formas binárias com o método de descrição sob avaliação. O mesmo processo de extração de características é aplicado a imagem de uma forma de consulta. Esse processo resulta numa base de dados com os vetores de características associados às formas utilizadas no experimento. 
-
-Com a medida de similaridade avalia-se o grau de correspondência existente entre o vetor de características da forma de consulta e os vetores associados a cada uma das formas da base. Tem-se assim como resultado uma lista de imagens recuperadas em ordem decrescente de similaridade à forma de consulta. Todo esse processo é realizado repetidamente tomando-se cada forma da base de imagens como forma de consulta e recuperando-se as demais.
-
-\begin{figure}[h!]
-  \caption{\label{fig:metodo_cbir} Metodologia empregada para os experimentos de recuperação de formas pelo conteúdo.}
-  \centering
-  \includegraphics[width=0.55\textwidth]{Metodologia1.jpg}
-\end{figure}
-
-Na avaliação do desempenho dos experimentos duas medidas são utilizadas: o número total de acertos por posição recuperada e a medida Bull-eye.
-
-A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Tendo esta base 99 formas, igualmente distribuídas em 9 classes, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
-
-A medida Bull-eye também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Essa medida é calculada para a base MPEG-7 CE-Shape-1 da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes a mesma classe da forma de consulta dentre as 40 primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas poro forma}$. 
  
 
-\section{Optimization methods}
+\section{Métodos de otimização}
 
-This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA), differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
+Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos, como o de Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global, porém, em diversos problemas, tais condições não são encontradas. 
 
-Simulated annealing is a classical probabilistic optimization procedure that simulates the thermodynamic process of material heating and cooling. This algorithm encompasses a temperature variable such that the higher it is, the higher is the probability of the algorithm to accept worse solutions as it explores the solution space. Thus, the temperature variable decreases exponentially as the algorithm iterates and therefore the probability to accept the worse solutions decreases over time. Then, the algorithm converges to an optimal solution. Particularly, the implemented algorithm embodies a mechanism to disturb the current solution which consists in adding or subtracting,  with a given probability $P_r$, a value from each coordinate of the current solution. In fact, this value is drawn from a normal distribution, with zero mean and variance, i.e., $\kappa.v_i.(1+COST(v))$, where $\kappa = 0.6$, $v_i$ is the $i_{th}$ coordinate of the current solution and $COST(v)$ is the fitness. 
+Os métodos de otilização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
 
-\begin{comment}
+%This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
+\subsection{Recozimento simulado}
+
+O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a termperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores descresce exponencialmente à medida que o algoritmo interage.  
+
+Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um fator de perturbação aleatório a cada coordenada da solução atual. Na implementação utilizada neste trabalho, o fator de perturbação corresponde a uma variável aleatória com distribuição normal com média zero e variância $\kappa = 0.2$.
+
 \begin{algorithm}[ht]
 \caption{Simulated Annealing}
 \label{alg:sa}
@@ -130,8 +150,10 @@ $n \gets n + 1$
 \State $T \gets \alpha.T$
 \end{algorithmic}
 \end{algorithm}
-\end{comment}
 
+\subsection{Evolução diferencial}
+
+O algoritmo de otimização evolução diferencial 
 The differential evolution algorithm iteratively evolves a population of $N$ vectors of candidate solutions and it produces disturbed versions of each population solution by using a disturbance vector. Here, we employ the  \emph{DE/rand/1} strategy introduced by \cite{Storn:1996},  which is a modified version of DE that computes the disturbance vector according to equation:
 \begin{equation}
 \boldsymbol{d} = \boldsymbol{\sigma_1} + \beta.(\boldsymbol{\sigma_2} - \boldsymbol{\sigma_3}),
@@ -140,7 +162,6 @@ The differential evolution algorithm iteratively evolves a population of $N$ vec
 \noindent where $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$ are three randomly selected distinct candidate solutions in the population, which are also different from the current solution to be disturbed.  The $\beta$ parameter is an amplification factor of the difference between $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$. The disturbance occurs in each coordinate of the current solution, via a cross-over mechanism with probability $P_r$. Then, the disturbed solution replaces the current one in population if it has a better fitness, otherwise the algorithm keeps the current solution. 
 In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by following the guidelines in \cite{Storn:1996} and performing several tests. Finally,  we have approached the proposed optimization problem with the  parameter set: $N = 100$, $\beta = 0.56$ and $P_r = 0.3$.
 
-\begin{comment}
 \begin{algorithm}[ht]
 \caption{Differential evolution optimization}
 \label{alg:de}
@@ -178,10 +199,11 @@ In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by fol
 \EndFor
 \end{algorithmic}
 \end{algorithm}
-\end{comment}
+
+\subsection{Enxame de partículas}
 
 Particle swarm optimization is a bio-inspired algorithm that evolves a population of $N$ solutions (particles) that move in the search space with a given velocity. This algorithm keeps track of the best positions attained by each particle (\emph{bpp}) and the best global position obtained by all particles (\emph{bgp}) of the swarm.  At each iteration, PSO corrects the particle velocities in the search space influenced by two attraction factors $c_1$ and $c_2$. The first factor  controls the tendency of the particle to search around its own best position (bpp) and the second one controls the tendency to move towards the best global position (bgp) found.  In order to guarantee that PSO converges to a global minimum, the particles decelerate exponentially along iterations with an inertia factor $\omega$ \cite{Yuhui:1998}. Here,  we have tuned the PSO parameters to $N = 25$, $\omega = 0.95$ and $c_1 = c_2 = 2$. It is worth noting that these values satisfy the convergence criteria for this optimization algorithm as described in \cite{Jiang20078}.
-\begin{comment}
+
 \begin{algorithm}[ht]
 \caption{Particle Swarm Optimization}
 \label{alg:pso}
@@ -219,7 +241,6 @@ Particle swarm optimization is a bio-inspired algorithm that evolves a populatio
 \EndFor
 \end{algorithmic}
 \end{algorithm}
-\end{comment}
 
 \begin{comment}
 \subsection{Self-organizing map and the U-matrix}
