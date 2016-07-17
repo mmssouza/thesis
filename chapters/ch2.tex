@@ -904,3 +904,146 @@ MFD = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 \noindent where  $D_f(t) = 2 - \frac{du(t)}{dt}$, $t = \log{r}$ and $u(t) = \log{A(t)}$.
 
 \end{comment}
+
+\section{Métodos de otimização}
+
+Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos, como o de Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global, porém, em diversos problemas, tais condições não são encontradas. 
+
+Os métodos de otilização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
+
+%This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
+\subsection{Recozimento simulado}
+
+O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a termperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores descresce exponencialmente à medida que o algoritmo interage.  
+
+Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um fator de perturbação aleatório a cada coordenada da solução atual. Na implementação utilizada neste trabalho, o fator de perturbação corresponde a uma variável aleatória com distribuição normal com média zero e variância $\kappa = 0.2$.
+
+\begin{algorithm}[ht]
+\caption{Simulated Annealing}
+\label{alg:sa}
+\begin{algorithmic}
+\Require $N\text{,}\:M\text{,}\:T_0\text{,}\:P\text{,}\:L> 0$, $:\alpha\text{,}\:\kappa\text{,}\:P_r \in [0,1]$, $\:COST$.
+\Ensure The best found solution that minimizes $COST$.
+
+\Function{DISTURB}{$\boldsymbol{v}$}
+\State $f \gets$ \Call{$COST$}{$\boldsymbol{v}$}
+\For{$i = 0,\:1,\:\cdots,\:M-1$} 
+\If {$P_r > U(0,1)$}
+\State $aux \gets v[i]$
+\State $v[i] \gets v[i]+ \kappa.(1+f).\mathcal{N}(0,1).v[i]$
+\If {$v[i] \notin [0.125,125.5]$}
+\State $v[i] \gets aux$
+\EndIf
+\EndIf
+\EndFor
+\State \Return $\boldsymbol{v}$
+\EndFunction
+
+\State $i \gets 1$, $n \gets 0$,$T \gets T_0$
+\For{$j = 0,\:1,\:\cdots,\:M-1$} 
+\State $s[j] \gets U(0.125,125.5)$
+\EndFor
+\State $fit \gets$ \Call{$COST$}{$\boldsymbol{s}$} 
+\Repeat
+\State $\boldsymbol{s_d} \gets$ \Call{$Disturb$}{$\boldsymbol{s}$}
+\State $\delta \gets$ \Call{$COST$}{$\boldsymbol{s_d}$}$- fit$ 
+\If {$\delta < 0$ or $\exp{(\frac{\delta}{T})} > U(0,1)$}
+\State $\boldsymbol{s} \gets \boldsymbol{s_d}$,$fit \gets $ \Call{$COST$}{$\boldsymbol{s_d}$}
+$n \gets n + 1$
+\EndIf
+\State $i \gets i + 1$
+\Until{$i > P$ or $n > L$}
+\State $T \gets \alpha.T$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Evolução diferencial}
+
+O algoritmo de otimização evolução diferencial 
+The differential evolution algorithm iteratively evolves a population of $N$ vectors of candidate solutions and it produces disturbed versions of each population solution by using a disturbance vector. Here, we employ the  \emph{DE/rand/1} strategy introduced by \cite{Storn:1996},  which is a modified version of DE that computes the disturbance vector according to equation:
+\begin{equation}
+\boldsymbol{d} = \boldsymbol{\sigma_1} + \beta.(\boldsymbol{\sigma_2} - \boldsymbol{\sigma_3}),
+\end{equation}
+
+\noindent where $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$ are three randomly selected distinct candidate solutions in the population, which are also different from the current solution to be disturbed.  The $\beta$ parameter is an amplification factor of the difference between $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$. The disturbance occurs in each coordinate of the current solution, via a cross-over mechanism with probability $P_r$. Then, the disturbed solution replaces the current one in population if it has a better fitness, otherwise the algorithm keeps the current solution. 
+In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by following the guidelines in \cite{Storn:1996} and performing several tests. Finally,  we have approached the proposed optimization problem with the  parameter set: $N = 100$, $\beta = 0.56$ and $P_r = 0.3$.
+
+\begin{algorithm}[ht]
+\caption{Differential evolution optimization}
+\label{alg:de}
+\begin{algorithmic}
+\Require $N\text{,}\:M > 0$, $\:\beta\text{,}\:P_r \in (0,1]$, $\:COST$
+\Ensure The best found solution that minimizes $COST$
+\For{$i = 0,\:1,\:\cdots,\:N-1$}
+\For{$j = 0,\:1,\:\cdots,\:M-1$}
+\State $\boldsymbol{pop}[i][j] \gets U(0.125,125.0)$
+\EndFor
+\EndFor
+
+\For{$j = 0,\:1,\:\cdots,\:1250$}
+\For{$i = 0,\:1,\:\cdots,\:N-1$}
+\State Select in $\boldsymbol{pop}$ three random distinct candidate solutions ($\boldsymbol{\sigma_a}$, $\boldsymbol{\sigma_b}$ and $\boldsymbol{\sigma_c}$) that differ from $\boldsymbol{pop}[i]$
+\State $\boldsymbol{d} \gets \boldsymbol{\sigma_a} + \beta.(\boldsymbol{\sigma_b} - \boldsymbol{\sigma_c})$
+\For{$k = 0,\:1,\:\cdots,\:M-1$}
+\If{$\boldsymbol{d}[k] \notin [0.125,125.0]$}
+\State $\boldsymbol{d}[k] \gets U(0.125,125.0)$
+\EndIf
+\EndFor
+\State $\boldsymbol{c} \gets \boldsymbol{pop}[i]$
+\State $k \gets U(0,M-1)$
+\State $c[k] \gets d[k]$
+\For{$k = 0,\:1,\:\cdots,\:M-1$}
+\If {$U(0,1) \leq P_r$}
+  \State $c[k] \gets d[k]$
+\EndIf
+\EndFor
+
+\If {\Call{$COST$}{$\boldsymbol{c}$} $<$ \Call{$COST$}{$\boldsymbol{pop}[i]$}}
+ \State $\boldsymbol{pop}[i] \gets \boldsymbol{c}$
+\EndIf
+\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Enxame de partículas}
+
+Particle swarm optimization is a bio-inspired algorithm that evolves a population of $N$ solutions (particles) that move in the search space with a given velocity. This algorithm keeps track of the best positions attained by each particle (\emph{bpp}) and the best global position obtained by all particles (\emph{bgp}) of the swarm.  At each iteration, PSO corrects the particle velocities in the search space influenced by two attraction factors $c_1$ and $c_2$. The first factor  controls the tendency of the particle to search around its own best position (bpp) and the second one controls the tendency to move towards the best global position (bgp) found.  In order to guarantee that PSO converges to a global minimum, the particles decelerate exponentially along iterations with an inertia factor $\omega$ \cite{Yuhui:1998}. Here,  we have tuned the PSO parameters to $N = 25$, $\omega = 0.95$ and $c_1 = c_2 = 2$. It is worth noting that these values satisfy the convergence criteria for this optimization algorithm as described in \cite{Jiang20078}.
+
+\begin{algorithm}[ht]
+\caption{Particle Swarm Optimization}
+\label{alg:pso}
+\begin{algorithmic}
+\Require $N\text{,}\:M > 0$,  $\:\omega \in (0,1]$, $\:c_1\text{,}\:c_2 \in R^+ $, $\:COST$
+\Ensure The best found solution that minimizes $COST$
+\For{$i = 0,\:1,\:\cdots,\:N-1$}
+\For{$j = 0,\:1,\:\cdots,\:M-1$}
+\State $pop[i][j] \gets U(0.125,125.5)$ 
+\State $v[i][j] \gets U(0.125,125.5)$
+\EndFor
+\State $fit[i] \gets$ \Call{$COST$}{$\boldsymbol{pop}[i]$}
+\State $\boldsymbol{bpp}[i] \gets \boldsymbol{pop}[i]$ 
+\EndFor
+\State $\boldsymbol{bgp} \gets \boldsymbol{bpp}[argmin(\boldsymbol{fit})]$
+\For{$i = 0,\:1,\:\cdots,\:1250$}
+\For{$j = 0,\:1,\:\cdots,\:N-1$}
+\State $\boldsymbol{v}[j] \gets \omega.\boldsymbol{v}[j]$
+\State $\boldsymbol{v}[j] \gets \boldsymbol{v}[j] + c1.U(0,1).(\boldsymbol{pop}[j] - \boldsymbol{bpp}[j])$
+\State $\boldsymbol{v}[j] \gets \boldsymbol{v}[j] + c2.U(0,1).(\boldsymbol{pop}[j] - \boldsymbol{bgp})$
+\State $\boldsymbol{pop}[j] \gets \boldsymbol{pop}[j] + \boldsymbol{v}[j]$
+\For{$k = 0,\:1,\:\cdots,\:M-1$}
+\If{$pop[j][k] \notin [0.125,125.0]$}
+\State $pop[j][k] \gets U(0.125,125.0)$
+\EndIf
+\EndFor
+\State $fit[j] \gets$ \Call{$COST$}{$\boldsymbol{pop}[j]$}
+\If {$fit[j] <$ \Call{$COST$}{$\boldsymbol{bpp}[j]$}} 
+\State $\boldsymbol{bpp}[j] \gets \boldsymbol{pop}[j]$
+\EndIf
+\If {\Call{$COST$}{$\boldsymbol{bpp}[j]$} $<$ \Call{$COST$}{$\boldsymbol{bgp}$}}
+\State $\boldsymbol{bgp} \gets \boldsymbol{bpp}[j]$
+\EndIf
+\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

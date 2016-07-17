@@ -2,5 +2,40 @@
 
 \chapter{Conclusões}
 
-%Um dos desafios no campo de visão computacional é fazer com que computadores avaliem o grau de similaridade existente entre formas extraídas de imagens. Embora não esteja completamente elucidado como os sistemas de visão biológicos realizam tal tarefa, busca-se para esta finalidade obter medidas de similaridade que operem de forma fidedigna aos sistemas de visão biológicos. 
+In this paper, we introduce a promising methodology for a multiscale descriptor evaluation and used it to investigate the suitability of \emph{NMBE} and \emph{MFD} shape descriptors for CBIR applications. Thus, 
+this methodology can be used to evaluate and select shape descriptors for a specific CBIR application.
+
+Our experiments showed that the proposed descriptor can reliably retrieve shapes that exhibit multiscale characteristics similar to those of a given query image. Moreover, the \emph{NMBE} was more robust in distinguishing subtle shape differences within classes than \emph{MFD}.
+
+The relationship between these descriptors and the classes of binary shapes that they represent in a multidimensional space was inferred using the U-matrix. Our findings established that this high-dimensional projection tool provides a qualitative evaluation and visual explanation of how the different classes of shapes are spatially grouped and scattered. Regarding the methodology for quantitative evaluation,  we concluded that the \emph{Silhouette} measure was suitable and fair in numerically assessing the performance of multiscale descriptors and thus inferring  whether a descriptor was able to represent a shape in CBIR applications. 
+The qualitative and quantitative evaluation approaches provide valuable information to help elucidate how descriptors represent shapes in a multidimensional space, and therefore we recommend these methods for CBIR experiments.
+
+
+%\color{red}
+We have also investigated  a theoretical relationship between these descriptors and the classes of objects in two public databases of binary images within a multidimensional space by using the U-matrix. Our findings have shown that the high dimensional projection tool, i.e., U-Matrix (SOM map) provides a qualitative evaluation and visual explanation of how the different classes of shapes are spatially grouped or scattered. Regarding the methodology for quantitative evaluation,  we concluded that the \emph{Silhouette} measure was suitable to numerically assess the performance of the multiscale descriptors and thus infer  whether a descriptor is able or not to represent a shape in CBIR applications. 
+In fact, the qualitative and quantitative evaluation approaches provided valuable information to help understand how descriptors represent shapes in a multidimensional space.
+%\color{black}
+
+
+The \emph{NMBE} descriptor arises from the bending energy calculated for a shape contour submitted to several stages of smoothing.  Highly discriminating features contribute towards obtaining high clustering or classification accuracy.\color{black} 
+This results in a shape signature that allows the use of classical similarity measures at low computational cost.
+Since that only the euclidean $L_2$ norm was used as distance metric in our evaluation proposal, we expect to adapt it to other metrics in a future work. 
+
+The CBIR algorithms that were developed can reliably retrieve the candidate image patches exhibiting intensity and morphological characteristics that are most similar to a given query image. The methods described in this paper are able to reliably discriminate among subtle staining differences and spatial pattern distributions. By integrating a newly developed dual-similarity relevance feedback module into the CBIR framework, the CBIR results were improved substantially. By aggregating the computational power of high performance computing (HPC) and cloud resources, we demonstrated that the method can be successfully executed in minutes on the Cloud compared to weeks using standard computers. 
+
+to improve the shape retrieval performance and, furthermore, Figure \ref{fig:descritores}b the weak discriminating property of \emph{MFD}
+are more spaced than the ones observed in Figure \ref{fig:descritores}b. Accordingly, the corresponding shapes appears in the U-matrix more scattered for \emph{MFD} than for \emph{NMBE}. Thus, it illustrates how \emph{NMBE} tends to improve the retrieval performance and, furthermore, the weak discriminating property of \emph{MFD}.
+
+
+In this paper, we used the Euclidean $L_2$ norm, but future research will investigate other distance metrics. 
+
+In this work we propose a method to evaluate similarity between binary shapes by employing divergence measures and combination of shape contour signatures. Finally, our tests led us to conclude that:  a) divergence measures are promising tools for shape similarity evaluation in shape retrieval; b) divergences that present high sensitivity to small variations between similar mass distributions tend to perform worst in shape similarity evaluation than divergences that feature low sensitivity and c) combining different shape signatures improves the shape retrieval Precision in experiments. 
+
+This paper presents an optimization methodology for parameter adjustment of shape descriptors applied to leaf characterization and clustering. Our optimization methodology is a versatile tool for shape analysis that mainly relies on an objective function that can be adapted to different application problems or databases. Here, the minimization of the objective function accomplishes the best parameter set of a given shape descriptor to improve leaf characterization quality. 
+
+The performance evaluation of the optimization methodology led us to conclude that the optimized parameters were able to reveal subtle leaf shape features and overall they have improved cluster organization and classification of plant leaves.
+Actually, the optimized descriptors have reliably characterized shapes that exhibited multiscale features and they have also discriminated shape differences within and among leaf classes.
+Likewise, the optimized shape descriptors provided a global and robust description on the challenging Flavia data set,  despite it presents a high between class similarity.
+
+A relevant visual analysis of the proposed methodology linked the optimized and non-optimized NMBE with the classes of binary shapes that they represented in a multidimensional space by using U-matrices. This high-dimensional projection tool provided a qualitative evaluation and visual explanation on how the different classes of shapes were better spatially grouped and scattered due to the optimization methodology. Regarding the quantitative performance evaluation,  we have also observed that the \emph{silhouette} measure was suitable to numerically assess the multiscale shape descriptor and thus infer whether it was able to characterize leaf shapes or not. Our findings indicated that the optimized NMBE and IDSC were suitable to characterize leaf shapes and furthermore they may provide shape signatures to address leaf  taxonomy problems. Moreover, the proposed methodology is an additional tool and source of information for plant taxonomist to discriminate and group leaf species.
 

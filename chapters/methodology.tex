@@ -97,150 +97,6 @@ A avaliação de qualidade dos descritores se dá qualitativamente e quantitativ
 Na avaliação quantitativa (Figura \ref{fig:metodo_4}e) utilizamos os rótulos e os vetores de características das formas para calculamos a medida de avaliação de agrupamentos \emph{Silhouette} \cite{Rousseeuw:1987}. Valores médios dessa medida, por classe de formas, indica a habilidade dos descritores em discriminar formas que pertençam a classes distintas e de agrupar formas que pertençam a uma mesma classe.
 \end{comment}
 
- 
-
-\section{Métodos de otimização}
-
-Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos, como o de Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global, porém, em diversos problemas, tais condições não são encontradas. 
-
-Os métodos de otilização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
-
-%This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
-\subsection{Recozimento simulado}
-
-O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a termperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores descresce exponencialmente à medida que o algoritmo interage.  
-
-Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um fator de perturbação aleatório a cada coordenada da solução atual. Na implementação utilizada neste trabalho, o fator de perturbação corresponde a uma variável aleatória com distribuição normal com média zero e variância $\kappa = 0.2$.
-
-\begin{algorithm}[ht]
-\caption{Simulated Annealing}
-\label{alg:sa}
-\begin{algorithmic}
-\Require $N\text{,}\:M\text{,}\:T_0\text{,}\:P\text{,}\:L> 0$, $:\alpha\text{,}\:\kappa\text{,}\:P_r \in [0,1]$, $\:COST$.
-\Ensure The best found solution that minimizes $COST$.
-
-\Function{DISTURB}{$\boldsymbol{v}$}
-\State $f \gets$ \Call{$COST$}{$\boldsymbol{v}$}
-\For{$i = 0,\:1,\:\cdots,\:M-1$} 
-\If {$P_r > U(0,1)$}
-\State $aux \gets v[i]$
-\State $v[i] \gets v[i]+ \kappa.(1+f).\mathcal{N}(0,1).v[i]$
-\If {$v[i] \notin [0.125,125.5]$}
-\State $v[i] \gets aux$
-\EndIf
-\EndIf
-\EndFor
-\State \Return $\boldsymbol{v}$
-\EndFunction
-
-\State $i \gets 1$, $n \gets 0$,$T \gets T_0$
-\For{$j = 0,\:1,\:\cdots,\:M-1$} 
-\State $s[j] \gets U(0.125,125.5)$
-\EndFor
-\State $fit \gets$ \Call{$COST$}{$\boldsymbol{s}$} 
-\Repeat
-\State $\boldsymbol{s_d} \gets$ \Call{$Disturb$}{$\boldsymbol{s}$}
-\State $\delta \gets$ \Call{$COST$}{$\boldsymbol{s_d}$}$- fit$ 
-\If {$\delta < 0$ or $\exp{(\frac{\delta}{T})} > U(0,1)$}
-\State $\boldsymbol{s} \gets \boldsymbol{s_d}$,$fit \gets $ \Call{$COST$}{$\boldsymbol{s_d}$}
-$n \gets n + 1$
-\EndIf
-\State $i \gets i + 1$
-\Until{$i > P$ or $n > L$}
-\State $T \gets \alpha.T$
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Evolução diferencial}
-
-O algoritmo de otimização evolução diferencial 
-The differential evolution algorithm iteratively evolves a population of $N$ vectors of candidate solutions and it produces disturbed versions of each population solution by using a disturbance vector. Here, we employ the  \emph{DE/rand/1} strategy introduced by \cite{Storn:1996},  which is a modified version of DE that computes the disturbance vector according to equation:
-\begin{equation}
-\boldsymbol{d} = \boldsymbol{\sigma_1} + \beta.(\boldsymbol{\sigma_2} - \boldsymbol{\sigma_3}),
-\end{equation}
-
-\noindent where $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$ are three randomly selected distinct candidate solutions in the population, which are also different from the current solution to be disturbed.  The $\beta$ parameter is an amplification factor of the difference between $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$. The disturbance occurs in each coordinate of the current solution, via a cross-over mechanism with probability $P_r$. Then, the disturbed solution replaces the current one in population if it has a better fitness, otherwise the algorithm keeps the current solution. 
-In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by following the guidelines in \cite{Storn:1996} and performing several tests. Finally,  we have approached the proposed optimization problem with the  parameter set: $N = 100$, $\beta = 0.56$ and $P_r = 0.3$.
-
-\begin{algorithm}[ht]
-\caption{Differential evolution optimization}
-\label{alg:de}
-\begin{algorithmic}
-\Require $N\text{,}\:M > 0$, $\:\beta\text{,}\:P_r \in (0,1]$, $\:COST$
-\Ensure The best found solution that minimizes $COST$
-\For{$i = 0,\:1,\:\cdots,\:N-1$}
-\For{$j = 0,\:1,\:\cdots,\:M-1$}
-\State $\boldsymbol{pop}[i][j] \gets U(0.125,125.0)$
-\EndFor
-\EndFor
-
-\For{$j = 0,\:1,\:\cdots,\:1250$}
-\For{$i = 0,\:1,\:\cdots,\:N-1$}
-\State Select in $\boldsymbol{pop}$ three random distinct candidate solutions ($\boldsymbol{\sigma_a}$, $\boldsymbol{\sigma_b}$ and $\boldsymbol{\sigma_c}$) that differ from $\boldsymbol{pop}[i]$
-\State $\boldsymbol{d} \gets \boldsymbol{\sigma_a} + \beta.(\boldsymbol{\sigma_b} - \boldsymbol{\sigma_c})$
-\For{$k = 0,\:1,\:\cdots,\:M-1$}
-\If{$\boldsymbol{d}[k] \notin [0.125,125.0]$}
-\State $\boldsymbol{d}[k] \gets U(0.125,125.0)$
-\EndIf
-\EndFor
-\State $\boldsymbol{c} \gets \boldsymbol{pop}[i]$
-\State $k \gets U(0,M-1)$
-\State $c[k] \gets d[k]$
-\For{$k = 0,\:1,\:\cdots,\:M-1$}
-\If {$U(0,1) \leq P_r$}
-  \State $c[k] \gets d[k]$
-\EndIf
-\EndFor
-
-\If {\Call{$COST$}{$\boldsymbol{c}$} $<$ \Call{$COST$}{$\boldsymbol{pop}[i]$}}
- \State $\boldsymbol{pop}[i] \gets \boldsymbol{c}$
-\EndIf
-\EndFor
-\EndFor
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Enxame de partículas}
-
-Particle swarm optimization is a bio-inspired algorithm that evolves a population of $N$ solutions (particles) that move in the search space with a given velocity. This algorithm keeps track of the best positions attained by each particle (\emph{bpp}) and the best global position obtained by all particles (\emph{bgp}) of the swarm.  At each iteration, PSO corrects the particle velocities in the search space influenced by two attraction factors $c_1$ and $c_2$. The first factor  controls the tendency of the particle to search around its own best position (bpp) and the second one controls the tendency to move towards the best global position (bgp) found.  In order to guarantee that PSO converges to a global minimum, the particles decelerate exponentially along iterations with an inertia factor $\omega$ \cite{Yuhui:1998}. Here,  we have tuned the PSO parameters to $N = 25$, $\omega = 0.95$ and $c_1 = c_2 = 2$. It is worth noting that these values satisfy the convergence criteria for this optimization algorithm as described in \cite{Jiang20078}.
-
-\begin{algorithm}[ht]
-\caption{Particle Swarm Optimization}
-\label{alg:pso}
-\begin{algorithmic}
-\Require $N\text{,}\:M > 0$,  $\:\omega \in (0,1]$, $\:c_1\text{,}\:c_2 \in R^+ $, $\:COST$
-\Ensure The best found solution that minimizes $COST$
-\For{$i = 0,\:1,\:\cdots,\:N-1$}
-\For{$j = 0,\:1,\:\cdots,\:M-1$}
-\State $pop[i][j] \gets U(0.125,125.5)$ 
-\State $v[i][j] \gets U(0.125,125.5)$
-\EndFor
-\State $fit[i] \gets$ \Call{$COST$}{$\boldsymbol{pop}[i]$}
-\State $\boldsymbol{bpp}[i] \gets \boldsymbol{pop}[i]$ 
-\EndFor
-\State $\boldsymbol{bgp} \gets \boldsymbol{bpp}[argmin(\boldsymbol{fit})]$
-\For{$i = 0,\:1,\:\cdots,\:1250$}
-\For{$j = 0,\:1,\:\cdots,\:N-1$}
-\State $\boldsymbol{v}[j] \gets \omega.\boldsymbol{v}[j]$
-\State $\boldsymbol{v}[j] \gets \boldsymbol{v}[j] + c1.U(0,1).(\boldsymbol{pop}[j] - \boldsymbol{bpp}[j])$
-\State $\boldsymbol{v}[j] \gets \boldsymbol{v}[j] + c2.U(0,1).(\boldsymbol{pop}[j] - \boldsymbol{bgp})$
-\State $\boldsymbol{pop}[j] \gets \boldsymbol{pop}[j] + \boldsymbol{v}[j]$
-\For{$k = 0,\:1,\:\cdots,\:M-1$}
-\If{$pop[j][k] \notin [0.125,125.0]$}
-\State $pop[j][k] \gets U(0.125,125.0)$
-\EndIf
-\EndFor
-\State $fit[j] \gets$ \Call{$COST$}{$\boldsymbol{pop}[j]$}
-\If {$fit[j] <$ \Call{$COST$}{$\boldsymbol{bpp}[j]$}} 
-\State $\boldsymbol{bpp}[j] \gets \boldsymbol{pop}[j]$
-\EndIf
-\If {\Call{$COST$}{$\boldsymbol{bpp}[j]$} $<$ \Call{$COST$}{$\boldsymbol{bgp}$}}
-\State $\boldsymbol{bgp} \gets \boldsymbol{bpp}[j]$
-\EndIf
-\EndFor
-\EndFor
-\end{algorithmic}
-\end{algorithm}
 
 \begin{comment}
 \subsection{Self-organizing map and the U-matrix}
@@ -266,7 +122,7 @@ There exists two types of MDS algorithms: metric and non metric.  In the former,
 \begin{figure}[t]
 \centering
 \includegraphics[width = 0.99\textwidth]{fig5.eps}
-\caption{\label{fig:optimization_result} MDS projections of an experiment with $99$ shapes from Kimia data set \citep{Sebastian:2004}. The images display how clusters evolve during an optimization process (DE), as well as MAD and $R^2$ values.}
+\caption{\label{fig:optimization_result} MDS projections of an experiment with $99$ shapes from Kimia data set \citeonline{Sebastian:2004}. The images display how clusters evolve during an optimization process (DE), as well as MAD and $R^2$ values.}
 \end{figure}
 
 The $R^2$ coefficient measures the fitness degree of the low-dimensional representation. This coefficient indicates, in percentage, the fitness of a model to the observed data. Thus, the closer the value of $R^2$ is to 1, the better the model fits the observed data. 
@@ -282,3 +138,161 @@ R^2= 1-\frac{\sum_{i=1}^n \sum_{j = i}^{n}(\hat{d}_{i,j} - d_{i,j})^2}{\sum_{i=1
 The MDS projections in Figure \ref{fig:optimization_result} illustrate how the shape clusters evolve as DE searches for the  optimized parameters of the shape descriptor (NMBE). The shape samples are from Kimia data set \cite{Sebastian:2004} which comprises $99$ shape images. Here, we have employed a manifold learning technique to produce the MDS projections of the optimized NMBE via DE. Figure \ref{fig:optimization_result} also shows that when the MAD values decreased, the inter-class distances increased and therefore the shape clusters became more evident.  At the minimum value of MAD, i.e., when the optimization process converged, the only clusters that were not well separated were the four-legged animals and the hand shapes. 
 
 \end{comment}
+
+We performed shape classification and retrieval experiments with the proposed optimization methodology by testing two descriptors on the Flavia data set \citeonline {4458016}, which comprises $1907$ leaf images with $32$ different species. Figure \ref{fig:bases} depicts leaf images taken from this challenging data set, which  presents a high between class similarity. This data set is widely used to validate automatic recognition systems of plant specimens. 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.3\textwidth]{fig5.eps}
+\caption{\label{fig:bases}Samples of Flavia leaf data set.}
+\end{figure}
+
+\subsection{$MAD$ analysis and shape classification \label{sec:mad_class}}
+
+Experiments were carried out to compare the optimization algorithms regarding convergence.  Figure \ref{fig:converge} illustrates the convergence of each optimization algorithm for $30$ runs on a subset of leaf shapes. 
+The optimization results indicate that PSO required a smaller number of iterations to converge to an optimal solution, whereas SA and DE required a larger number of iterations. Since convergence aspects are closely related
+to the number of iterations required to achieve an optimal solution, few iterations imply poor exploration of the search space, thus leading to premature convergence \citeonline{Andries:2007}. In such case, the optimization method tends to get stuck in local minimums finding sub-optimal solutions. On the other hand, slower convergence enables the optimization method to explore more the search space, thus increasing the chance to converge to global minima, i.e. optimal solutions \citeonline{Andries:2007}. 
+In this context, PSO hit more frequently in sub-optimal solutions, reaching a higher mean MAD value of 
+$0.805 \pm 0.006$. On the other hand, SA and DE achieved lower mean 
+MAD values of $0.795 \pm 0.006$ and $0.798 \pm 0.004$, respectively. 
+
+In this context, the experimental results demonstrated that SA and DE were more efficient than PSO to find an optimal solution. However, the computational cost evaluation indicated that SA was less expensive than DE since the former evaluated the objective function less times than the latter.  Section \ref{sec:comp_cost} addresses more details about the computational cost of the optimization algorithms.
+
+\begin{figure}[!htb]
+\includegraphics[width = \textwidth]{fig6.eps}
+\caption{\label{fig:converge}Convergence of the optimization methods: (a) SA, (b) DE, (c) PSO. The red lines in each graphic refer to the mean MAD value of 30 runs (black lines) for the results of each optimization strategy within a subset of leaf shapes.}
+\end{figure}
+
+\begin{table}[hb!]
+\begin{minipage}{\textwidth}
+\renewcommand\footnoterule{}
+\caption{Different MAD values and the classification results for different scale selection strategies for Flavia leaf data set.}
+\label{tab:leaves_supervised_results}
+\resizebox{\textwidth}{!}{ 
+\begin{tabular}{cccccccccc}
+\toprule[1.5pt]
+ & \multicolumn{8}{c}{Classifier} \\ \cmidrule(lr){2-9} 
+ & \multicolumn{2}{c}{NB}  & \multicolumn{2}{c}{Knn (n = 5)}  & \multicolumn{2}{c}{LDA}  & \multicolumn{2}{c}{QDA} \\
+\cmidrule(lr){2-3}  \cmidrule(lr){4-5} \cmidrule(lr){6-7}  \cmidrule(lr){8-9}
+MAD & Precision & Recall & Precision & Recall & Precision & Recall & Precision & Recall \\ \midrule
+$0.762$\footnote{Using SA}        & ${0.91 \pm 0.02}$   & ${0.89 \pm 0.02}$         & ${0.93 \pm 0.02}$          & ${0.92 \pm 0.02}$         & ${0.87  \pm 0.02}$          & ${0.85\pm 0.02}$         & ${0.95  \pm 0.01}$          & ${0.94  \pm 0.01}$         \\
+$0.783$\footnote{Using DE}        & $0.88 \pm 0.02$          & $0.87\pm0.02$         & $0.90\pm0.02$          & $0.88\pm0.02$         & $0.85\pm0.02$          & $0.83\pm0.03$         & $0.91\pm0.02$          & $0.90\pm0.02$         \\
+$0.829$\footnote{Using PSO}        & $0.86\pm0.03$          & $0.85\pm0.03$         & $0.89\pm0.03$          & $0.88\pm0.03$         & $0.84\pm0.03$         & $0.82\pm0.03$         & $0.91\pm0.02$          & $0.89\pm0.02$         \\
+{$0.867$\footnote{Using scales proposed by \citeonline{Cesar:1996}}}          & $0.85\pm0.02$          & $0.84\pm0.02$         & $0.89\pm0.02$          & $0.88\pm0.02$         & $0.82\pm0.03$          & $0.81\pm0.03$         & $0.89\pm0.02$          & $0.88\pm0.02$         \\
+{$0.969$\footnote{\label{note1}Random selection}}          & $0.81\pm0.03$          & $0.79\pm0.03$         & $0.87\pm0.02$          & $0.85\pm0.02$         & $0.77\pm0.03$          & $0.77\pm0.03$         & $0.87\pm0.03$          & $0.85\pm0.03$         \\
+{$1.04$\footref{note1}}          & $0.69\pm0.03$          & $0.68\pm0.03$         & $0.83\pm0.03$          & $0.82\pm0.03$         & $0.74\pm0.03$          & $0.73\pm0.03$         & $0.81\pm0.03$          & $0.79\pm0.03$         \\
+\bottomrule[1.5pt]
+\end{tabular}}
+\end{minipage}
+\end{table}
+
+Our next analysis concentrates on the assumption that the optimized scales and the minimum values of MAD, which are intertwined, lead to an increase of the correct classification rate.
+Table \ref{tab:leaves_supervised_results} presents different MAD values and their corresponding classification results. The optimized scales which attained the best classification results correspond to the minimum values of MAD. The NMBE descriptor whose scales were adjusted according to \citeonline{Costa:1997} ($\operatorname{NMBE_{orig}}$) led the classifiers to reach an intermediate performance. The optimized NMBE ($\operatorname{NMBE_{opt}}$) improved the performance of all classifiers since they accomplished the highest Precision and Recall rates when the objective function reached the minimum values. Thus, we can state that there is an intrinsic relation between the high correct classification rates and minimum MAD values.
+Although the optimization algorithms achieved different MAD values and therefore different sets of optimized scales, the classification experiments showed that these scales captured leaf shape details and variations. Such results confirmed that we can take advantage of the optimization algorithms to strengthen leaf shape characterization and analysis. 
+In spite of NMBE has been originally designed for neural cell description, this paper focus on leaf shape characterization. Moreover, the proposed objective function tailored NMBE in terms of scales to the problem and leaf shape data set under analysis, satisfactorily. 
+  
+The classifiers that used the non-optimized NMBE with randomly selected scales did not perform well since they have reached the lowest values for Precision and Recall and the highest values for the objective function (MAD). 
+Thus, we concluded that randomly selected scales were less sensitive to leaf shape variations and tended to provide more misclassifications. 
+
+\subsection{Visual exploratory cluster analysis}
+The visual exploratory cluster analysis indicates that the optimized descriptor improves the cluster arrangement of leaf shapes, which reinforces that MAD is an objective function suitable to guide parameter optimization. 
+Figure \ref{fig:MatrizU_leaves_256}  depicts the U-matrices that support the visualization of leaf shapes. The leaf colors are in accordance with the class labels exhibited in Figure \ref {fig:bases}. These U-matrices comprise $1907$ leaf shapes, and furthermore each leaf is represented by its descriptor. 
+
+Figure \ref{fig:MatrizU_leaves_256}a shows leaf shapes which are described by the optimized NMBE, while Figure \ref{fig:MatrizU_leaves_256}b displays, in terms of U-matrix elements, leaf shapes described by the non-optimized NMBE descriptor.  The graphical representations of the \emph{silhouette}  measure in Figures \ref{fig:MatrizU_leaves_256}a and \ref{fig:MatrizU_leaves_256}b demonstrated that the leaf classes, which were properly characterized and grouped, were those with positive mean \emph{silhouette} values. Nevertheless, leaf shapes whose descriptors were not able to characterize and group them properly were those with negative  \emph{silhouette} values. Figure \ref{fig:MatrizU_leaves_256}a shows the remarkable  reduction of negative mean \emph{silhouette} values when applying $\operatorname{NMBE_{opt}}$ to shapes from Flavia leaf data set. 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.75\textwidth]{fig7.eps}
+ \caption{\label{fig:MatrizU_leaves_256}U-matrices and mean \emph{silhouette} measure for Flavia leaf data set using the (a) optimized and (b) non-optimized NMBE.}
+\end{figure}
+
+The black square in Figure \ref{fig:MatrizU_leaves_256}a highlights  the performance of the optimized descriptor. It also shows how well the optimized descriptor mapped leaf shapes into groups according to their respective classes.  Moreover, the optimized descriptor has remarkably improved  the mean \emph{silhouette} per class for almost all leaf classes. In contrast, the region inside the black square in Figure \ref{fig:MatrizU_leaves_256}b indicates that the non-optimized descriptor was unable to satisfactorily map leaf shapes in their corresponding classes.
+These results  indicated that the optimized descriptor has improved the cluster arrangement of leaves due to the intrinsic shape variations within the set of optimized scales that can not be properly embodied in the studied traditional parameter selection methods.
+
+Figures \ref{fig:MatrizU_leaves_II}a, \ref{fig:MatrizU_leaves_II}b and \ref{fig:MatrizU_leaves_II}c display the U-matrices and the corresponding MAD values for experiments on Flavia leaf data set with SA, DE and PSO, respectively. An interesting aspect to examine in these results regards the convergence of the optimization algorithms to different solutions (MAD). These solutions resulted in different cluster arrangements and therefore different relations among the neighborhood structure of clusters. For instance, the overall dispersion  of the elements in Figure \ref{fig:MatrizU_leaves_II}a and Figure \ref{fig:MatrizU_leaves_II}b tend to be very similar since  the corresponding MAD values are close to each other. At the same time, the result that corresponds to the highest MAD value ($0.829$) exhibits a relatively high dispersion within clusters, particularly at the center of the U-matrix (Figure \ref{fig:MatrizU_leaves_II}c), which reinforces the hypothesis that  PSO converged to a local minimum. These findings point to the important conclusion that the lower the MAD value, the better the cluster arrangement and hence the cluster quality. Therefore, we state that the cluster quality and MAD value are negatively correlated. Our analysis also considers that there are other solutions than the minimum, in the search space, which may be suitable to the problem under study. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth,trim = 0mm 0mm 0mm 4.5mm,clip]{fig8.eps}
+ \caption{\label{fig:MatrizU_leaves_II}U-matrices and MAD values for Flavia leaf data set achieved by using  the optimized NMBE with (a) SA, (b) DE, (c) PSO.}
+\end{figure}
+
+Figure \ref{MDS:Leaves} illustrates the MDS projections for three different MAD values. Figure \ref{MDS:Leaves}a corresponds to the cluster arrangement after the convergence of the SA algorithm, i.e. after reaching the minimum MAD value. These projections confirmed that the minimization of the objective function provided leaf cluster arrangements with lower average within-class distances and higher inter-class distances, and thus  more compact and separated clusters. The visual analysis of the three detail images in Figure \ref{MDS:Leaves}a discloses that the MDS projection of the optimized NMBE descriptor increased inter-class distances, whereas it reduced the within-class distances when compared to Figure \ref{MDS:Leaves}b and \ref{MDS:Leaves}c. Moreover, the $R^2$ coefficient values close to 1 imply that the low-dimensional representation preserved the mean distance in the original high-dimensional data space.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig9.eps}
+ \caption{\label{MDS:Leaves} MDS projections of the NMBE descriptors for leaf shapes of Flavia data set. (a) The SA-optimized NMBE descriptor with $MAD = 0.762$ (b) non-optimized NMBE with $MAD =0.969$ and (c) non-optimized NMBE with $MAD = 1.044$ }
+\end{figure}
+
+\subsection{Shape retrieval experiment}
+For the sake of comparison, we have optimized the parameters of another shape descriptor namely inner distance shape context (IDSC) \citeonline{Ling:2007:SCU:1191552.1191806}.
+This descriptor is mainly applied to shape retrieval, which involves unsupervised shape classification tasks.  Moreover, IDSC employs dynamic programming (DP), such as Dynamic Time Warping (DTW) \citeonline{PalazonGonzalez2012978}, to improve shape matching accuracy. In this paper, we have replaced the $L_2$ norm by DTW to compute the \emph{silhouette} measure and the cost function defined in equation \ref{eq:mad}.  
+Figure \ref{figfig1Optmization-IDSC} exhibits the comparison of shape retrieval experiments which were performed on the public Flavia leaf data set and with both non-optimized NMBE and IDSC and their optimized counterparts ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$).
+The performance evaluation methodology has adapted the Bulls-eye measure, where the result is the overall number of shapes correctly  retrieved, in each rank position, for each shape in data set taken as a query.  Let $N_c$ be the number of shapes which belong to the class $c$. Here, the number of retrieved shapes ($N_r$) was adjusted to $N_r = 2\displaystyle \min_{c = 1,2,\dots 32}{N_c}$. Figure \ref{figfig1Optmization-IDSC} also demonstrates that the optimization methodology was decisive for both descriptors to achieve better retrieval rates. 
+Figure \ref{fig1Ooptimization_graph}  shows that after tuning IDSC parameters for the Flavia leaf data set with the optimization methodology the retrieval rate has remarkably increased. Therefore, $\operatorname{IDSC_{opt}}$  outperformed the optimized NMBE ($\operatorname{NMBE_{opt}}$) and non-optimized NMBE. In this sense, the optimized parameters of $\operatorname{IDSC_{opt}}$ may have incorporated subtle details of leaf shapes. On the other hand, we have observed that the non-optimized IDSC underperformed the non-optimized NMBE. 
+In order to provide a non-optimized counterpart of IDSC, we have followed the parameter setting introduced in \citeonline{wang2015march}.
+Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} exemplify samples of  plant leaves which were retrieved according to the rank of the similarity to the two queries. These results have demonstrated that the non-optimized descriptors in Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} were unable to retrieve all samples for the two queries, whereas the  optimized descriptors retrieved all of them, correctly.
+\begin{comment}
+\begin{figure}[t!]
+\begin{subfigure}{0.55\textwidth}
+\includegraphics[width=\textwidth]{fig10a.eps}
+\caption{Retrieval rates. \label{fig1Ooptimization_graph}}
+\end{subfigure}
+\hspace*{\fill}
+\begin{minipage}{0.45\textwidth}
+\begin{subfigure}{\textwidth}
+\includegraphics[width=\textwidth]{fig10b.eps}
+\caption{Retrieval results with NMBE.} \label{subfig:upper-right}
+
+\end{subfigure}
+
+\vspace*{0.60cm}
+\begin{subfigure}{\textwidth}
+\includegraphics[width=\textwidth]{fig10c.eps}
+\caption{Retrieval results with IDSC.\label{subfig:lower-right}}
+\end{subfigure}
+\end{minipage}
+
+\caption{\label{figfig1Optmization-IDSC} Experiments conducted on Flavia leaf data set (a) retrieval rate by using both NMBE and IDSC and their optimized counterparts, (b) and (c) two leaf shape retrieval examples by using the non-optimized and optimized NMBE and IDSC descriptors, respectively.} 
+\end{figure}
+\end{comment}
+
+ Table \ref{table_bull_eyes_leaves} presents the performance evaluation of NMBE, whose scales were computed using the scheme introduced by \citeonline{Cesar:1996}, IDSC and their optimized counterparts.  The retrieval rates show that both optimized descriptors outperformed their non-optimized counterparts on Flavia data set. The remarkable improvement on the Bulls-eye rates reinforces our assumption that the optimization methodology is suitable for leaf shape retrieval and analysis.
+
+\begin{table}[h!]
+\centering
+\caption{Bulls-eye scores for Flavia data set.}
+\label{table_bull_eyes_leaves}
+  \begin{tabular}{cccccccc}
+  \toprule[1.5pt]
+ $\operatorname{NMBE}$ & $\operatorname{NMBE_{opt}}$ & IDSC    & $\operatorname{IDSC_{opt}}$\\ \midrule
+     63.86 \%  & 71.16 \%  & 53.38\%    & 77.50\%       \\
+  \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+Thus, we can infer that the optimized descriptors are more likely to succeed in shape retrieval experiments because the optimized sets of parameters probably embody intrinsic and subtle information about leaf shapes. We can also assume that these optimized descriptors may reliably characterize and also discriminate shape differences within and among leaf classes. 
+
+\subsection{Computational cost \label{sec:comp_cost}}
+
+Table \ref{tbl:complexity} shows the computational complexity results of the three optimization algorithms. SA and PSO present similar complexity results which rely on the number of iterations to converge ($N_{iter}$), population size ($N_{pop}$) and $P$ parameter. On the other hand,  DE  demands a higher complexity which relies on the dimension of the optimization problem ($D$), population size ($N_{pop}$) and number of iterations to converge ($N_{iter}$).
+
+\begin{table}[h!]
+\centering
+\caption{Computational complexity of the optimization methods.}
+\label{tbl:complexity}
+  \begin{tabular}{ll}
+  \toprule[1.5pt]
+ Method & Complexity\\
+ \midrule
+   SA  & $O(P.N_{iter}.\log{N_{iter}})$    \\
+   DE  & $O(N_{pop}.N_{iter}.D)$   \\
+   PSO&  $O(N_{pop}.N_{iter}.\log{N_{iter}})$\\
+  \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+For the sake of comparison, we assumed that the computational cost is the number of times that the objective function is demanded throughout the optimization process. Its calculation takes into account the parameter setting of each method, presented in Section \ref{subsec:opmet}, and the corresponding computational complexity.  The computational cost to address the optimization of the multiscale descriptor for SA, DE and PSO yielded $7,4314$, $19,500$ and $1,107$, respectively. 
+
+It is worth noting that there is a trade-off between the computational cost and the quality of the optimal solution found. Although the reduction of the number of shape samples, image resolution and the $N_{pop}$ variable can lessen the computational cost, it may degrade the optimization result. Moreover, parallelism may contribute to reduce the computational cost without degrading the optimization result.  However, it adds an extra computational complexity to the optimization algorithms.
