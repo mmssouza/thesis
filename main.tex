@@ -159,7 +159,7 @@
 \titulo{Análise de formas a partir de características multiescala do contorno}
 \autor{Marcelo Marques Simões de Souza}
 \local{Fortaleza}
-\data{2015}
+\data{2016}
 \orientador{Prof\textsuperscript{a}. Dr\textsuperscript{a}. Fátima N. Sombra de Medeiros}
 %\coorientador{Equipe \abnTeX}
 \instituicao{%
@@ -170,7 +170,7 @@
 \tipotrabalho{Tese (Doutorado)}
 % O preambulo deve conter o tipo do trabalho, o objetivo, 
 % o nome da instituição e a área de concentração 
-\preambulo{Tese apresentada à Coordenação do Curso de Pós-Graduação em Engenharia de Teleinformática da Universidade Federal do Ceará como requisito parcial para a obtenção do grau de Doutor em Engenharia de Teleinformática}
+\preambulo{Tese apresentada à Coordenação do Programa de Pós-Graduação em Engenharia de Teleinformática da Universidade Federal do Ceará como requisito parcial para a obtenção do grau de Doutor em Engenharia de Teleinformática}
 % ---
 
 % ---
@@ -424,7 +424,7 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 \input{chapters/Abstract.tex} 
 \vspace{\onelineskip}
 \noindent 
-\textbf{Key-words}: Content-based image retrieval. Shape analysis. Shape contour feature extraction. Shape similarity assessment.
+\textbf{Key-words}: Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Multiscale entropy. Shape similarity. Evolutionary optimization. Divergence measures. Manifold learning.
  \end{otherlanguage*}
 \end{resumo}
 
@@ -451,6 +451,32 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 % ---
 \begin{siglas}
   \item[CBIR] \textit{Content-Based Image Retrieval}
+\item[CCD] \textit{Charge-coupled device}
+\item[CSS] \textit{Curvature scale space}
+\item[TAR] \textit{Triangle area representation}
+\item[NMBE] \textit{Normalized multiscale bending energy}
+\item[PCA] \textit{Principal components analysis}
+\item[MDS] \textit{Multidimensional scaling}
+\item[SOM] \textit{Self organization map}
+\item[DFM] \textit{Dimensão fractal multiscale}
+\item[CDSC] \textit{Coherent distance shape context}
+\item[IDSC] \textit{Inner distance shape context}
+\item[d-TAS] \textit{Differential turning angle scalogram}
+\item[DSW] \textit{Dynamic space warping}
+\item[KL] \textit{Kullback-Leiben divergence}
+\item[JS] \textit{Jensen-Shannon divergence}
+\item[PF] \textit{Patrick Fisher divergence}
+\item[CD] \textit{Centroid distance}
+\item[AII] \textit{Area integral invariant}
+\item[AS] \textit{Angle sequence}
+\item[MAD] \textit{Mean absolute deviation}
+\item[QDA] \textit{Quadratic discriminant analysis}
+\item[LDA] \textit{Linear discriminant analysis}
+\item[NB] \textit{Naive Bayes}
+\item[Knn] \textit{K-nearest neighbours}
+\item[DE] \textit{Differential evolution}
+\item[PSO] \textit{Particle swarm optimization}
+\item[SA] \textit{Simulated anealing}  
 \end{siglas}
 % ---
 
@@ -482,8 +508,10 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 % ----------------------------------------------------------
 % Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
 % ----------------------------------------------------------
-\chapter*[Introdução]{Introdução}
-\addcontentsline{toc}{chapter}{Introdução}
+%\addcontentsline{toc}{chapter}{Introdução}
+
+% \chapter*[Introdução]{Introdução}
+% \addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
 \input{chapters/Introduction.tex}
 
@@ -492,11 +520,19 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 %----------------------------------------------------------
 % PARTE
 % ----------------------------------------------------------
+% \input{chapters/ch2.tex}
+% \input{chapters/ch5.tex}
+% \input{chapters/methodology.tex}
+% \input{chapters/ch3.tex}
+% \input{chapters/ch4.tex}
+
+-----------------
 \input{chapters/ch2.tex}
 \input{chapters/ch5.tex}
 \input{chapters/methodology.tex}
 \input{chapters/ch3.tex}
 \input{chapters/ch4.tex}
+
 % ----------------------------------------------------------
 % Finaliza a parte no bookmark do PDF
 % para que se inicie o bookmark na raiz

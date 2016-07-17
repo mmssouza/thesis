@@ -1,9 +1,9 @@
 \chapter{Metodologia}
 \label{chap:MatMet}
 
-O Capítulo \ref{chap:ch1} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do seu contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes, sendo esse ajuste dependente da natureza da aplicação, ou seja,  das características da base de imagens e do propósito ao qual o sistema de reconhecimento se destina.
+O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do seu contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes, sendo esse ajuste dependente da natureza da aplicação, ou seja,  das características da base de imagens e do propósito ao qual o sistema de reconhecimento se destina.
 
-Os descritores entropia multiescala, apresentado no Capítulo \ref{chap:ch2}, e a energia de dobramento multiescala requerem o ajuste dos seguintes parâmetros: o número e os valores dos fatores de escala utilizados na representação das formas. Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
+Os descritores entropia multiescala, apresentado no Capítulo \ref{chap:FUNDA}, e a energia de dobramento multiescala requerem o ajuste dos seguintes parâmetros: o número e os valores dos fatores de escala utilizados na representação das formas. Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
  
 
 \section{Ajuste de parâmetros}
@@ -17,7 +17,7 @@ MAD = \operatorname{mediana}\big(|s_i - 1|_{i =1,\:2,\:\cdots,\:L}\big)\text{,}
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\textwidth,trim = 14mm 164mm 0mm 24mm,clip]{Final_Flux.pdf}
-\caption{The proposed approach for evolutionary optimization of a multiscale shape descriptor.} 
+\caption{Proposta de uma metodologia para otimização e volucionária de um descritor multiescala de forma.} 
 \label{fig:Avaliacao}
 \end{figure*}
 
@@ -56,28 +56,12 @@ Na avaliação do desempenho dos experimentos duas medidas são utilizadas: o n�
 
 A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Tendo esta base 99 formas, igualmente distribuídas em 9 classes, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
 
-A medida Bull-eye também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Essa medida é calculada para a base MPEG-7 CE-Shape-1 da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes a mesma classe da forma de consulta dentre as 40 primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas poro forma}$. 
+A medida Bulls-eye também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Essa medida é calculada para a base MPEG-7 CE-Shape-1 da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes a mesma classe da forma de consulta dentre as 40 primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas poro forma}$. 
 
-
-\section{Avaliação de similaridade de formas}
- \label{Sec:method}
- 
-O método proposto para a avaliação de similaridade entre formas combina medidas de divergência com assinaturas do contorno das formas. A Figura \ref{fig:metodo_distancia} ilustra a metodologia aplicando-a a duas formas A e B. Uma vez extraído o contorno são calculadas quatro assinaturas daquelas abordadas na Seção \ref{sec:Assinatura} do Capítulo \ref{chap:contour}: curvatura \cite{149591,Costa:2009}, sequência de ângulos (AS) \cite{Fotopoulou:2013}, distância ao centróide (CD) \cite{Costa:2009} e invariante integral de área (AII) \cite{Manay:2006}. O próximo passo estima as distribuições de probabilidade dessas assinaturas através de histogramas. Um ponto considerado na determinação dos histogramas é o ajuste dos parâmetros utilizados na estimação das distribuições, que são o número de intervalos (bins) e a faixa de valores. Um número de intervalos grande torna a estimação sensível a ruído, enquanto um número pequeno desse parâmetro resulta em uma descrição com poder de discriminação pobre. Já a má escolha da faixa de valores resulta em perda de informação na descrição, o que também degrada o poder de discriminação.  Assim, a faixa de valores foi padronizada normalizando-se as assinaturas das formas, enquanto os números de intervalos (um parâmetro para cada assinatura) foram obtidos por otimização para maximizar o desempenho do descritor, conforme o método da Seção ??. 
-
-Finalmente, as medidas de divergência $D(a,b)$ entre os histogramas correspondentes das formas A e B são calculados, resultando em quatro medidas de dissimilaridade, uma para cada par de assinaturas ($d_{1}$, $d_{2}$, $d_{3}$ e $d_{4}$), sendo a medida de dissimilaridade final $d(A,B) = d_{1}+d_{2}+d_{3}+d_{4}$. Cabe aqui mencionar que, por ser uma medida de dissimilaridade, quanto menor o valor de $d(A,B)$ maior a similaridade entre as formas $A$ e $B$. 
-
-Realizou-se experimentos de recuperação de formas para avaliar o qualidade do método em questão para diferentes funções de divergência.
 
 %A avaliação de similaridade entre formas a partir de medidas de divergência requer que as informações das assinaturas, abordadas na Seção \ref{sec:Assinatura} do Capítulo \ref{chap:contour}, sejam tratadas como variáveis aleatórias e que suas distribuições de probabilidade sejam estimadas. 
 
 %A  Figura \ref{fig:metodo_distancia} ilustra como divergentes podem ser aplicados na avaliação da similaridade entre duas formas A e B. No método em questão, as distribuições de probabilidade de quatro assinaturas distintas dos contornos das formas são estimadas, através de histogramas, para em seguida se calcular as medidas de divergência. Uma medida de similaridade é então obtida  a partir da média ponderada das medidas de divergência.
-
-\begin{figure}[h!]
-  \caption{\label{fig:metodo_distancia} Método para avaliação da similaridade entre duas formas A e B utilizando distância estocástica e histogramas das assinaturas do contorno das formas.}
-  \centering
-  \includegraphics[width=0.85\textwidth]{figura_metodo.eps}
-\end{figure}
-
 
 \begin{comment}
 \subsection{Visualizaçâo de dados}
@@ -103,7 +87,7 @@ Na avaliação quantitativa (Figura \ref{fig:metodo_4}e) utilizamos os rótulos 
 
 Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos, como o de Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global, porém, em diversos problemas, tais condições não são encontradas. 
 
-Os métodos de otilização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
+Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
 
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
 \subsection{Recozimento simulado}
@@ -153,7 +137,7 @@ $n \gets n + 1$
 
 \subsection{Evolução diferencial}
 
-O algoritmo de otimização evolução diferencial 
+O algoritmo de otimização por evolução diferencial 
 The differential evolution algorithm iteratively evolves a population of $N$ vectors of candidate solutions and it produces disturbed versions of each population solution by using a disturbance vector. Here, we employ the  \emph{DE/rand/1} strategy introduced by \cite{Storn:1996},  which is a modified version of DE that computes the disturbance vector according to equation:
 \begin{equation}
 \boldsymbol{d} = \boldsymbol{\sigma_1} + \beta.(\boldsymbol{\sigma_2} - \boldsymbol{\sigma_3}),
