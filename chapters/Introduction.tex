@@ -1,95 +1,28 @@
 % !TeX root = ../main.tex
 
-%Como principal órgão do sentido humano a visão tem inspirado toda uma área de pesquisa denominada de visão computacional. A origem e a evolução da visão computacional está intimamente relacionada com a história da computação, cuja evolução tem recentemente motivado o desenvolvimento de tecnologias com uma vasta gama de aplicações, tais como em robótica, biologia, medicina, indústria, segurança e física \cite{Costa:2009}.
+\chapter{Introdução \label{chap:INTRO}}
 
-%A visão é um processo complexo, pois envolve a análise de várias informações visuais, como a cor, profundidade, movimento, forma e textura dos objetos, com o propósito de locomoção, reconhecimento, classificação e manipulação dos objetos \cite{Ullman:1996}.
+% apresenta o capítulo como faz nos outros
+
+{\color{red} TENTEI AJEITAR AS REFS ERRADAS DO CESAR JR AND COSTA , AJEITEI NO TESE.BIB, MAS NO TEXTO CONTINUAVA ERRADO, FIZ DO MEU JEITO}
 
 Como principal sentido humano, a visão tem inspirado toda uma área de pesquisa denominada visão computacional, cuja origem e evolução, intimamente relacionada com a história da computação, tem recentemente motivado o desenvolvimento de tecnologias com uma vasta gama de aplicações \cite{Costa:2009}. A visão é um processo complexo, pois envolve a análise de várias informações visuais, como a cor, profundidade, movimento, forma e textura dos objetos, com o propósito de locomoção, reconhecimento, classificação e manipulação dos objetos \cite{Ullman:1996}.
 
-%Dentre as informações visuais a forma desempenha um papel crucial no sistema de percepção humano pela riqueza de informação que esta propicia. Esse atributo decorre da imagem formada pela projeção dos objetos existentes no espaço tridimensional em estruturas bidimensionais, como a retina do olho humano ou um sensor de \emph{CCD} de uma câmera. Em muitas aplicações a forma é suficiente para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Costa:2009}.
+Dentre as informações visuais, a forma desempenha um papel importante no sistema de percepção visual humano pela riqueza de informação que esta propicia. A forma advém da imagem resultante da projeção dos objetos existentes no espaço tridimensional em estruturas bidimensionais, como a retina do olho humano ou um sensor de \emph{CCD} de uma câmera.
 
-Dentre as informações visuais, a forma desempenha um papel importante no sistema de percepção humano pela riqueza de informação que esta propicia. A forma decorre da imagem formada pela projeção dos objetos existentes no espaço tridimensional em estruturas bidimensionais, como a retina do olho humano ou um sensor de \emph{CCD} de uma câmera. Em várias aplicações a informação da forma é suficiente para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Costa:2009}.
+Uma área de particular interesse em aplicações de visão computacional é o processo de análise e reconhecimento de formas, que envolve representá-las computacionalmente para avaliar, com base nessa representação, o grau de similaridade entre as mesmas. Esse processo consiste em detectar e representar pistas visuais das imagens suficientemente informativas para melhorar o desempenho dos algoritmos que realizam as tarefas de classificar, comparar ou reconhecer os objetos.\cite{Escolano:2009}.
 
-%Uma área de pesquisa particularmente relevante em visão computacional é a que trata do desenvolvimento de algoritmos capazes de avaliar o grau de similaridade existente entre as formas de maneira análoga àquela realizada pelos humanos. Tal empreendimento envolve representar, ou descrever, computacionalmente o conteúdo dessas imagens e obter medidas que possibilitem avaliar a similaridade entre as mesmas com base em suas representações. Esses dois aspectos são o foco desse trabalho de pesquisa.
+Outro aspecto importante no reconhecimento de formas são as medidas de avaliação de similaridade. Destas procuram-se aquelas que sejam semelhantes ao sistema de percepção da visão humana, ainda que não esteja totalmente claro como tal sistema opera \cite{4815272}. 
 
-%Em se tratando das medidas de avaliação de similaridade, espera-se que estas sejam perceptualmente semelhantes ao sistema de visão humano, embora ainda não esteja totalmente claro como tal sistema desempenha a tarefa em questão \cite{4815272}. Sabe-se, no entanto, que o processo de avaliação de similaridade dos sistemas biológicos está intimamente relacionada com as habilidades cognitivas de alto nível, que envolvem memória, reconhecimento, classificação e localização de objetos em uma cena \cite{Marr:1982}. 
+Este trabalho explora técnicas para representação computacional de características das formas para fins de reconhecimento de padrões. O atual estado da arte em representação de formas é apresentado nesta introdução na Seção \ref{sec:est_art}. A Seção \ref{sec:motiv_obj} comenta quais aspectos motivaram o desenvolvimento deste trabalho de pesquisa. Já a Seção \ref{sec:contrib} apresenta as contribuições do trabalho, e a Seção \ref{sec:prod_cientif} a produção científica decorrente do mesmo. Finalizando esta introdução, temos na Seção \ref{sec:org} a estruturação da tese.
 
-Uma área de particular interesse em aplicações de visão computacional é a análise e o reconhecimento de formas, que envolve representá-las computacionalmente e avaliar, com base nessa representação, o grau de similaridade entre as mesmas. Espera-se que as medidas de avaliação de similaridade sejam perceptualmente semelhantes ao sistema de visão humano, embora ainda não esteja totalmente claro como tal sistema desempenha a tarefa em questão \cite{4815272}. Já o processo de descrição de formas consiste em detectar e representar nas imagens pistas visuais suficientemente informativas melhorando o desempenho dos algoritmos que realizam as tarefas de visão artificial requeridas, tais como classificar, comparar ou reconhecer objetos.\cite{Escolano:2009}.
+\section {Estado da arte \label{sec:est_art}}
+   
+{\color{red} A DEFINIR O LUGAR ERA PARTE DA Motivação}
 
-Pesquisas recentes tem explorado conceitos da teoria da informação para resolver problemas de visão computacional e reconhecimento de padrões \cite{Escolano:2009}, porque medidas como entropia e informação mútua se relacionam diretamente com as informações contidas nos sinais \cite{Principe:2011}. \citeonline{Page:2003} utilizam a entropia de Shannon da curvatura em análise de formas para medir a complexidade de formas planas \citeonline{1716783} aplica conceitos da teoria da informação, como divergência e corentropia, para medir similaridade entre formas e imagens \cite{Principe:2014,Zang:2014}.
+Há dois tipos de métodos de descrição de formas: os baseados em região e os baseados em contorno \cite{Zhang:2004}. Os baseados em região extraem características de toda a área interior à forma. Alguns métodos desta natureza são os momentos de Zernike \cite{Kim:2000} e os momentos de Legendre \cite{Yang:2006} que, apesar de apresentarem excelente desempenho, são inadequados para reconhecimento de objetos na presença de oclusões. Utilizando as propriedades da transformada de Fourier, o descritor genérico de Fourier \cite{Zhang:2002} permite a análise multiescala de formas.
 
-
-%Já o processo de descrição visa detectar e representar pistas visuais das imagens que sejam importantes para melhorar o desempenho dos algoritmos responsáveis em classificar, comparar ou reconhecer objetos. Esta primeira etapa das aplicações de visão artificial seleciona na imagem, dentre os atributos, apenas aqueles que sejam suficientemente informativos para realização da tarefa de visão artificial requerida \cite{Escolano:2009}.
-
-Dentre as aplicações da visão computacional, destacamos particularmente aquelas encontradas em sistemas de busca de imagens pelo conteúdo ou, do inglês,\foreignlanguage{english}{\emph{Content-based image retrieval}}(\emph{CBIR}). Sistemas dessa natureza realizam buscas em bases multimídia utilizando o conteúdo visual das imagens para recuperar aquelas que sejam do interesse do usuário mediante um padrão de consulta especificado. 
-
-São encontrados na literatura trabalhos que utilizam a forma como descritor em \emph{CBIR} para a recuperação de folhas de espécies vegetais \cite{Fotopoulou:2013, Nam2008245, Wang:2000}, no diagnóstico de doenças da coluna vertebral por busca de imagens de raio-X por similaridade \cite{Lee:2009} e na busca de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
-
-\begin{comment}
-A demanda por novas maneiras de gerenciar e buscar informação multimidia surgiu com a popularização da internet, com a maior disponibilidade de dispositivos de captura de imagens e com a diminuição dos custos dos meios de armazenamento; aspectos esses que contribuíram para um volume crescente de imagens digitais disponibilizadas para as mais diversas finalidades.
-
-Neste contexto, uma nova linha de pesquisa de sistemas de busca de informação desponta, denominada de recuperação de imagens pelo conteúdo ou, do inglês, \foreignlanguage{english}{\emph{Content-Based Image Retrieval}} (\emph{CBIR}). 
-
-Neste trabalho aplicamos algumas medidas da teoria da informação em reconhecimento de formas. Enfatizamos as técnicas de representação das formas através do seus contornos, assim como descritores multiescala obtidos a partir dessas representações. Assim, propomos um novo descritor mutiscala de formas baseado em medidas de entropia. Investigamos também a aplicação das medidas de divergência na avaliação da similaridade entre formas. Divergentes são funcionais que medem a distância existente entre modelos estatísticos que são utilizadas em processamento de sinais e reconhecimento de padrões \cite{Basseville1989349}.   
-\end{comment}
-
-Nesta tese caracterizamos descritores obtidos a partir do contorno das formas.  Enfatizamos as técnicas de representação do contorno por assinaturas, assim como descritores multiescala obtidos com base nessas representações. Na descrição multiescala os atributos das formas são representados em vários níveis de detalhes, variando de escalas de baixa resolução, aonde os detalhes que diferenciam as formas de uma mesma classe não são levados em consideração, até escalas de alta resolução aonde esses detalhes são preservados \cite{Ullman:1996}.
- 
-Como medidas de similaridade avaliamos métricas clássicas, como a norma $L_2$, bem como medidas de divergência estocástica. Essas últimas medem o grau de similaridade existente entre distribuições de probabilidade. Embora sejam empregadas em estatística, processamento de sinais e teoria da informação, medidas de divergência têm sido pouco exploradas na avaliação de similaridade entre formas no contexto de recuperação de imagens pelo conteúdo.  
-
-Em \emph{CBIR}, grande parte dos trabalhos empregam medidas de acurácia, precisão e revocação como métricas para a avaliação da qualidade dos descritores. Entretanto, tais medidas não possibilitam inferir propriedades importantes dos descritores como  separabilidade e compactabilidade. A propriedade de compactabilidade é uma indicação do potencial que o descritor apresenta em representar formas similares como pertencentes a uma mesma classe. Já a separabilidade diz respeito à habilidade que o descritor tem em diferenciar formas que não sejam similares e, portanto, pertencentes a classes distintas. 
-
-Uma maneira de se inferir qualitativamente essas propriedades é através de técnicas que possibilitem inspecionar e visualizar dados multidimensionais em um espaço de dimensão reduzida. Tais técnicas ajudam a compreender a estrutura que determinado método de descrição impõe aos dados ao representá-los em um espaço vetorial multidimensional. Medidas de avaliação de agrupamentos constituem outra maneira de se avaliar tais propriedades, porém quantitativamente. 
-
-Exploramos nesta tese duas técnicas classicamente empregadas na visualização de dados: a análise das componentes principais (\emph{PCA}) e o mapa auto-organizável de Kohonen (SOM) \cite{Kohonen:1982}. Partindo de bases de imagens de formas binárias aplicamos essas técnicas de visualização nas representações multiescala obtidas com os métodos de descrição supracitados.   
- 
-
-%As métricas de distância entre vetores de características não conseguem capturar adequadamente o grau de similaridade entre formas que apresentam variabilidade dentro de uma mesma classe se os vetores que as descrevem também variarem significativamente. Esse tipo de situação não é incomum, uma vez que esses vetores derivam de características de baixo nível da imagem que também variam. 
-
-%Classicamente, o processo de descrição das formas resulta em uma representação matemática vetorial num espaço multidimensional. Espera-se desta representação que formas similares apresentem, do ponto de vista geométrico, proximidade entre seus vetores (compactação), enquanto que para formas distintas, os vetores que as representam estejam dispostos geometricamente distantes (separabilidade). Neste contexto, métodos de reconhecimento de padrões \cite{Webb:2002} podem ser empregados para realização de tarefas como o agrupamento, classificação, reconhecimento e avaliação de similaridade dos objetos representados.
-
-%No entanto, avaliar aspectos como compactação e separabilidade de uma descrição não é uma tarefa trivial, já que os dados descritos encontram-se representados em um espaço vetorial de dimensão elevada. Para esta finalidade, técnicas de visualização, que projetam os dados em um espaço vetorial bidimensional, podem ser empregadas.
-
-%\citeonline{Ullman:1996} sugere o uso de abstrações na construção de descrições para contornar esse tipo de problema, sendo uma das abstrações sugeridas o uso de representações multi-resoluções ou multiescalas. Nesta abordagem, "os atributos das formas são representados em vários níveis de detalhes, variando de escalas de baixa resolução, aonde os detalhes que diferenciam as formas de uma mesma classe não são levados em consideração, até escalas de alta resolução aonde esses detalhes são preservados" \cite[tradução nossa]{Ullman:1996}.
-
-\section*{Objetivos}
-O objetivo geral deste trabalho é explorar métodos de extração de características e de avaliação de similaridade em reconhecimento de padrões em formas. Quanto aos objetivos específicos destacamos:
-
-\begin{alineas}
-\item Caracterizar descritores de formas a partir de características do contorno em experimentos de recuperação de formas pelo conteúdo;
-
-\item Avaliar a capacidade discriminativa dos descritores empregando técnicas de visualização de dados e medidas de avaliação de agrupamentos;  
-
-\item Investigar a aplicabilidade das medidas de divergência na avaliação de similaridade entre formas no contexto \emph{CBIR}.
-\end{alineas}
-
-\section*{Contribuições do trabalho}
-
-Como principais contribuições deste trabalho destacamos:
-
-\begin{alineas}
-\item Proposta de um novo descritor multiescala do contorno de formas baseado em entropia;
-\item Apresentação de um novo método de avaliação da capacidade discriminativa de descritores de formas;
-\item Aplicação das medidas de divergência na avaliação de similaridade entre formas em \emph{CBIR}.
-\end{alineas}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Da qualificação
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section*{Estado da arte}
-
-Descrição e reconhecimento de objetos a partir de suas formas é uma tarefa importante em visão computacional. Descritores de formas são utilizados em aplicações de diversas áreas do conhecimento, tais como ciência da informação, biologia, medicina, engenharia, neurociência e informática. 
-
-Em biologia são encontrados na literatura trabalhos que utilizam a forma como descritor em taxonomia de espécies vegetais a partir das folhas \cite{Fotopoulou:2013, Nam2008245, Wang:2000}. Na medicina, descritores de formas podem ser aplicados, por exemplo, no diagnóstico de doenças da coluna vertebral \cite{Lee:2009} e na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009}. Dentre as aplicações em ciência da informação, destacamos a busca de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
-
-Várias técnicas e algoritmos foram propostos na literatura para representar objetos baseado em suas formas. Há principalmente dois tipos de métodos: os baseados em região e os baseados em contorno \cite{Zhang:2004}. 
-
-Em geral, os métodos baseados em região extraem características de toda a área interior à forma. Alguns métodos desta natureza são os momentos de Zernike \cite{Kim:2000} e os momentos de Legendre \cite{Yang:2006} que, apesar de apresentarem excelente desempenho, são inadequados para reconhecimento de objetos na presença de oclusões. Utilizando as propriedades da transformada de Fourier, o descritor genérico de Fourier \cite{Zhang:2002} permite a análise multiescala de formas.
-
-Em contraste aos métodos de representação baseados em região, os métodos baseados em contorno exploram a informação contida na região da fronteira entre a forma e o fundo da imagem. Embora mais complexos, pois requerem implementações mais sofisticadas, esses métodos são mais adequados para o reconhecimento de objetos com oclusões. Nesta categoria encontramos a codificação em cadeia \cite[p~337]{Costa:2009}, que consiste em segmentos de linhas mapeados em uma grade fixa com um número finito de possíveis orientações, as aproximações poligonais \cite[p~340--351]{Costa:2009} e os métodos de esqueletização \cite[p~394--400]{Costa:2009}. 
+Em contraste, os métodos baseados em contorno exploram a informação contida na região da fronteira entre a forma e o fundo da imagem. Embora mais complexos, pois requerem implementações mais sofisticadas, esses métodos são mais adequados para o reconhecimento de objetos com oclusões. Nesta categoria encontramos a codificação em cadeia \cite[p~337]{Costa:2009}, que consiste em segmentos de linhas mapeados em uma grade fixa com um número finito de possíveis orientações, as aproximações poligonais \cite[p~340--351]{Costa:2009} e os métodos de esqueletização \cite[p~394--400]{Costa:2009}. 
 
 Na abordagem por aproximações poligonais, a forma é decomposta em segmentos de linha. Os vértices dos polígonos são utilizados como primitivas donde algumas características são extraídas. A transformação do eixo mediano, ou esqueletização, foi introduzido por \citeonline{blum:1967}. Esta consiste em reduzir regiões a curvas que seguem a forma global de um objeto. \citeonline{Sebastian:2004} utilizaram este descritor no reconhecimento de formas. \citeonline{Milios:2000} propuseram representar as formas como uma coleção de segmentos entre dois pontos de inflexão consecutivos. Os segmentos obtidos são considerados em diferentes níveis de resolução. 
 
@@ -99,7 +32,7 @@ A descrição multiescala de formas é uma abordagem promissora em reconheciment
 
 \citeonline{Mokhtarian:1986} propuseram o descritor \textit{CSS}, que é baseado na representação multiescala da curvatura das formas. A representação \textit{CSS} é invariante às transformações afins, mas é sensível a oclusão e convexidade das formas. Representação pela área de triângulos (\textit{TAR}) \cite{Alajlan20117} é outro tipo de representação multiescala baseado nas áreas de triângulos formados pelos pontos das borda, calculados para diferentes escalas. 
 
-Outras técnicas consistem em aproximar o contorno da forma através de uma função espaço-escala do ângulo de giro (\textit{d-TASS}) \cite{4202050}, \textit{b-splines} \cite{1168520} e as funções peso, ou \textit{height functions} \cite{Wang2012134}. A função peso de um ponto amostral do contorno é definida como sendo pelas distâncias de todos os outros pontos amostrais a sua linha tangente. A função peso obtida é então suavizada para representar e reconhecer objetos bi-dimensionais.
+Outras técnicas consistem em aproximar o contorno da forma através de uma função espaço-escala do ângulo de giro (\textit{d-TAS}) \cite{4202050}, \textit{b-splines} \cite{1168520} e as funções peso, ou \textit{height functions} \cite{Wang2012134}. A função peso de um ponto amostral do contorno é definida como sendo pelas distâncias de todos os outros pontos amostrais a sua linha tangente. A função peso obtida é então suavizada para representar e reconhecer objetos bi-dimensionais.
 
 \textit{Shape context} (\textit{SC}) \cite{Belongie:2002} é um método clássico de encontrar correspondência entre conjuntos de pontos. Quando baseado na distância do produto escalar, \textit{SC} se torna \textit{inner distance shape context} (\textit{IDSC}) \cite{1467513}. Esses métodos tem a habilidade de extrair características bastante discriminativas para uma forma e lida com o problema da inexatidão de correspondência na comparação entre formas. Porém, estes são sensíveis a diferentes deformações e poses de uma mesma forma.
 
@@ -109,23 +42,92 @@ As formas podem também ser modeladas através da representação por partes. Es
 
 Em \cite{Kenji:1992} as formas são decompostas em diferentes retângulos. A localização dos retângulos e suas dimensões são selecionadas por programação dinâmica. \citeonline{Berretti:2000} propuseram o uso dos pontos de cruzamento de zero da curvatura de um contorno suavizado para obtenção de partes denominadas de \textit{tokens}. As orientações e os pontos de máxima curvatura das partes obtidas são levadas em consideração para representar e comparar as formas. Esse método não é invariante a rotação devido a orientação dos \textit{tokens} \cite{DiRuberto:2009}. Usando programação dinâmica, \citeonline{Latecki:2007} propuseram um método para comparação parcial de formas aonde tangentes locais ao contorno são utilizadas na descrição de formas. \citeonline{Cui:2009} propuseram o uso da integral da curvatura absoluta como descritor de forma. Para comparar as partes das curvas eles utilizaram cross correlação, sendo o método invariante a rotação, escala e translação.  
 
-As aplicações citadas no início desta seção têm em comum a necessidade de se recuperar imagens em bases de dados de acordo com o conteúdo visual das mesmas, sendo essa área de pesquisa conhecida como \textit{content-based image retrieval} (\textit{CBIR}). Sistemas \textit{CBIR} realizam buscas em bases multimídia utilizando o conteúdo visual das imagens, representado através de descritores, para recuperar aquelas que sejam do interesse do usuário mediante o grau de similaridade a um padrão de consulta especificado \cite{Feng:2003}. 
+\section{Motivação e objetivos \label{sec:motiv_obj}}
+%1.1 MOTIVAÇÃO E OBJETIVOS (Na motivação vc enxerta o que já tem na INTRO inclui o texto que já está aqui  como motivação e pincela um pouco sobre o estado da arte que sustenta o trabalho. Como é um doutorado deve ter papers de 2015 e 2016.
+Em várias aplicações, informações sobre a forma são suficientes para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Zhang201661,deSouza2016,Zhao20153203}. Na medicina, descritores de forma foram aplicados no diagnóstico de doenças da coluna vertebral \cite{Lee:2009}, na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009} e na identificação automática de pílulas \cite{Ushizima:2015}. Em microscopia, descritores de forma foram aplicados na análise de materiais particularizado \cite{Zhang201661}. 
 
-Em grande parte dos trabalhos expostos, medidas de acurácia, precisão e revocação em experimentos \textit{CBIR} são utilizadas como métricas para a avaliação da qualidade dos descritores. Entretanto, tais medidas não possibilitam inferir propriedades importantes dos descritores como separabilidade e compactabilidade. A propriedade de compactabilidade é uma indicação do potencial que o descritor apresenta em representar formas similares como pertencentes a uma mesma classe. Já a separabilidade diz respeito à habilidade que o descritor tem em diferenciar formas que não sejam similares e, portanto, pertencentes a classes distintas. 
+Grande parte dos descritores de forma \cite{Belongie:2002, 1467513, Nanni20122254, Hu20123348, Latecki:2007, Wang2012134} são voltados para a utilização em sistemas de busca de imagens pelo conteúdo ou, do inglês,\foreignlanguage{english}{\emph{Content-based image retrieval}} (\emph{CBIR}). Sistemas dessa natureza realizam buscas em bases multimídia utilizando o conteúdo visual das imagens para recuperar aquelas que sejam do interesse do usuário mediante um padrão de consulta por ele especificado \cite{Feng:2003}. Em termos de aplicações de descritores de formas em \emph{CBIR}, destacamos a identificação de espécies vegetais através das folhas \cite{deSouza2016,
+Fotopoulou:2013,Zhao20153203, Nam2008245, Wang:2000} e a recuperação de informação de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
 
-Uma maneira de se inferir essas propriedades é através de técnicas que possibilitem inspecionar e visualizar dados multidimensionais em um espaço de dimensão reduzida. Tais técnicas ajudam a compreender a estrutura que determinado método de descrição impõe aos dados ao representá-los em um espaço vetorial multidimensional.
+Pesquisas recentes \cite{Principe:2014,Zang:2014} tem explorado conceitos da teoria da informação, como entropia e medidas de divergência, em análise de formas \cite{Escolano:2009}, pois essas medidas se relacionam diretamente com as informações contidas nos sinais \cite{Principe:2011}. \citeonline{Page:2003} utilizam a entropia de Shannon da curvatura em análise de formas para medir a complexidade de formas planas. \citeonline{1716783} aplicam conceitos da teoria da informação, como divergência e entropia, para medir similaridade entre formas e imagens \cite{Principe:2014,Zang:2014}.
 
-Medidas de avaliação de agrupamentos constituem outra maneira de inferir essas propriedades. 
+Este trabalho aplica os conceitos da teoria da informação na descrição e avaliação de similaridade de formas. Assim, propomos um novo descritor multiscala de formas baseado na entropia de Shannon.  Investigamos também o uso das medidas de divergência na avaliação da similaridade entre formas. 
 
-Exploramos nesta tese duas técnicas classicamente empregadas na visualização de dados: a análise das componentes principais (\emph{PCA}) e o mapa auto-organizável de Kohonen (\textit{SOM}) \cite{Kohonen:1982}. Partindo de bases de imagens de formas binárias aplicamos essas técnicas de visualização nas representações multiescala obtidas com os métodos de descrição estudados.  
+%Divergentes são funcionais que medem a distância existente entre modelos estatísticos que são utilizadas em processamento de sinais e reconhecimento de padrões \cite{Basseville1989349}.   
 
-%As métricas de distância entre vetores de características não conseguem capturar adequadamente o grau de similaridade entre formas que apresentam variabilidade dentro de uma mesma classe se os vetores que as descrevem também variarem significativamente. Esse tipo de situação não é incomum, uma vez que esses vetores derivam de características de baixo nível da imagem que também variam. 
+%Como medidas de similaridade avaliamos métricas clássicas {\color{red} CITAR TRABALHOS IMPORTANTES E REVISTAS ISI}, como a norma $L_2$, bem como medidas de divergência estocástica{\color{red} CITAR FONTES ATUAIS SE TIVER}  {\color{red}}. Essas últimas medem o grau de similaridade existente entre distribuições de probabilidade. Embora sejam empregadas em análise estatística de dados, processamento de sinais e teoria da informação, as medidas de divergência têm sido pouco exploradas na avaliação de similaridade entre formas, em particular no contexto de recuperação de imagens pelo conteúdo.  
 
-%Classicamente, o processo de descrição das formas resulta em uma representação matemática vetorial num espaço multidimensional. Espera-se desta representação que formas similares apresentem, do ponto de vista geométrico, proximidade entre seus vetores (compactação), enquanto que para formas distintas, os vetores que as representam estejam dispostos geometricamente distantes (separabilidade). Neste contexto, métodos de reconhecimento de padrões \cite{Webb:2002} podem ser empregados para realização de tarefas como o agrupamento, classificação, reconhecimento e avaliação de similaridade dos objetos representados.
 
-%No entanto, avaliar aspectos como compactação e separabilidade de uma descrição não é uma tarefa trivial, já que os dados descritos encontram-se representados em um espaço vetorial de dimensão elevada. Para esta finalidade, técnicas de visualização, que projetam os dados em um espaço vetorial bidimensional, podem ser empregadas.
+%Uma área de pesquisa particularmente relevante em visão computacional é a que trata do desenvolvimento de algoritmos capazes de avaliar o grau de similaridade existente entre as formas de maneira análoga àquela realizada pelos humanos. Tal empreendimento envolve representar, ou descrever, computacionalmente o conteúdo dessas imagens e obter medidas que possibilitem avaliar a similaridade entre as mesmas com base em suas representações. Esses dois aspectos são o foco desse trabalho de pesquisa.
 
-%\citeonline{Ullman:1996} sugere o uso de abstrações na construção de descrições para contornar esse tipo de problema, sendo uma das abstrações sugeridas o uso de representações multi-resoluções ou multiescalas. Nesta abordagem, "os atributos das formas são representados em vários níveis de detalhes, variando de escalas de baixa resolução, aonde os detalhes que diferenciam as formas de uma mesma classe não são levados em consideração, até escalas de alta resolução aonde esses detalhes são preservados" \cite[tradução nossa]{Ullman:1996}.
+Em \emph{CBIR}, grande parte dos trabalhos empregam medidas de acurácia, precisão e revocação como métricas para a avaliação da qualidade dos descritores {\color{red} CITAR FONTE, POIS VC SEQUER DISSE AINDA O QUE É REVOCAÇÃO PRECISÃO ACURÁCIA, PONHA FONTES ENTÃO}. Entretanto, tais medidas não possibilitam inferir propriedades importantes como o grau de separação entre-classes e coesão intra-classe que o descritor propicia \cite{Meta:2009}. A propriedade de separação entre-classes diz respeito à habilidade que o descritor tem em diferenciar formas que não sejam similares e, portanto, pertencentes a classes distintas. A coesão intra-classe indica o potencial do descritor em representar formas similares como pertencentes a uma mesma classe.  
 
-\section*{Organização}
+Uma maneira de inferir quantitativamente essas propriedades é através de medidas de qualidade de agrupamentos \cite{Meta:2009}. Qualitativamente, tais propriedades podem ser avaliadas através de técnicas de projeção. Estas últimas possibilitam inspecionar e visualizar os dados multidimensionais em um espaço de dimensão reduzida, ajudando a compreender a estrutura que determinado descritor impõe aos dados ao representá-los em um espaço vetorial multidimensional.
+
+Neste trabalho exploramos duas técnicas, classicamente empregadas em visualização de dados, para investigar a qualidade dos descritores de formas: a análise das componentes principais (\emph{PCA}) e o mapa auto-organizável de Kohonen (\textit{SOM}) \cite{Kohonen:1982}.   
+
+Este trabalho explora técnicas para representação computacional de características das formas para fins de reconhecimento de padrões, em particular os algoritmos multiescala de representação do contorno das formas.  Enfatizamos também as técnicas de representação do contorno por assinaturas, uma vez que descritores multiescala podem ser obtidos a partir dessas assinaturas. 
+O objetivo geral deste trabalho é investigar e desenvolver métodos de extração de características multiescala e de avaliação de similaridade de formas considerando sua aplicabilidade em experimentos de agrupamento, classificação e recuperação (\emph{CBIR}). Quanto aos objetivos específicos destacamos:
+
+\begin{itemize}
+\item Desenvolver descritores multiescala de formas a partir de características do contorno que envolvam informação sobre a curvatura, energia de dobramento e entropia diferencial;
+
+\item Empregar técnicas de visualização de dados e medidas de avaliação da qualidade de agrupamentos para quantificar a capacidade discriminativa dos descritores estudados; 
+
+
+\item Propor uma nova função de custo mínimo que auxilia os algoritmos de otimização na busca de soluções ótimas para os conjuntos de parâmetros multiescala de descritores formas;
+
+\item Desenvolver de uma metodologia de ajuste automático de parâmetros dos descritores multiescala baseada em otimização evolucionária;
+
+\item Realizar experimentos de classificação e recuperação em uma base pública de imagens de folhas de plantas;
+
+\item Investigar a aplicabilidade de medidas de divergência na avaliação de similaridade de formas em experimentos \emph{CBIR}.
+\end{itemize}
+
+
+\section{Contribuições \label{sec:contrib}}
+%1.2 CONTRIBUIÇÕES( LISTA DO QUE VC ALCANÇOU COM O TRABALHO)
+
+Como principais contribuições deste trabalho destacamos:
+
+\begin{itemize}
+\item Proposta da entropia multiescala como um novo descritor para análise de formas;
+
+\item Proposta de uma metodologia de ajuste automático de parâmetros de descritores multiescala de formas;
+
+\item Proposta de uma nova função objetivo baseada na qualidade de agrupamentos para guiar  algoritmos de otimização na busca de soluções ótimas dos parâmetros multiescala de descritores formas; 
+
+\item Aplicação das medidas de divergência na análise de similaridade de formas em experimentos \emph{CBIR};
+
+\item Avaliação qualitativa de descritores de formas por ferramentas de análise exploratória visual de agrupamentos;
+
+\item Avaliação qualitativa e quantitativa da capacidade discriminativa de descritores multiescala de formas;
+
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Da qualificação
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section {Produção Científica \label{sec:prod_cientif}}
+\begin{itemize}
+
+\item USHIZIMA, D.; CARNEIRO, A.; SOUZA, M.; MEDEIROS, F. Investigating pill recognition methods for a new national library of
+medicine image dataset. In: Advances in Visual Computing. Springer Science Business Media, 2015. p 410-419. Disponível em: <http://dx.doi.org/10.1007/978-3-319-27863-6\_38>
+
+\item SOUZA, M. M. de; MEDEIROS, F. N.; RAMALHO, G. L.; DE PAULA, I. C.; Oliveira, I. N. Evolutionary optimization of a multiscale descriptor for leaf
+shape analysis. Expert Systems with Applications, p. –, 2016. ISSN 0957-4174. Disponível
+em: <http://www.sciencedirect.com/science/article/pii/S095741741630361X>.
+
+\end{itemize}
+\section{Organização da Tese \label{sec:org}}
+
+Os capítulos desta tese seguem a seguinte estrutura:
+
+\noindent \textbf{Capítulo \ref{chap:FUNDA}}:  descrição de conceitos teóricos e ferramentas utilizadas no desenvolvimento, avaliação e testes dos descritores, assim como no desenvolvimento da metodologia proposta para análise de formas.
+
+\noindent \textbf{Capítulo \ref{chap:TINFO}}:  introdução e aplicação de conceitos de teoria da informação como entropia e medidas de divergências utilizadas no desenvolvimento de um novo descritor multiescala para representação e análise de formas.
+
+\noindent \textbf{Capítulo \ref{chap:MatMet}}:  apresentação da metodologia para ajuste automático de parâmetros multiescala de formas por algoritmos de otimização evolucionária. Apresentamos ainda a função objetivo a ser minimizada na busca de soluções ótimas do problema.
 

@@ -1,11 +1,179 @@
 % !TeX root = ../main.tex
 
-\chapter{Resultados}
+\chapter{Resultados e Discussões \label{chap:resultados}}
+
+Com base na metodologia exposta apresentamos neste capítulo os resultados experimentais que obtivemos na análise dos descritores dimensão fractal multiescala, energia de dobramento multiescala e entropia  multiescala.
+
+Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na subseção a seguir para em seguida apresentarmos os resultados obtidos com o descritor entropia multiescala.
+
+{\color{blue}
+\subsection{$MAD$ analysis and shape classification \label{sec:mad_class}}
+
+\subsection{Visual exploratory cluster analysis}
 
 
-Com base na metodologia exposta apresentamos neste capítulo os resultados experimentais que obtivemos na análise dos descritores dimensão fractal multiescala, energia de dobramento multiescala, entropia diferencial da curvatura multiescala e entropia discreta da curvatura multiescala.
+\subsection{Shape retrieval experiment}
 
-Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na subseção a seguir para em seguida apresentarmos os resultados obtidos com os descritores de entropia multiescala.
+
+{\color{red}
+
+\section{\emph{Classificação de formas e sua relação com  a função objetivo}}
+Experiments were carried out to compare the optimization algorithms regarding convergence.  Figure \ref{fig:converge} illustrates the convergence of each optimization algorithm for $30$ runs on a subset of leaf shapes. 
+The optimization results indicate that PSO required a smaller number of iterations to converge to an optimal solution, whereas SA and DE required a larger number of iterations. Since convergence aspects are closely related
+to the number of iterations required to achieve an optimal solution, few iterations imply poor exploration of the search space, thus leading to premature convergence \citeonline{Andries:2007}. In such case, the optimization method tends to get stuck in local minimums finding sub-optimal solutions. On the other hand, slower convergence enables the optimization method to explore more the search space, thus increasing the chance to converge to global minima, i.e. optimal solutions \citeonline{Andries:2007}. 
+In this context, PSO hit more frequently in sub-optimal solutions, reaching a higher mean MAD value of 
+$0.805 \pm 0.006$. On the other hand, SA and DE achieved lower mean 
+MAD values of $0.795 \pm 0.006$ and $0.798 \pm 0.004$, respectively. 
+
+In this context, the experimental results demonstrated that SA and DE were more efficient than PSO to find an optimal solution. However, the computational cost evaluation indicated that SA was less expensive than DE since the former evaluated the objective function less times than the latter.  Section \ref{sec:comp_cost} addresses more details about the computational cost of the optimization algorithms.
+
+\begin{figure}[!htb]
+\includegraphics[width = \textwidth]{fig6.eps}
+\caption{\label{fig:converge}Convergence of the optimization methods: (a) SA, (b) DE, (c) PSO. The red lines in each graphic refer to the mean MAD value of 30 runs (black lines) for the results of each optimization strategy within a subset of leaf shapes.}
+\end{figure}
+
+\begin{table}[hb!]
+\begin{minipage}{\textwidth}
+\renewcommand\footnoterule{}
+\caption{Different MAD values and the classification results for different scale selection strategies for Flavia leaf data set.}
+\label{tab:leaves_supervised_results}
+\resizebox{\textwidth}{!}{ 
+\begin{tabular}{cccccccccc}
+\toprule[1.5pt]
+ & \multicolumn{8}{c}{Classifier} \\ \cmidrule(lr){2-9} 
+ & \multicolumn{2}{c}{NB}  & \multicolumn{2}{c}{Knn (n = 5)}  & \multicolumn{2}{c}{LDA}  & \multicolumn{2}{c}{QDA} \\
+\cmidrule(lr){2-3}  \cmidrule(lr){4-5} \cmidrule(lr){6-7}  \cmidrule(lr){8-9}
+MAD & Precision & Recall & Precision & Recall & Precision & Recall & Precision & Recall \\ \midrule
+$0.762$\footnote{Using SA}        & ${0.91 \pm 0.02}$   & ${0.89 \pm 0.02}$         & ${0.93 \pm 0.02}$          & ${0.92 \pm 0.02}$         & ${0.87  \pm 0.02}$          & ${0.85\pm 0.02}$         & ${0.95  \pm 0.01}$          & ${0.94  \pm 0.01}$         \\
+$0.783$\footnote{Using DE}        & $0.88 \pm 0.02$          & $0.87\pm0.02$         & $0.90\pm0.02$          & $0.88\pm0.02$         & $0.85\pm0.02$          & $0.83\pm0.03$         & $0.91\pm0.02$          & $0.90\pm0.02$         \\
+$0.829$\footnote{Using PSO}        & $0.86\pm0.03$          & $0.85\pm0.03$         & $0.89\pm0.03$          & $0.88\pm0.03$         & $0.84\pm0.03$         & $0.82\pm0.03$         & $0.91\pm0.02$          & $0.89\pm0.02$         \\
+{$0.867$\footnote{Using scales proposed by \citeonline{Cesar:1996}}}          & $0.85\pm0.02$          & $0.84\pm0.02$         & $0.89\pm0.02$          & $0.88\pm0.02$         & $0.82\pm0.03$          & $0.81\pm0.03$         & $0.89\pm0.02$          & $0.88\pm0.02$         \\
+{$0.969$\footnote{\label{note1}Random selection}}          & $0.81\pm0.03$          & $0.79\pm0.03$         & $0.87\pm0.02$          & $0.85\pm0.02$         & $0.77\pm0.03$          & $0.77\pm0.03$         & $0.87\pm0.03$          & $0.85\pm0.03$         \\
+{$1.04$\footref{note1}}          & $0.69\pm0.03$          & $0.68\pm0.03$         & $0.83\pm0.03$          & $0.82\pm0.03$         & $0.74\pm0.03$          & $0.73\pm0.03$         & $0.81\pm0.03$          & $0.79\pm0.03$         \\
+\bottomrule[1.5pt]
+\end{tabular}}
+\end{minipage}
+\end{table}
+
+Our next analysis concentrates on the assumption that the optimized scales and the minimum values of MAD, which are intertwined, lead to an increase of the correct classification rate.
+Table \ref{tab:leaves_supervised_results} presents different MAD values and their corresponding classification results. The optimized scales which attained the best classification results correspond to the minimum values of MAD. The NMBE descriptor whose scales were adjusted according to \citeonline{Costa:1997} ($\operatorname{NMBE_{orig}}$) led the classifiers to reach an intermediate performance. The optimized NMBE ($\operatorname{NMBE_{opt}}$) improved the performance of all classifiers since they accomplished the highest Precision and Recall rates when the objective function reached the minimum values. Thus, we can state that there is an intrinsic relation between the high correct classification rates and minimum MAD values.
+Although the optimization algorithms achieved different MAD values and therefore different sets of optimized scales, the classification experiments showed that these scales captured leaf shape details and variations. Such results confirmed that we can take advantage of the optimization algorithms to strengthen leaf shape characterization and analysis. 
+In spite of NMBE has been originally designed for neural cell description, this paper focus on leaf shape characterization. Moreover, the proposed objective function tailored NMBE in terms of scales to the problem and leaf shape data set under analysis, satisfactorily. 
+  
+The classifiers that used the non-optimized NMBE with randomly selected scales did not perform well since they have reached the lowest values for Precision and Recall and the highest values for the objective function (MAD). 
+Thus, we concluded that randomly selected scales were less sensitive to leaf shape variations and tended to provide more misclassifications. 
+
+
+\section{\emph{Análise exploratória visual de agrupamentos}}
+The visual exploratory cluster analysis indicates that the optimized descriptor improves the cluster arrangement of leaf shapes, which reinforces that MAD is an objective function suitable to guide parameter optimization. 
+Figure \ref{fig:MatrizU_leaves_256}  depicts the U-matrices that support the visualization of leaf shapes. The leaf colors are in accordance with the class labels exhibited in Figure \ref {fig:bases}. These U-matrices comprise $1907$ leaf shapes, and furthermore each leaf is represented by its descriptor. 
+
+Figure \ref{fig:MatrizU_leaves_256}a shows leaf shapes which are described by the optimized NMBE, while Figure \ref{fig:MatrizU_leaves_256}b displays, in terms of U-matrix elements, leaf shapes described by the non-optimized NMBE descriptor.  The graphical representations of the \emph{silhouette}  measure in Figures \ref{fig:MatrizU_leaves_256}a and \ref{fig:MatrizU_leaves_256}b demonstrated that the leaf classes, which were properly characterized and grouped, were those with positive mean \emph{silhouette} values. Nevertheless, leaf shapes whose descriptors were not able to characterize and group them properly were those with negative  \emph{silhouette} values. Figure \ref{fig:MatrizU_leaves_256}a shows the remarkable  reduction of negative mean \emph{silhouette} values when applying $\operatorname{NMBE_{opt}}$ to shapes from Flavia leaf data set. 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig7.eps}
+ \caption{\label{fig:MatrizU_leaves_256}U-matrices and mean \emph{silhouette} measure for Flavia leaf data set using the (a) optimized and (b) non-optimized NMBE.}
+\end{figure}
+
+The black square in Figure \ref{fig:MatrizU_leaves_256}a highlights  the performance of the optimized descriptor. It also shows how well the optimized descriptor mapped leaf shapes into groups according to their respective classes.  Moreover, the optimized descriptor has remarkably improved  the mean \emph{silhouette} per class for almost all leaf classes. In contrast, the region inside the black square in Figure \ref{fig:MatrizU_leaves_256}b indicates that the non-optimized descriptor was unable to satisfactorily map leaf shapes in their corresponding classes.
+These results  indicated that the optimized descriptor has improved the cluster arrangement of leaves due to the intrinsic shape variations within the set of optimized scales that can not be properly embodied in the studied traditional parameter selection methods.
+
+Figures \ref{fig:MatrizU_leaves_II}a, \ref{fig:MatrizU_leaves_II}b and \ref{fig:MatrizU_leaves_II}c display the U-matrices and the corresponding MAD values for experiments on Flavia leaf data set with SA, DE and PSO, respectively. An interesting aspect to examine in these results regards the convergence of the optimization algorithms to different solutions (MAD). These solutions resulted in different cluster arrangements and therefore different relations among the neighborhood structure of clusters. For instance, the overall dispersion  of the elements in Figure \ref{fig:MatrizU_leaves_II}a and Figure \ref{fig:MatrizU_leaves_II}b tend to be very similar since  the corresponding MAD values are close to each other. At the same time, the result that corresponds to the highest MAD value ($0.829$) exhibits a relatively high dispersion within clusters, particularly at the center of the U-matrix (Figure \ref{fig:MatrizU_leaves_II}c), which reinforces the hypothesis that  PSO converged to a local minimum. These findings point to the important conclusion that the lower the MAD value, the better the cluster arrangement and hence the cluster quality. Therefore, we state that the cluster quality and MAD value are negatively correlated. Our analysis also considers that there are other solutions than the minimum, in the search space, which may be suitable to the problem under study. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth,trim = 0mm 0mm 0mm 4.5mm,clip]{fig8.eps}
+ \caption{\label{fig:MatrizU_leaves_II}U-matrices and MAD values for Flavia leaf data set achieved by using  the optimized NMBE with (a) SA, (b) DE, (c) PSO.}
+\end{figure}
+
+Figure \ref{MDS:Leaves} illustrates the MDS projections for three different MAD values. Figure \ref{MDS:Leaves}a corresponds to the cluster arrangement after the convergence of the SA algorithm, i.e. after reaching the minimum MAD value. These projections confirmed that the minimization of the objective function provided leaf cluster arrangements with lower average within-class distances and higher inter-class distances, and thus  more compact and separated clusters. The visual analysis of the three detail images in Figure \ref{MDS:Leaves}a discloses that the MDS projection of the optimized NMBE descriptor increased inter-class distances, whereas it reduced the within-class distances when compared to Figure \ref{MDS:Leaves}b and \ref{MDS:Leaves}c. Moreover, the $R^2$ coefficient values close to 1 imply that the low-dimensional representation preserved the mean distance in the original high-dimensional data space.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{fig9.eps}
+ \caption{\label{MDS:Leaves} MDS projections of the NMBE descriptors for leaf shapes of Flavia data set. (a) The SA-optimized NMBE descriptor with $MAD = 0.762$ (b) non-optimized NMBE with $MAD =0.969$ and (c) non-optimized NMBE with $MAD = 1.044$ }
+\end{figure}
+\section{\emph{Recuperação de imagens baseada em conteúdo - CBIR}}}
+For the sake of comparison, we have optimized the parameters of another shape descriptor namely inner distance shape context (IDSC) \citeonline{Ling:2007:SCU:1191552.1191806}.
+This descriptor is mainly applied to shape retrieval, which involves unsupervised shape classification tasks.  Moreover, IDSC employs dynamic programming (DP), such as Dynamic Time Warping (DTW) \citeonline{PalazonGonzalez2012978}, to improve shape matching accuracy. In this paper, we have replaced the $L_2$ norm by DTW to compute the \emph{silhouette} measure and the cost function defined in equation \ref{eq:mad}.  
+Figure \ref{figfig1Optmization-IDSC} exhibits the comparison of shape retrieval experiments which were performed on the public Flavia leaf data set and with both non-optimized NMBE and IDSC and their optimized counterparts ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$).
+The performance evaluation methodology has adapted the Bulls-eye measure, where the result is the overall number of shapes correctly  retrieved, in each rank position, for each shape in data set taken as a query.  Let $N_c$ be the number of shapes which belong to the class $c$. Here, the number of retrieved shapes ($N_r$) was adjusted to $N_r = 2\displaystyle \min_{c = 1,2,\dots 32}{N_c}$. Figure \ref{figfig1Optmization-IDSC} also demonstrates that the optimization methodology was decisive for both descriptors to achieve better retrieval rates. 
+Figure \ref{fig1Ooptimization_graph}  shows that after tuning IDSC parameters for the Flavia leaf data set with the optimization methodology the retrieval rate has remarkably increased. Therefore, $\operatorname{IDSC_{opt}}$  outperformed the optimized NMBE ($\operatorname{NMBE_{opt}}$) and non-optimized NMBE. In this sense, the optimized parameters of $\operatorname{IDSC_{opt}}$ may have incorporated subtle details of leaf shapes. On the other hand, we have observed that the non-optimized IDSC underperformed the non-optimized NMBE. 
+In order to provide a non-optimized counterpart of IDSC, we have followed the parameter setting introduced in \citeonline{wang2015march}.
+Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} exemplify samples of  plant leaves which were retrieved according to the rank of the similarity to the two queries. These results have demonstrated that the non-optimized descriptors in Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} were unable to retrieve all samples for the two queries, whereas the  optimized descriptors retrieved all of them, correctly.
+
+\begin{figure}[]
+\includegraphics[width=\textwidth]{fig10.eps}
+\caption{ Experiments conducted on Flavia leaf data set (a) retrieval rate by using both NMBE and IDSC and their optimized counterparts, (b) and (c) two leaf shape retrieval examples by using the non-optimized and optimized NMBE and IDSC descriptors, respectively.\label{fig1Ooptimization_graph}}
+\end{figure}
+
+\begin{comment}
+\begin{figure}[t!]
+\begin{subfigure}{0.55\textwidth}
+\includegraphics[width=\textwidth]{fig10a.eps}
+\caption{Retrieval rates. \label{fig1Ooptimization_graph}}
+\end{subfigure}
+\hspace*{\fill}
+\begin{minipage}{0.45\textwidth}
+\begin{subfigure}{\textwidth}
+\includegraphics[width=\textwidth]{fig10b.eps}
+\caption{Retrieval results with NMBE.} \label{subfig:upper-right}
+
+\end{subfigure}
+
+\vspace*{0.60cm}
+\begin{subfigure}{\textwidth}
+\includegraphics[width=\textwidth]{fig10c.eps}
+\caption{Retrieval results with IDSC.\label{subfig:lower-right}}
+\end{subfigure}
+\end{minipage}
+
+\caption{\label{figfig1Optmization-IDSC} Experiments conducted on Flavia leaf data set (a) retrieval rate by using both NMBE and IDSC and their optimized counterparts, (b) and (c) two leaf shape retrieval examples by using the non-optimized and optimized NMBE and IDSC descriptors, respectively.} 
+\end{figure}
+\end{comment}
+
+ Table \ref{table_bull_eyes_leaves} presents the performance evaluation of NMBE, whose scales were computed using the scheme introduced by \citeonline{Cesar:1996}, IDSC and their optimized counterparts.  The retrieval rates show that both optimized descriptors outperformed their non-optimized counterparts on Flavia data set. The remarkable improvement on the Bulls-eye rates reinforces our assumption that the optimization methodology is suitable for leaf shape retrieval and analysis.
+
+\begin{table}[h!]
+\centering
+\caption{Bulls-eye scores for Flavia data set.}
+\label{table_bull_eyes_leaves}
+  \begin{tabular}{cccccccc}
+  \toprule[1.5pt]
+ $\operatorname{NMBE}$ & $\operatorname{NMBE_{opt}}$ & IDSC    & $\operatorname{IDSC_{opt}}$\\ \midrule
+     63.86 \%  & 71.16 \%  & 53.38\%    & 77.50\%       \\
+  \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+Thus, we can infer that the optimized descriptors are more likely to succeed in shape retrieval experiments because the optimized sets of parameters probably embody intrinsic and subtle information about leaf shapes. We can also assume that these optimized descriptors may reliably characterize and also discriminate shape differences within and among leaf classes. 
+
+\subsection{Computational cost \label{sec:comp_cost}}
+
+Table \ref{tbl:complexity} shows the computational complexity results of the three optimization algorithms. SA and PSO present similar complexity results which rely on the number of iterations to converge ($N_{iter}$), population size ($N_{pop}$) and $P$ parameter. On the other hand,  DE  demands a higher complexity which relies on the dimension of the optimization problem ($D$), population size ($N_{pop}$) and number of iterations to converge ($N_{iter}$).
+
+\begin{table}[h!]
+\centering
+\caption{Computational complexity of the optimization methods.}
+\label{tbl:complexity}
+  \begin{tabular}{ll}
+  \toprule[1.5pt]
+ Method & Complexity\\
+ \midrule
+   SA  & $O(P.N_{iter}.\log{N_{iter}})$    \\
+   DE  & $O(N_{pop}.N_{iter}.D)$   \\
+   PSO&  $O(N_{pop}.N_{iter}.\log{N_{iter}})$\\
+  \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+For the sake of comparison, we assumed that the computational cost is the number of times that the objective function is demanded throughout the optimization process. Its calculation takes into account the parameter setting of each method, presented in Section \ref{subsec:opmet}, and the corresponding computational complexity.  The computational cost to address the optimization of the multiscale descriptor for SA, DE and PSO yielded $7,4314$, $19,500$ and $1,107$, respectively. 
+
+It is worth noting that there is a trade-off between the computational cost and the quality of the optimal solution found. Although the reduction of the number of shape samples, image resolution and the $N_{pop}$ variable can lessen the computational cost, it may degrade the optimization result. Moreover, parallelism may contribute to reduce the computational cost without degrading the optimization result.  However, it adds an extra computational complexity to the optimization algorithms.
+
+}
+
 
 \section{Visualização dos dados}
 
@@ -36,25 +204,25 @@ Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edif99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia diferencial da curvatura multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edif99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediferencial99.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edif216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia diferencial da curvatura multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edif216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediferencial216.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edis99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia discreta da curvatura multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edis99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediscreta99.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edis216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia discreta da curvatura multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edis216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediscreta216.png}
 \end{figure}
