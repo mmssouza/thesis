@@ -4,21 +4,28 @@
 
 % apresenta o capítulo como faz nos outros
 
-{\color{red} TENTEI AJEITAR AS REFS ERRADAS DO CESAR JR AND COSTA , AJEITEI NO TESE.BIB, MAS NO TEXTO CONTINUAVA ERRADO, FIZ DO MEU JEITO}
-
 Como principal sentido humano, a visão tem inspirado toda uma área de pesquisa denominada visão computacional, cuja origem e evolução, intimamente relacionada com a história da computação, tem recentemente motivado o desenvolvimento de tecnologias com uma vasta gama de aplicações \cite{Costa:2009}. A visão é um processo complexo, pois envolve a análise de várias informações visuais, como a cor, profundidade, movimento, forma e textura dos objetos, com o propósito de locomoção, reconhecimento, classificação e manipulação dos objetos \cite{Ullman:1996}.
 
 Dentre as informações visuais, a forma desempenha um papel importante no sistema de percepção visual humano pela riqueza de informação que esta propicia. A forma advém da imagem resultante da projeção dos objetos existentes no espaço tridimensional em estruturas bidimensionais, como a retina do olho humano ou um sensor de \emph{CCD} de uma câmera.
 
-Uma área de particular interesse em aplicações de visão computacional é o processo de análise e reconhecimento de formas, que envolve representá-las computacionalmente para avaliar, com base nessa representação, o grau de similaridade entre as mesmas. Esse processo consiste em detectar e representar pistas visuais das imagens suficientemente informativas para melhorar o desempenho dos algoritmos que realizam as tarefas de classificar, comparar ou reconhecer os objetos.\cite{Escolano:2009}.
+Uma área de particular interesse em aplicações de visão computacional é o processo de análise e reconhecimento de formas, que envolve representá-las computacionalmente para avaliar, com base nessa representação, o grau de similaridade entre as mesmas. Esse processo consiste em detectar e representar pistas visuais das imagens suficientemente informativas para melhorar o desempenho dos algoritmos que realizam as tarefas de classificar, comparar ou reconhecer os objetos \cite{Escolano:2009}. Quanto a avaliação de similaridade, procura-se por medidas que sejam semelhantes ao sistema de percepção da visão humana, ainda que não esteja totalmente claro como tal sistema opera \cite{4815272}. 
 
-Outro aspecto importante no reconhecimento de formas são as medidas de avaliação de similaridade. Destas procuram-se aquelas que sejam semelhantes ao sistema de percepção da visão humana, ainda que não esteja totalmente claro como tal sistema opera \cite{4815272}. 
+Outro aspecto importante em análise de formas é adequar o descritor às particularidades do problema que se almeja resolver. Tal tarefa envolve ajuste de parâmetros, bem como a investigação da estrutura que o descritor impõe aos dados. Busca-se assim ajustar a descrição ao domínio de conhecimento do problema, ou seja, colocá-la em conformidade com a percepção dos especialistas da área. 
 
-Este trabalho explora técnicas para representação computacional de características das formas para fins de reconhecimento de padrões. O atual estado da arte em representação de formas é apresentado nesta introdução na Seção \ref{sec:est_art}. A Seção \ref{sec:motiv_obj} comenta quais aspectos motivaram o desenvolvimento deste trabalho de pesquisa. Já a Seção \ref{sec:contrib} apresenta as contribuições do trabalho, e a Seção \ref{sec:prod_cientif} a produção científica decorrente do mesmo. Finalizando esta introdução, temos na Seção \ref{sec:org} a estruturação da tese.
+Muitas vezes, o projeto de descritores de forma atribui valores de parâmetros que independem da base de dados representada e, em outras situações, esse ajuste é obtido através de um processo empírico ou mesmo por força bruta \cite{mokhtarian1998robust, Ling:2007:SCU:1191552.1191806, Wang2012134}. \citeonline{Paula:2013} utilizou um esquema de otimização a força bruta reportando resultados satisfatórios no ajuste de parâmetros de um descritor a uma base de imagens. Já \citeonline{4815272} propôs um método que ajusta parâmetros dos descritores de forma por aprendizagem supervisionada. Assim, a similaridade entre padrões de formas pré estabelecidos são utilizados num processo de aprendizagem sensível ao contexto, que busca por parâmetros que sejam mais adequados ao calculo da matriz de similaridade dum conjunto de formas \cite{4815272}.
+
+O ajuste de parâmetros dos descritores pode ser encarado como um problema de otimização, onde inteligência computacional (CI) \cite{Andries:2007}, uma sub-área da inteligência artificial, encontra aplicação. Estudos dessa área envolvem o desenvolvimento de algoritmos bio-inspirados, que apresentam comportamento inteligente, para resolução de problemas complexos. Em otimização, os algoritmos de computação evolucionária (EC)  são aqueles que imitam a evolução natural de processos de populações. Nessa abordagem, cada solução candidata é análoga a um indivíduo em uma população e a sua qualidade à aptidão desse indivíduo \cite{Eiben:2015}.
+
+Para avaliar o desempenho dos descritores realizamos experimentos de classificação supervisionada e não supervisionada em formas de bases públicas, bem como em formas de uma base de folhas de plantas. Embora importantes, consideramos as métricas de avaliação desses experimentos, como a acurácia, precisão e revocação  \cite{Ting:2010}, não revelam aspectos importantes de interesse desse trabalho, como o grau de separação entre-classes e coesão intra-classe que o descritor propicia \cite{Meta:2009}. A propriedade de separação entre-classes diz respeito à habilidade do descritor em diferenciar formas que não sejam similares e, portanto, pertencentes a classes distintas. Já a coesão intra-classe indica o potencial do descritor em representar formas similares como pertencentes a uma mesma classe.  Medidas de qualidade de agrupamentos \cite{Meta:2009} avaliam tais propriedades quantitativamente, enquanto o uso de técnicas de projeção de dados \cite{Amorim201535} permitem avaliá-las qualitativamente. Através dessas últimas, é possível inferir, visualmente, a estrutura que o descritor impõe aos dados quando os representa num espaço vetorial multidimensional. 
+
+Este trabalho explora métodos multiescala de descrição de forma para fins de reconhecimento de padrões, introduzindo um método automático para a adequação desses descritores ao problema de identificação de espécies vegetais a partir do contorno das folhas. Esse método busca, através de otimização evolutiva,   ajustar os parâmetros desses descritores para que esses propiciem a melhor configuração possível de arranjo das formas em seu espaço de representação multidimensional. Avaliamos o desempenho dos descritores otimizados pela metodologia proposta sob três aspectos: visualização dos dados, medidas de avaliação de agrupamentos e desempenho em experimentos de classificação supervisionada e não supervisionada.   
+
+%Este trabalho introduz uma metodologia de otimização para ajuste de  parâmetros do descritor energia de dobramento multiescala (NMBE) \cite{Costa:1997} no contexto de adequá-lo à aplicação de análise de forma de folhas para o reconhecimento de espécies vegetais. Para avaliar a metodologia exploramos três técnicas clássicas de visualização de dados para investigação da qualidade dos descritores: a análise das componentes principais (\emph{PCA}), o mapa auto-organizável de Kohonen (\textit{SOM}) \cite{Kohonen:1982} e o escalonamento multidimensional (\textit{MDS}).
+
+
+Iniciamos esta introdução apresentando na Seção \ref{sec:est_art} o atual estado da arte em representação de formas para, em seguida, na Seção \ref{sec:motiv_obj}, comentarmos sobre os aspectos que motivaram o desenvolvimento deste trabalho de pesquisa. Já na Seção \ref{sec:contrib} apresentamos as contribuições deste trabalho e na Seção \ref{sec:prod_cientif}, a produção científica decorrente do mesmo. Finalizando, temos a Seção \ref{sec:org}, que expõe a estruturação desta tese.
 
 \section {Estado da arte \label{sec:est_art}}
-   
-{\color{red} A DEFINIR O LUGAR ERA PARTE DA Motivação}
 
 Há dois tipos de métodos de descrição de formas: os baseados em região e os baseados em contorno \cite{Zhang:2004}. Os baseados em região extraem características de toda a área interior à forma. Alguns métodos desta natureza são os momentos de Zernike \cite{Kim:2000} e os momentos de Legendre \cite{Yang:2006} que, apesar de apresentarem excelente desempenho, são inadequados para reconhecimento de objetos na presença de oclusões. Utilizando as propriedades da transformada de Fourier, o descritor genérico de Fourier \cite{Zhang:2002} permite a análise multiescala de formas.
 
@@ -44,21 +51,25 @@ Em \cite{Kenji:1992} as formas são decompostas em diferentes retângulos. A loc
 
 \section{Motivação e objetivos \label{sec:motiv_obj}}
 %1.1 MOTIVAÇÃO E OBJETIVOS (Na motivação vc enxerta o que já tem na INTRO inclui o texto que já está aqui  como motivação e pincela um pouco sobre o estado da arte que sustenta o trabalho. Como é um doutorado deve ter papers de 2015 e 2016.
-Em várias aplicações, informações sobre a forma são suficientes para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Zhang201661,deSouza2016,Zhao20153203}. Na medicina, descritores de forma foram aplicados no diagnóstico de doenças da coluna vertebral \cite{Lee:2009}, na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009} e na identificação automática de pílulas \cite{Ushizima:2015}. Em microscopia, descritores de forma foram aplicados na análise de materiais particularizado \cite{Zhang201661}. 
+Em várias aplicações, informações sobre a forma são suficientes para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Zhang201661,deSouza2016,Zhao20153203}. Na medicina, descritores de forma foram aplicados no diagnóstico de doenças da coluna vertebral \cite{Lee:2009}, na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009} e na identificação automática de pílulas \cite{Ushizima:2015}. Em microscopia, descritores de forma foram aplicados na análise de materiais particularizado \cite{Zhang201661}. Descritores de forma também encontram aplicação em busca de informação de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
 
-Grande parte dos descritores de forma \cite{Belongie:2002, 1467513, Nanni20122254, Hu20123348, Latecki:2007, Wang2012134} são voltados para a utilização em sistemas de busca de imagens pelo conteúdo ou, do inglês,\foreignlanguage{english}{\emph{Content-based image retrieval}} (\emph{CBIR}). Sistemas dessa natureza realizam buscas em bases multimídia utilizando o conteúdo visual das imagens para recuperar aquelas que sejam do interesse do usuário mediante um padrão de consulta por ele especificado \cite{Feng:2003}. Em termos de aplicações de descritores de formas em \emph{CBIR}, destacamos a identificação de espécies vegetais através das folhas \cite{deSouza2016,
-Fotopoulou:2013,Zhao20153203, Nam2008245, Wang:2000} e a recuperação de informação de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
+Em sua maioria, descritores de forma \cite{Belongie:2002, 1467513, Nanni20122254, Hu20123348, Latecki:2007, Wang2012134} são voltados para a utilização em sistemas de busca de imagens pelo conteúdo ou, do inglês,\foreignlanguage{english}{\emph{Content-based image retrieval}} (\emph{CBIR}). Sistemas dessa natureza realizam buscas em bases multimídia utilizando o conteúdo visual das imagens para recuperar aquelas que sejam do interesse do usuário mediante um padrão de consulta por ele especificado \cite{Feng:2003}. Em termos de aplicações de descritores de formas em \emph{CBIR}, destacamos, em particular, neste trabalho a identificação de espécies vegetais através das folhas \cite{deSouza2016,
+Fotopoulou:2013,Zhao20153203, Nam2008245, Wang:2000} 
 
-Pesquisas recentes \cite{Principe:2014,Zang:2014} tem explorado conceitos da teoria da informação, como entropia e medidas de divergência, em análise de formas \cite{Escolano:2009}, pois essas medidas se relacionam diretamente com as informações contidas nos sinais \cite{Principe:2011}. \citeonline{Page:2003} utilizam a entropia de Shannon da curvatura em análise de formas para medir a complexidade de formas planas. \citeonline{1716783} aplicam conceitos da teoria da informação, como divergência e entropia, para medir similaridade entre formas e imagens \cite{Principe:2014,Zang:2014}.
+A identificação e classificação de espécies de plantas é um problema de interesse da biologia. Estima-se que existam certa de $298.000$ espécies vegetais terrestres, embora estejam catalogadas um total de $215.000$ (MORA et al.,2011). Há, portanto, temas de pesquisa em aberto e trabalho por fazer, particularmente, nos países com ecossistemas tropicais aonde há grande biodiversidade vegetal.
 
-Grande parte dos trabalhos avaliam a qualidade dos descritores de forma por métricas de classificação como acurácia, precisão e revocação  {\color{red} CITAR FONTE, POIS VC SEQUER DISSE AINDA O QUE É REVOCAÇÃO PRECISÃO ACURÁCIA, PONHA FONTES ENTÃO}. Entretanto, tais medidas não possibilitam inferir propriedades importantes como o grau de separação entre-classes e coesão intra-classe que o descritor propicia \cite{Meta:2009}. A propriedade de separação entre-classes diz respeito à habilidade que o descritor tem em diferenciar formas que não sejam similares e, portanto, pertencentes a classes distintas. A coesão intra-classe indica o potencial do descritor em representar formas similares como pertencentes a uma mesma classe.  
+A abordagem para a classificação de espécies de plantas é a taxonomia, ou seja, o treinamento de especialistas, denominados taxonomistas, em identificar as espécies manualmente  através das características observadas nas plantas. A deficiência desse método é o aspecto subjetivo do taxonomista, que é o especialista que julga as diferenças entre espécies (GOMES et al.,2013). Ademais, normalmente os taxonomistas são especialistas em identificar um pequeno grupo de espécies, sendo assim impossível que os mesmos classifiquem entre diversas espécies \cite{Cope20127562}.
 
-No entanto, pode-se inferir tais propriedades quantitativamente e qualitativamente através de medidas de qualidade de agrupamentos \cite{Meta:2009} e técnicas de projeção, respectivamente. Estas últimas possibilitam visualizar os dados multidimensionais em um espaço de dimensão reduzida a fim de inferir a estrutura que a representação impõe aos dados no espaço vetorial multidimensional.
+Historicamente, as amostras de espécies foram sempre armazenadas em arquivos físicos, denominados de herbários, para posterior classificação, tornando o acesso às amostras difícil e lento. Com a criação das bases de dados digitais, a informação tornou-se facilmente acessível aos pesquisadores em qualquer parte do mundo, o que têm permitido o desenvolvimento de métodos computacionais automatizados de classificação de espécies baseados em reconhecimento de padrões através de características morfológicas.
 
-Este trabalho explora métodos multiescala de descrição de forma para fins de reconhecimento de padrões, aonde conceitos da teoria da informação são utilizados para esta finalidade. Assim, propomos um novo descritor multiscala de formas baseado em entropia.  Investigamos também o uso das medidas de divergência na avaliação da similaridade entre formas. 
-Neste trabalho exploramos duas técnicas, classicamente empregadas em visualização de dados, para investigar a qualidade dos descritores de formas: a análise das componentes principais (\emph{PCA}) e o mapa auto-organizável de Kohonen (\textit{SOM}) \cite{Kohonen:1982}.   
 
-Este trabalho explora técnicas para representação computacional de características das formas para fins de reconhecimento de padrões, em particular os algoritmos multiescala de representação do contorno das formas.  Enfatizamos também as técnicas de representação do contorno por assinaturas, uma vez que descritores multiescala podem ser obtidos a partir dessas assinaturas. 
+Da necessidade de se aplicar técnicas de reconhecimento de padrões na classificação de espécies vegetais, surgiu a idéia de se extrair características do contorno da forma de folhas, provenientes de uma base de imagens real coletadas em campo, através das técnicas multiescala.
+
+%Pesquisas recentes \cite{Principe:2014,Zang:2014} tem explorado conceitos da teoria da informação, como entropia e medidas de divergência, em análise de formas \cite{Escolano:2009}, pois essas medidas se relacionam diretamente com as informações contidas nos sinais \cite{Principe:2011}. \citeonline{Page:2003} utilizam a entropia de Shannon da curvatura em análise de formas para medir a complexidade de formas planas. \citeonline{1716783} aplicam conceitos da teoria da informação, como divergência e entropia, para medir similaridade entre formas e imagens \cite{Principe:2014,Zang:2014}.
+
+
+%Este trabalho explora técnicas para representação computacional de características das formas para fins de reconhecimento de padrões, em particular os algoritmos multiescala de representação do contorno das formas.  Enfatizamos também as técnicas de representação do contorno por assinaturas, uma vez que descritores multiescala podem ser obtidos a partir dessas assinaturas. Este trabalho introduz uma metodologia de otimização para ajuste de  parâmetros do descritor energia de dobramento multiescala (NMBE) \cite{Costa:1997} no contexto da aplicação em análise de folhas para reconhecimento de espécies vegetais. A maior contribuição deste trabalho é prover um método para ajuste de parâmetros de descritores multiescala de forma através de otimização evolutiva computacional.
+ 
 
 %Divergentes são funcionais que medem a distância existente entre modelos estatísticos que são utilizadas em processamento de sinais e reconhecimento de padrões \cite{Basseville1989349}.   
 
@@ -68,38 +79,34 @@ Este trabalho explora técnicas para representação computacional de caracterí
 %Uma área de pesquisa particularmente relevante em visão computacional é a que trata do desenvolvimento de algoritmos capazes de avaliar o grau de similaridade existente entre as formas de maneira análoga àquela realizada pelos humanos. Tal empreendimento envolve representar, ou descrever, computacionalmente o conteúdo dessas imagens e obter medidas que possibilitem avaliar a similaridade entre as mesmas com base em suas representações. Esses dois aspectos são o foco desse trabalho de pesquisa.
 
 
-
 O objetivo geral deste trabalho é investigar e desenvolver métodos de extração de características multiescala e de avaliação de similaridade de formas considerando sua aplicabilidade em experimentos de agrupamento, classificação e recuperação (\emph{CBIR}). Quanto aos objetivos específicos destacamos:
 
 \begin{itemize}
-\item Desenvolver descritores multiescala de formas a partir de características do contorno que envolvam informação sobre a curvatura, energia de dobramento e entropia diferencial;
+\item Desenvolver descritores multiescala de formas a partir de características do contorno que envolvam informação sobre a curvatura, energia de dobramento;
 
 \item Empregar técnicas de visualização de dados e medidas de avaliação da qualidade de agrupamentos para quantificar a capacidade discriminativa dos descritores estudados; 
 
+\item Propor uma função objetivo para os algoritmos de otimização na busca de soluções ótimas para os conjuntos de parâmetros multiescala de descritores formas;
 
-\item Propor uma nova função de custo mínimo que auxilia os algoritmos de otimização na busca de soluções ótimas para os conjuntos de parâmetros multiescala de descritores formas;
-
-\item Desenvolver de uma metodologia de ajuste automático de parâmetros dos descritores multiescala baseada em otimização evolucionária;
+\item Desenvolver uma metodologia de ajuste automático de parâmetros dos descritores multiescala baseada em otimização evolucionária;
 
 \item Realizar experimentos de classificação e recuperação em uma base pública de imagens de folhas de plantas;
 
-\item Investigar a aplicabilidade de medidas de divergência na avaliação de similaridade de formas em experimentos \emph{CBIR}.
 \end{itemize}
 
 
 \section{Contribuições \label{sec:contrib}}
 %1.2 CONTRIBUIÇÕES( LISTA DO QUE VC ALCANÇOU COM O TRABALHO)
 
-Como principais contribuições deste trabalho destacamos:
+A maior contribuição deste trabalho é prover um método para ajuste de parâmetros de descritores multiescala de forma através de otimização evolutiva.
+
+Ademais, destacamos:
 
 \begin{itemize}
-\item Proposta da entropia multiescala como um novo descritor para análise de formas;
 
 \item Proposta de uma metodologia de ajuste automático de parâmetros de descritores multiescala de formas;
 
 \item Proposta de uma nova função objetivo baseada na qualidade de agrupamentos para guiar  algoritmos de otimização na busca de soluções ótimas dos parâmetros multiescala de descritores formas; 
-
-\item Aplicação das medidas de divergência na análise de similaridade de formas em experimentos \emph{CBIR};
 
 \item Avaliação qualitativa de descritores de formas por ferramentas de análise exploratória visual de agrupamentos;
 
@@ -129,7 +136,8 @@ Os capítulos desta tese seguem a seguinte estrutura:
 
 \noindent \textbf{Capítulo \ref{chap:FUNDA}}:  descrição de conceitos teóricos e ferramentas utilizadas no desenvolvimento, avaliação e testes dos descritores, assim como no desenvolvimento da metodologia proposta para análise de formas.
 
-\noindent \textbf{Capítulo \ref{chap:TINFO}}:  introdução e aplicação de conceitos de teoria da informação como entropia e medidas de divergências utilizadas no desenvolvimento de um novo descritor multiescala para representação e análise de formas.
+\noindent \textbf{Capítulo \ref{chap:MatMet}}:  apresentação da metodologia para ajuste automático de parâmetros multiescala de formas por algoritmos de otimização evolucionária, bem como para a avaliação do descritor resultante do processe do otimização. Apresentamos ainda a função objetivo a ser minimizada na busca de soluções ótimas do problema.
 
-\noindent \textbf{Capítulo \ref{chap:MatMet}}:  apresentação da metodologia para ajuste automático de parâmetros multiescala de formas por algoritmos de otimização evolucionária. Apresentamos ainda a função objetivo a ser minimizada na busca de soluções ótimas do problema.
+\noindent \textbf{Capítulo \ref{chap:resultados}}: para o problema de classificação de espécies vegetais, mostra e discute os resultados obtidos na otimização dos descritores energia de dobramento multiescala e \emph{IDSC} .
 
+\noindent \textbf{Capítulo \ref{chap:ch5}}: apresenta nossas conclusões, apresentando sugestões para trabalhos futuros. 

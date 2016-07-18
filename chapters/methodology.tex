@@ -1,9 +1,12 @@
 \chapter{Metodologia}
 \label{chap:MatMet}
 
-O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do seu contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes, sendo esse ajuste dependente da natureza da aplicação, ou seja,  das características da base de imagens e do propósito ao qual o sistema de reconhecimento se destina.
+O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do seu contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes, sendo esse ajuste dependente da natureza da aplicação, ou seja,  das características da base de imagens e do propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e os valores dos fatores de escala utilizados na representação das formas. 
 
-Os descritores entropia multiescala, apresentado no Capítulo \ref{chap:FUNDA}, e a energia de dobramento multiescala requerem o ajuste dos seguintes parâmetros: o número e os valores dos fatores de escala utilizados na representação das formas. Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
+Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
+ 
+
+%Os descritores entropia multiescala, apresentado no Capítulo \ref{chap:FUNDA}, e a energia de dobramento multiescala requerem o ajuste dos seguintes parâmetros: o número e os valores dos fatores de escala utilizados na representação das formas. Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar esses descritores em aplicações de classificação supervisionada e não supervisionada.   
  
 
 \section{Ajuste de parâmetros}
@@ -81,7 +84,7 @@ A avaliação de qualidade dos descritores se dá qualitativamente e quantitativ
 Na avaliação quantitativa (Figura \ref{fig:metodo_4}e) utilizamos os rótulos e os vetores de características das formas para calculamos a medida de avaliação de agrupamentos \emph{Silhouette} \cite{Rousseeuw:1987}. Valores médios dessa medida, por classe de formas, indica a habilidade dos descritores em discriminar formas que pertençam a classes distintas e de agrupar formas que pertençam a uma mesma classe.
 \end{comment}
 
-We performed shape classification and retrieval experiments with the proposed optimization methodology by testing two descriptors on the Flavia data set \citeonline {4458016}, which comprises $1907$ leaf images with $32$ different species. Figure \ref{fig:bases} depicts leaf images taken from this challenging data set, which  presents a high between class similarity. This data set is widely used to validate automatic recognition systems of plant specimens. 
+Com o método de otimização proposto realizamos experimentos de classificação e recuperação de formas pelo conteúdo, para dois descritores, com a base de folhas de plantas Flavia \cite{4458016},  que possui $1907$ imagens de folhas de $32$ espécies. A Figura \ref{fig:bases} ilustra imagens das folhas desta base. Cada exemplar ilustrado foi segmentado e colorido de acordo com a espécie ao qual pertence. Essa base de folhas é amplamente utilizada na validação de trabalhos de reconhecimento automático de espécies de plantas. 
 
 \begin{figure}[!htb]
 \centering
