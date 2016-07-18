@@ -6,15 +6,6 @@ Com base na metodologia exposta apresentamos neste capítulo os resultados exper
 
 Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na subseção a seguir para em seguida apresentarmos os resultados obtidos com o descritor entropia multiescala.
 
-{\color{blue}
-\subsection{$MAD$ analysis and shape classification \label{sec:mad_class}}
-
-\subsection{Visual exploratory cluster analysis}
-
-
-\subsection{Shape retrieval experiment}
-
-
 {\color{red}
 
 \section{\emph{Classificação de formas e sua relação com  a função objetivo}}
@@ -94,7 +85,7 @@ Figure \ref{MDS:Leaves} illustrates the MDS projections for three different MAD 
 \includegraphics[width=\textwidth]{fig9.eps}
  \caption{\label{MDS:Leaves} MDS projections of the NMBE descriptors for leaf shapes of Flavia data set. (a) The SA-optimized NMBE descriptor with $MAD = 0.762$ (b) non-optimized NMBE with $MAD =0.969$ and (c) non-optimized NMBE with $MAD = 1.044$ }
 \end{figure}
-\section{\emph{Recuperação de imagens baseada em conteúdo - CBIR}}}
+\section{\emph{Recuperação de imagens baseada em conteúdo - CBIR}}
 For the sake of comparison, we have optimized the parameters of another shape descriptor namely inner distance shape context (IDSC) \citeonline{Ling:2007:SCU:1191552.1191806}.
 This descriptor is mainly applied to shape retrieval, which involves unsupervised shape classification tasks.  Moreover, IDSC employs dynamic programming (DP), such as Dynamic Time Warping (DTW) \citeonline{PalazonGonzalez2012978}, to improve shape matching accuracy. In this paper, we have replaced the $L_2$ norm by DTW to compute the \emph{silhouette} measure and the cost function defined in equation \ref{eq:mad}.  
 Figure \ref{figfig1Optmization-IDSC} exhibits the comparison of shape retrieval experiments which were performed on the public Flavia leaf data set and with both non-optimized NMBE and IDSC and their optimized counterparts ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$).
@@ -171,7 +162,6 @@ Table \ref{tbl:complexity} shows the computational complexity results of the thr
 For the sake of comparison, we assumed that the computational cost is the number of times that the objective function is demanded throughout the optimization process. Its calculation takes into account the parameter setting of each method, presented in Section \ref{subsec:opmet}, and the corresponding computational complexity.  The computational cost to address the optimization of the multiscale descriptor for SA, DE and PSO yielded $7,4314$, $19,500$ and $1,107$, respectively. 
 
 It is worth noting that there is a trade-off between the computational cost and the quality of the optimal solution found. Although the reduction of the number of shape samples, image resolution and the $N_{pop}$ variable can lessen the computational cost, it may degrade the optimization result. Moreover, parallelism may contribute to reduce the computational cost without degrading the optimization result.  However, it adds an extra computational complexity to the optimization algorithms.
-
 }
 
 
