@@ -2,7 +2,7 @@
 
 \chapter{Fundamentos teóricos\label{chap:FUNDA}}
 
-Neste capítulo apresentamos os conceitos necessários para a compreensão das técnicas e metodologias propostas neste trabalho, as quais são aplicadas em experimentos de recuperação de imagens pelo conteúdo. Destacamos ainda os métodos de extração de características do contorno das formas para obtenção de descritores. Enfatizamos neste capítulo as técnicas baseadas em assinaturas, em particular a curvatura, a distância ao centróide, a sequência de ângulos e os invariantes integrais. Utilizamos essas assinaturas para propor uma métrica de avaliação de similaridade entre formas. Apresentamos ainda as representações multiescala, a partir da qual desenvolvemos uma nova proposta de descritor multiescala de formas.
+Neste capítulo apresentamos os conceitos necessários para a compreensão das técnicas e metodologias propostas neste trabalho, as quais são aplicadas em experimentos de recuperação de imagens pelo conteúdo. Destacamos ainda os métodos de extração de características do contorno das formas para obtenção de descritores. Enfatizamos neste capítulo as técnicas baseadas em assinaturas, em particular a curvatura, a distância ao centroide, a sequência de ângulos e os invariantes integrais. Utilizamos essas assinaturas para propor uma métrica de avaliação de similaridade entre formas. Apresentamos ainda as representações multiescala, a partir da qual desenvolvemos uma nova proposta de descritor multiescala de formas.
 
 
 \section{\label{chap:CBIR} Sistemas de recuperação de imagens pelo conteúdo}
@@ -28,7 +28,7 @@ A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \emph{CBIR} cláss
 
 \begin{alineas}
 \item Módulo de interação com usuário: através desse módulo o usuário fornece como entrada ao sistema uma imagem de consulta e visualiza, como saída, os resultados das buscas. É também através desse módulo que são realizadas a inserção e a remoção de imagens da base de imagens, sendo esse último processo, destacado em linhas tracejadas, realizado pelo administrador do sistema;  
-\item Módulo de processamento de busca: esse módulo engloba grande parte da funcionalidade do sistema \textit{CBIR}, sendo esse composto pelos seguintes sub-módulos:
+\item Módulo de processamento de busca: esse módulo engloba grande parte da funcionalidade do sistema \textit{CBIR}, sendo esse composto pelos seguintes submódulos:
 \begin{alineas}
 \item Extração de características: contempla os algoritmos computacionais responsáveis em obter uma representação matemática, na forma de vetor de características, dos atributos visuais das imagens como cor, textura e forma;
 \item Avaliação de similaridade: contempla o método empregado para a avaliação do grau de similaridade existente entre as imagens a partir de suas respectivas representações vetoriais;
@@ -44,7 +44,7 @@ A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \emph{CBIR} cláss
 \legend{Fonte: \citeonline{Torres:2006}.}
 \end{figure}
  
-Neste trabalho enfatizamos os processos de extração de características e de avaliação de similaridade em \emph{CBIR}, sendo esses processos destacados nas sub-seções a seguir.
+Neste trabalho enfatizamos os processos de extração de características e de avaliação de similaridade em \emph{CBIR}, sendo esses processos destacados nas subseções a seguir.
 
 \subsection{Extração de características}
 
@@ -57,7 +57,7 @@ A cor é o atributo mais empregado em \emph{CBIR}, pois a mesma permite discrimi
 \begin{comment}Esses mesmos autores exemplificam como técnicas que não levam em consideração a distribuição espacial das cores os histogramas e os momentos de cores. 
 \end{comment}
 
-Atributos de textura são úteis na recuperação de imagens de satélites, bem como na busca de documentos digitalizados \cite{Smeulders:2000}. Essa é definida em termos de estruturas formadas por grupos de pixels que aparecem na imagem com certa periodicidade ou aleatoriedade. O método já consagrado para descrição de características de texturas é a matriz de co-ocorrência proposta por \citeonline{4309314}. No entanto, métodos baseados em transformações wavelet têm sido utilizados \cite{5376587}, mais notoriamente a transformada wavelet de Gabor \cite{531803}. Outra técnica que tem sido explorada na atualidade para descrição de texturas é a dimensão fractal multiescala \cite{Florindo:2013}. 
+Atributos de textura são úteis na recuperação de imagens de satélites, bem como na busca de documentos digitalizados \cite{Smeulders:2000}. Essa é definida em termos de estruturas formadas por grupos de pixels que aparecem na imagem com certa periodicidade ou aleatoriedade. O método já consagrado para descrição de características de texturas é a matriz de coocorrência proposta por \citeonline{4309314}. No entanto, métodos baseados em transformações wavelet têm sido utilizados \cite{5376587}, mais notoriamente a transformada wavelet de Gabor \cite{531803}. Outra técnica que tem sido explorada na atualidade para descrição de texturas é a dimensão fractal multiescala \cite{Florindo:2013}. 
 
 Informação relativa à localização espacial dos elementos de uma imagem permite, por exemplo, recuperar imagens de cenas fotográficas de paisagens externas, aonde distingue-se a localização do céu na região superior da imagem. Ademais, imagens fotográficas também tendem a apresentar em seu centro alguma informação significativa que difere do entorno da imagem, sendo essa informação útil no processo de recuperação de imagens de fotografias de pessoas, animais, etc.
 
@@ -138,12 +138,12 @@ A Figura \ref{fig:folha_contorno1} ilustra as etapas envolvidas no processo de r
 Neste trabalho  enfatizamos a aplicação de técnicas de processamento de sinais para a obtenção de representações globais do contorno das formas, uma vez que tais técnicas têm sido empregadas com sucesso para esse propósito \cite{Costa:2009}. 
 
 \begin{comment}
-Técnicas baseadas em contorno de formas exploram apenas a região da borda da forma. Há dois tipos de abordagens para extração de características do contorno das formas: global e estrutural. Na abordagem global a forma não é dividida em sub-partes e um vetor de características que representa toda a borda é obtido para representar a forma. Na abordagem estrutural a borda da forma é particionada em segmentos, denominados de primitivas mediante algum critério. A representação final é geralmente uma cadeia de caracteres, um grafo ou uma árvore.
+Técnicas baseadas em contorno de formas exploram apenas a região da borda da forma. Há dois tipos de abordagens para extração de características do contorno das formas: global e estrutural. Na abordagem global a forma não é dividida em subpartes e um vetor de características que representa toda a borda é obtido para representar a forma. Na abordagem estrutural a borda da forma é particionada em segmentos, denominados de primitivas mediante algum critério. A representação final é geralmente uma cadeia de caracteres, um grafo ou uma árvore.
 \end{comment}
 
 
 
-%representar uma forma consiste em caracterizá-la através de um conjunto de características que permitam reconstruir-la exatamente ou com um certo grau de precisão. Os mesmos autores classificam os métodos de representação das formas em três grandes grupos: por contorno, por região e por transformação.
+%representar uma forma consiste em caracterizá-la através de um conjunto de características que permitam reconstrui-la exatamente ou com um certo grau de precisão. Os mesmos autores classificam os métodos de representação das formas em três grandes grupos: por contorno, por região e por transformação.
     
 
 \begin{figure} 
@@ -156,16 +156,16 @@ Técnicas baseadas em contorno de formas exploram apenas a região da borda da f
 \subsection{\label{sec:Assinatura}Representações por assinaturas
 }
 
-\citeonline{Costa:2009} definem assinatura de uma forma como sendo um sinal discreto uni-dimensional que descreve algumas das características do seu contorno ou da sua região. Devido a redução de dimensionalidade, as assinaturas do contorno são representações compactas das formas. 
+\citeonline{Costa:2009} definem assinatura de uma forma como sendo um sinal discreto unidimensional que descreve algumas das características do seu contorno ou da sua região. Devido a redução de dimensionalidade, as assinaturas do contorno são representações compactas das formas. 
 
 Estas podem ser utilizadas diretamente como descritores, porém o custo computacional envolvido em sua comparação direta é elevado. Isso porque as assinaturas frequentemente não são totalmente insensíveis a rotação, translação e escalamento das formas, bem como variam no total de amostras conforme varia a resolução das imagens. 
 
 Algumas assinaturas são mais sensíveis a ruído e a pequenas distorções dos contornos, tornando necessário realizar filtragens. Embora melhore a robustez, tal processo acarreta em alguma perda de informação.
 
-Várias assinaturas vêm sendo empregadas na literatura para descrição de formas nas mais diversas aplicações, tais como a distância ao centróide, as coordenadas complexas, ângulo tangente, ângulo acumulativo, curvatura, área e comprimento da corda \cite{Zhang:2004}.
+Várias assinaturas vêm sendo empregadas na literatura para descrição de formas nas mais diversas aplicações, tais como a distância ao centroide, as coordenadas complexas, ângulo tangente, ângulo acumulativo, curvatura, área e comprimento da corda \cite{Zhang:2004}.
 
 \subsubsection*{\label{sec:Rep_par}Coordenadas paramétricas}
-A representação por coordenadas paramétricas consiste nas coordenadas dos pontos amostrados do contorno, representados a partir de um sistema de coordenadas pré-estabelecido, percorrendo-o sequencialmente em sentido horário ou anti-horário. Para o contorno discreto $\mathbf{C}$, com $N$ amostras, representado num sistema de coordenadas cartesianas, tal processo origina um conjunto de tuplas $\mathbf{C}[n] = \big(\mathbf{x}[n]\:\text{,}\:\mathbf{y}[n]\big)$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$, cujas componentes $\mathbf{x}[n]$ e $\mathbf{y}[n]$ são sinais discretos vetoriais das coordenadas amostradas do contorno.
+A representação por coordenadas paramétricas consiste nas coordenadas dos pontos amostrados do contorno, representados a partir de um sistema de coordenadas preestabelecido, percorrendo-o sequencialmente em sentido horário ou anti-horário. Para o contorno discreto $\mathbf{C}$, com $N$ amostras, representado num sistema de coordenadas cartesianas, tal processo origina um conjunto de tuplas $\mathbf{C}[n] = \big(\mathbf{x}[n]\:\text{,}\:\mathbf{y}[n]\big)$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$, cujas componentes $\mathbf{x}[n]$ e $\mathbf{y}[n]$ são sinais discretos vetoriais das coordenadas amostradas do contorno.
 
 Na Figura \ref{fig:folha_contorno} estão representados os sinais obtidos para o contorno da folha da Figura \ref{fig:folha_contorno1} com a amostragem $N = 280$ pontos. Em vermelho está destacado o ponto de origem aonde a varredura, em sentido horário, se inicia. Os dois pontos observados aonde a evolução do sinal $\mathbf{x}[n]$ inverte sua tendência (de crescente para decrescente e de decrescente para crescente) correspondem aos pontos mais salientes da folha. Já o platô observado no sinal $\mathbf{y}[n]$ corresponde a região da parte inferior da folha, em que quase não se observa variações do contorno ao longo do eixo $Y$.
    
@@ -244,14 +244,14 @@ A Figura \ref{fig:curv_folha} mostra a curvatura estimada, para o contorno da fo
 Particularmente, métodos de extração de características multiescala do contorno a partir da curvatura conseguem superar o problema supracitado aplicando filtragens passa-baixa a representação paramétrica do contorno antes de se calcular a curvatura. 
 \end{comment}
 
-\subsubsection*{Distância ao centróide}
-Uma assinatura simples pode ser obtida calculando-se a distância de cada coordenada do contorno ao centróide da forma. Esse último consiste, para um contorno discreto de $N$ amostras, em um vetor calculado, a partir das coordenadas do contorno, pela seguinte equação: 
+\subsubsection*{Distância ao centroide}
+Uma assinatura simples pode ser obtida calculando-se a distância de cada coordenada do contorno ao centroide da forma. Esse último consiste, para um contorno discreto de $N$ amostras, em um vetor calculado, a partir das coordenadas do contorno, pela seguinte equação: 
 
 \begin{equation}
 \big(x_{c}\:\text{,}\:y_{c}\big) = \Big(\frac{1}{N}\sum^{N}_{i=0}{\mathbf{x}[i]}\:\text{,}\:\frac{1}{N}\sum^{N}_{i=0}{\mathbf{y}[i]}\Big)\text{.}
 \end{equation}
 
-O sinal da distância ao centróide $\mathbf{dc}[n]$ é dado por:
+O sinal da distância ao centroide $\mathbf{dc}[n]$ é dado por:
 
 \begin{equation}
 \mathbf{dc}[n] = \sqrt{(\mathbf{x}[n] - x_c)^2 + (\mathbf{y}[n] - y_c)^2}\text{.}
@@ -259,18 +259,18 @@ O sinal da distância ao centróide $\mathbf{dc}[n]$ é dado por:
 
 Essa assinatura tem a propriedade de ser invariante a translação da forma, o que a torna independente do sistema de coordenadas adotado na parametrização do contorno. Embora não seja invariante a escala e a rotação, tais invariâncias podem ser obtidas, como sugerem alguns trabalhos. 
 
-Empregando um processo de sub-amostragem e de normalização pelo maior valor, \citeonline{Wang:2000} tornam essa assinatura invariante a escala. Para se alcançar invariância a rotação os referidos autores sugerem que, no processo de avaliação de similaridade entre duas assinaturas, seja realizado o deslocamento cíclico de uma das assinaturas até que se obtenha a maior similaridade.
+Empregando um processo de subamostragem e de normalização pelo maior valor, \citeonline{Wang:2000} tornam essa assinatura invariante a escala. Para se alcançar invariância a rotação os referidos autores sugerem que, no processo de avaliação de similaridade entre duas assinaturas, seja realizado o deslocamento cíclico de uma das assinaturas até que se obtenha a maior similaridade.
 
-Já \citeonline{Zhang:02} utilizam a distância ao centróide como assinatura para se obter os descritores de Fourier. Tal estratégia garante as propriedades de invariância a rotação e a escala.
+Já \citeonline{Zhang:02} utilizam a distância ao centroide como assinatura para se obter os descritores de Fourier. Tal estratégia garante as propriedades de invariância a rotação e a escala.
 
 \begin{figure}[h!]
-  \caption{\label{fig:cd} Assinatura da distância ao centróide para o contorno da folha da Figura \ref{fig:folha_contorno1}}
+  \caption{\label{fig:cd} Assinatura da distância ao centroide para o contorno da folha da Figura \ref{fig:folha_contorno1}}
   \centering
   \includegraphics[width=0.75\textwidth]{cd_v2.png}
   %\legend{Fonte: próprio autor}
 \end{figure}
 
-A Figura \ref{fig:cd} ilustra a assinatura da distância ao centróide para a folha da Figura \ref{fig:folha_contorno1}. Neste exemplo, a assinatura foi normalizada a partir da distância máxima ao centróide, que corresponde ao ponto vermelho demarcado tanto no gráfico como no contorno. 
+A Figura \ref{fig:cd} ilustra a assinatura da distância ao centroide para a folha da Figura \ref{fig:folha_contorno1}. Neste exemplo, a assinatura foi normalizada a partir da distância máxima ao centroide, que corresponde ao ponto vermelho demarcado tanto no gráfico como no contorno. 
 
 \subsubsection*{Sequência de ângulos}
 
@@ -742,7 +742,7 @@ Problemas de otimização, que consistem em encontrar mínimo e máximo de uma f
 
 Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
-\subsection{Recozimento simulado}
+\subsection{Recozimento simulado (\emph{SA})}
 
 O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a termperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores descresce exponencialmente à medida que o algoritmo interage.  
 
@@ -787,16 +787,19 @@ $n \gets n + 1$
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Evolução diferencial}
+\subsection{Evolução diferencial \emph{DE}}
 
-O algoritmo de otimização evolução diferencial 
-The differential evolution algorithm iteratively evolves a population of $N$ vectors of candidate solutions and it produces disturbed versions of each population solution by using a disturbance vector. Here, we employ the  \emph{DE/rand/1} strategy introduced by \cite{Storn:1996},  which is a modified version of DE that computes the disturbance vector according to equation:
+O algoritmo de otimização evolução diferencial \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos ou vetores de soluções candidatas. A cada interação, o mecanismo de cruzamento e mutação  se dá para cada indivíduo da população. O cruzamento consiste em produzir uma novo indivíduo ($d$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
+
+\noindent
 \begin{equation}
+\label{eq:de}
 \boldsymbol{d} = \boldsymbol{\sigma_1} + \beta.(\boldsymbol{\sigma_2} - \boldsymbol{\sigma_3}),
 \end{equation}
 
-\noindent where $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$ are three randomly selected distinct candidate solutions in the population, which are also different from the current solution to be disturbed.  The $\beta$ parameter is an amplification factor of the difference between $\boldsymbol{\sigma_2}$ and $\boldsymbol{\sigma_3}$. The disturbance occurs in each coordinate of the current solution, via a cross-over mechanism with probability $P_r$. Then, the disturbed solution replaces the current one in population if it has a better fitness, otherwise the algorithm keeps the current solution. 
-In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by following the guidelines in \cite{Storn:1996} and performing several tests. Finally,  we have approached the proposed optimization problem with the  parameter set: $N = 100$, $\beta = 0.56$ and $P_r = 0.3$.
+\noindent sendo o parâmetro $\beta$ um fator de amplificação da diferença entre os vetores $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$.
+
+O mecanismo de mutação do \emph{DE} utiliza o indivíduo $\boldsymbol{d}$, produzido pela Equação \ref{eq:de}, para perturbar o vetor de solução candidata atualmente em evolução $\boldsymbol{\sigma_k}$. Assim, com probabilidade de mutação $P_r$, substitui-se cada coordenada de $\boldsymbol{\sigma_k}$ pela coordenada de $\boldsymbol{d}$ correspondente. A implementação do \emph{DE} está detalhada no Algoritmo \ref{alg:de}.
 
 \begin{algorithm}[ht]
 \caption{Differential evolution optimization}
@@ -836,13 +839,15 @@ In this paper, we have tuned the algorithm parameters ($N$,$\beta$,$P_r$) by fol
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Enxame de partículas}
-{\color{red}
-Particle swarm optimization is a bio-inspired algorithm that evolves a population of $N$ solutions (particles) that move in the search space with a given velocity. This algorithm keeps track of the best positions attained by each particle (\emph{bpp}) and the best global position obtained by all particles (\emph{bgp}) of the swarm.  At each iteration, PSO corrects the particle velocities in the search space influenced by two attraction factors $c_1$ and $c_2$. The first factor  controls the tendency of the particle to search around its own best position (bpp) and the second one controls the tendency to move towards the best global position (bgp) found.  In order to guarantee that PSO converges to a global minimum, the particles decelerate exponentially along iterations with an inertia factor $\omega$ \cite{Yuhui:1998}. Here,  we have tuned the PSO parameters to $N = 25$, $\omega = 0.95$ and $c_1 = c_2 = 2$. It is worth noting that these values satisfy the convergence criteria for this optimization algorithm as described in \cite{Jiang20078}.}
-
+\subsection{Enxame de partículas (\emph{PSO})}
+ O enxame de partículas é um algoritmo de otimização bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada interação o algoritmo \emph{PSO}: a) registra as melhores posições alcançadas por cada partícula (\emph{bpp}) e a melhor posição globalmente encontrada por todas as partículas do enxame (\emph{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de \emph{bpp} e o segundo a tendência da partícula se movimentar em direção a \emph{bgp}; c) Atualiza a posição das partículas a partir das suas velocidades.
+ 
+ Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada interação por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo $PSO$ é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}. O Algoritmo \label{alg:pso} detalha a implementação do \emph{PSO} 
+  
+  
 \begin{algorithm}[ht]
-\caption{Particle Swarm Optimization}
-\label{alg:pso}
+\caption{Particle Swarm Optimization \label{alg:pso}}
+
 \begin{algorithmic}
 \Require $N\text{,}\:M > 0$,  $\:\omega \in (0,1]$, $\:c_1\text{,}\:c_2 \in R^+ $, $\:COST$
 \Ensure The best found solution that minimizes $COST$

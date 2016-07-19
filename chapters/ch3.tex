@@ -2,31 +2,31 @@
 
 \chapter{Resultados e Discussões \label{chap:resultados}}
 
-Com base na metodologia exposta apresentamos neste capítulo os resultados experimentais obtidos na análise dos descritores dimensão fractal multiescala, energia de dobramento multiescala
+Com base na metodologia exposta apresentamos neste capítulo os resultados experimentais obtidos na análise dos descritores dimensão fractal multiescala, energia de dobramento multiescala Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na seção a seguir 
 
-Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na subseção a seguir 
-
-{\color{red}
+{\color{blue}
 
 \section{\emph{Classificação de formas e sua relação com  a função objetivo}}
-Experiments were carried out to compare the optimization algorithms regarding convergence.  Figure \ref{fig:converge} illustrates the convergence of each optimization algorithm for $30$ runs on a subset of leaf shapes. 
-The optimization results indicate that PSO required a smaller number of iterations to converge to an optimal solution, whereas SA and DE required a larger number of iterations. Since convergence aspects are closely related
-to the number of iterations required to achieve an optimal solution, few iterations imply poor exploration of the search space, thus leading to premature convergence \citeonline{Andries:2007}. In such case, the optimization method tends to get stuck in local minimums finding sub-optimal solutions. On the other hand, slower convergence enables the optimization method to explore more the search space, thus increasing the chance to converge to global minima, i.e. optimal solutions \citeonline{Andries:2007}. 
-In this context, PSO hit more frequently in sub-optimal solutions, reaching a higher mean MAD value of 
-$0.805 \pm 0.006$. On the other hand, SA and DE achieved lower mean 
-MAD values of $0.795 \pm 0.006$ and $0.798 \pm 0.004$, respectively. 
+Foram realizados experimentos para comparação dos algoritmos de otimização sob aspecto de convergência. A Figura \ref{fig:converge} ilustra a convergência de cada um dos três algoritmos de otimização para $30$ repetições realizadas em um subconjunto da base de formas de folhas. Os resultados obtidos indicam que a otimização \emph{PSO} requereu um pequeno número de interações para convergir a uma solução ótima quando comparado aos algoritmos \emph{SA} e \emph{DE}. Uma vez que a convergência está relacionada com o número de interações necessárias para se atingir uma solução ótima, poucas interações implicam em uma em exploração deficiente do espaço de busca, ou seja, em convergência prematura \citeonline{Andries:2007}. Nesse caso, o método de otimização apresenta tendência de ficar preso a mínimos locais, encontrando assim soluções sub-ótimas para o problema. Por outro lado, a convergência mais lenta permite ao algoritmo explorar melhor o espaço de busca, aumentando portanto a chance deste convergira um mínimo global, ou seja, uma solução ótima \citeonline{Andries:2007}.
+ 
+Neste contexto, observa-se na Figura \ref{fig:converge}c que o \emph{PSO} encontrou soluções sub-ótimas com maior frequência, alcançando valores médios da função MAD  igual a $0,805 \pm 0,006$.  Já os algoritmos \emph{SA} e \emph{DE} alcançaram os menores valores médios de MAD : $0,795 \pm 0,006$ e $0,798 \pm 0,004$, respectivamente. 
 
-In this context, the experimental results demonstrated that SA and DE were more efficient than PSO to find an optimal solution. However, the computational cost evaluation indicated that SA was less expensive than DE since the former evaluated the objective function less times than the latter.  Section \ref{sec:comp_cost} addresses more details about the computational cost of the optimization algorithms.
+Logo, esses resultados demonstram que os algoritmos \emph{SA} e \emph{DE} foram mais eficazes que o \emph{PSO} em encontrar soluções ótimas. No entanto, o custo para alcançar tais soluções torna-se maior. A Seção \ref{sec:comp_cost} trata em mais detalhes as questões relativas ao custo computacional dos algoritmos de otimização utilizados.
 
 \begin{figure}[!htb]
 \includegraphics[width = \textwidth]{fig6.eps}
-\caption{\label{fig:converge}Convergence of the optimization methods: (a) SA, (b) DE, (c) PSO. The red lines in each graphic refer to the mean MAD value of 30 runs (black lines) for the results of each optimization strategy within a subset of leaf shapes.}
+\caption{\label{fig:converge}Convergência dos métodos de otimização para o problema de descrição de folhas de plantas: (a) SA, (b) DE, (c) PSO. As curvas em vermelho destacam o valor médio da função MAD para $30$ realizações de cada método (curvas em preto). }
 \end{figure}
 
-\begin{table}[hb!]
+Para a próxima análise assume-se a hipótese de que as escalas otimizadas e o valor ótimo de MAD, que estão inter-relacionadas, implicam em melhorias na taxa de classificação correta das espécies. Na Tabela \ref{tab:leaves_supervised_results} estão apresentados diversos valores de MAD e os correspondentes resultados em experimentos de classificação para diferentes classificadores. Observa-se que os melhores resultados de classificação correspondem aos menores valores de MAD obtidos através da otimização. Os resultados de classificação para o descritor \emph{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{NMBE_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Logo, o descritor \emph{NMBE} otimizado ($\operatorname{NMBE_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação rates para os menores valores de MAD, o que confirma a hipótese inicial.
+
+Apesar do descritor \emph{NMBE} ter sido originalmente projetado para descrição de neurônios, nosso trabalho aplicou-o com sucesso em caracterização de folhas de plantas, uma vez que a otimização o adequou ao problema em questão.
+Embora os diferentes algoritmos de otimização tenham atingido valores de MAD diferentes, e portanto conjuntos de escalas otimizadas distintas, os resultados dos experimentos de classificação mostraram corroboraram a conclusão anterior, pois tais conjuntos de escalas foram adequadas para gerar descritores capazes de capturar informações de detalhes que diferenciem apropriadamente as formas das folhas. Logo, os algoritmos de otimização trazem vantagens à representação multiescala com impacto significativo na caracterização das folhas. 
+
+\begin{table}[]
 \begin{minipage}{\textwidth}
 \renewcommand\footnoterule{}
-\caption{Different MAD values and the classification results for different scale selection strategies for Flavia leaf data set.}
+\caption{Valores de MAD e resultados de classificação das espécies vegetais da base de imagens Flavia para diferentes estratégias de escolha das escalas do descritor \emph{NMBE}. }
 \label{tab:leaves_supervised_results}
 \resizebox{\textwidth}{!}{ 
 \begin{tabular}{cccccccccc}
@@ -45,28 +45,22 @@ $0,829$\footnote{Using PSO}        & $0,86\pm0,03$          & $0,85\pm0,03$     
 \end{tabular}}
 \end{minipage}
 \end{table}
-
-Our next analysis concentrates on the assumption that the optimized scales and the minimum values of MAD, which are intertwined, lead to an increase of the correct classification rate.
-Table \ref{tab:leaves_supervised_results} presents different MAD values and their corresponding classification results. The optimized scales which attained the best classification results correspond to the minimum values of MAD. The NMBE descriptor whose scales were adjusted according to \citeonline{Costa:1997} ($\operatorname{NMBE_{orig}}$) led the classifiers to reach an intermediate performance. The optimized NMBE ($\operatorname{NMBE_{opt}}$) improved the performance of all classifiers since they accomplished the highest Precision and Recall rates when the objective function reached the minimum values. Thus, we can state that there is an intrinsic relation between the high correct classification rates and minimum MAD values.
-Although the optimization algorithms achieved different MAD values and therefore different sets of optimized scales, the classification experiments showed that these scales captured leaf shape details and variations. Such results confirmed that we can take advantage of the optimization algorithms to strengthen leaf shape characterization and analysis. 
-In spite of NMBE has been originally designed for neural cell description, this paper focus on leaf shape characterization. Moreover, the proposed objective function tailored NMBE in terms of scales to the problem and leaf shape data set under analysis, satisfactorily. 
   
-The classifiers that used the non-optimized NMBE with randomly selected scales did not perform well since they have reached the lowest values for Precision and Recall and the highest values for the objective function (MAD). 
-Thus, we concluded that randomly selected scales were less sensitive to leaf shape variations and tended to provide more misclassifications. 
+Por último, observa-se que os classificadores que utilizaram descritores gerados a partir de escalas selecionadas arbitrariamente não tiveram desempenho satisfatório, pois alcançaram os menores valores de Precisão e Revocação e os maiores valores da função MAD. Portanto, escalas aleatórias levam a uma representação multiescala menos sensível a variações de características das folhas, consequentemente, mais erros de classificação. 
 
 
 \section{\emph{Análise exploratória visual de agrupamentos}}
-The visual exploratory cluster analysis indicates that the optimized descriptor improves the cluster arrangement of leaf shapes, which reinforces that MAD is an objective function suitable to guide parameter optimization. 
-Figure \ref{fig:MatrizU_leaves_256}  depicts the U-matrices that support the visualization of leaf shapes. The leaf colors are in accordance with the class labels exhibited in Figure \ref {fig:bases}. These U-matrices comprise $1907$ leaf shapes, and furthermore each leaf is represented by its descriptor. 
+A análise exploratória visual dos agrupamentos  produzidos pela descrição NMBE das folhas indica que a descrição otimizada melhora a organização dos agrupamentos, o que reforça que a função objetivo MAD é adequada para guiar o processo de otimização desse descritor. A Figura \ref{fig:MatrizU_leaves_256}  ilustra a visualização da descrição das folhas através  das matrizes-U. Em cada posição da matriz, os valores numéricos da foram substituídos pela imagem das folhas correspondentes, estando as cores das folhas em correspondência com o rótulo das classes exibidas na Figura \ref {fig:bases}. Nessas matrizes-U estão representadas as $1907$ formas de folhas da base Flávia, sendo cada folha representada por sua descrição multiescala.
 
-Figure \ref{fig:MatrizU_leaves_256}a shows leaf shapes which are described by the optimized NMBE, while Figure \ref{fig:MatrizU_leaves_256}b displays, in terms of U-matrix elements, leaf shapes described by the non-optimized NMBE descriptor.  The graphical representations of the \emph{silhouette}  measure in Figures \ref{fig:MatrizU_leaves_256}a and \ref{fig:MatrizU_leaves_256}b demonstrated that the leaf classes, which were properly characterized and grouped, were those with positive mean \emph{silhouette} values. Nevertheless, leaf shapes whose descriptors were not able to characterize and group them properly were those with negative  \emph{silhouette} values. Figure \ref{fig:MatrizU_leaves_256}a shows the remarkable  reduction of negative mean \emph{silhouette} values when applying $\operatorname{NMBE_{opt}}$ to shapes from Flavia leaf data set. 
+A Figura \ref{fig:MatrizU_leaves_256}a mostra a matriz-U obtida para as formas de folhas representadas pelo descritor NMBE otimizado e a Figura \ref{fig:MatrizU_leaves_256}b, pelo descritor NMBE não otimizado. Os gráficos representativos da medida \emph{silhouette} nas respectivas figuras demonstram que as classes das folhas caracterizadas e, portanto, agrupadas adequadamente são as que apresentam valores de \emph{silhouette} média positivos. Por outro lado, as classes de folhas que o descritor não foi capaz de caracterizar e agrupar adequadamente são as que apresentaram valores negativos de \emph{silhouette} média. Comparando ambas as figuras, observa-se que na Figura \ref{fig:MatrizU_leaves_256}a há expressiva redução dos valores negativos de \emph{silhouette} média para a caracterização das folhas com o descritor $\operatorname{NMBE_{opt}}$. 
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{fig7.eps}
- \caption{\label{fig:MatrizU_leaves_256}U-matrices and mean \emph{silhouette} measure for Flavia leaf data set using the (a) optimized and (b) non-optimized NMBE.}
+ \caption{\label{fig:MatrizU_leaves_256} Matrizes-U e a\emph{silhouette} média para as descrições das folhas da base Flavia com o descritor NMBE (a) optimizado e (b) não otimizado.}
 \end{figure}
-
+}
+{\color{red}
 The black square in Figure \ref{fig:MatrizU_leaves_256}a highlights  the performance of the optimized descriptor. It also shows how well the optimized descriptor mapped leaf shapes into groups according to their respective classes.  Moreover, the optimized descriptor has remarkably improved  the mean \emph{silhouette} per class for almost all leaf classes. In contrast, the region inside the black square in Figure \ref{fig:MatrizU_leaves_256}b indicates that the non-optimized descriptor was unable to satisfactorily map leaf shapes in their corresponding classes.
 These results  indicated that the optimized descriptor has improved the cluster arrangement of leaves due to the intrinsic shape variations within the set of optimized scales that can not be properly embodied in the studied traditional parameter selection methods.
 
