@@ -1,21 +1,28 @@
 % !TeX root = ../main.tex
 \chapter{Conclusões e Trabalhos Futuros \label{chap:ch5}}
 
-Esta tese abordou a caracterização e análise de formas por meio de descritores multiescala baseados em conceitos de curvatura, energia de dobramento e entropia os quais foram calculados a partir do contorno de formas binárias. Considerando que estes descritores podem ser utilizados em diferentes aplicações e portanto, distintas bases de imagens, introduzimos uma metodologia versátil de ajuste automático de parâmetros por otimização evolucionária.
-A proposta da função objetivo a ser minimizada no processo de busca dos parâmetros é fundamentada na medida de qualidade de agrupamento \textit{silhouette}. Vale ressaltar que minimização desta função objetivo resulta no conjunto de parâmetros de escala ótimos dos descritores de forma que serão utilizados no problema em análise. A versatilidade desta metodologia se deve portanto, ao fato de que a mesma pode ser ajustada à  função  objetivo ou função custo e moldada assim para as bases de imagens do problema abordado.
-A avaliação de desempenho da metodologia de otimização mostrou que os parâmetros otimizados revelaram características e detalhes sutis das formas. De fato o conjunto otimizado de parâmetros, moldados pela minimização da função objetivo,  embute essas nuances da forma. A comprovação desde achado se deu pela considerável melhoria alcançada na organização dos agrupamentos e classificação das formas ao utilizarmos os descritores otimizados em bases com elevada similaridade de formas entre classes. As versões otimizadas dos descritores estudados discriminaram diferenças de formas dentro de uma mesma classe e entre classes.  
+Esta tese abordou a caracterização e análise de formas por meio de descritores multiescala baseados em conceitos de curvatura como a energia de dobramento. Estes descritores foram calculados a partir do contorno de formas binárias de bases de uso geral e uma base pública de folhas. Considerando que estes descritores podem ser utilizados em diferentes aplicações de visão computacional e portanto, distintas bases de imagens, introduzimos uma metodologia versátil de ajuste automático de parâmetros por otimização evolucionária. Vale destacar a importância e ao mesmo tempo a dificuldade inerente ao processo de ajuste manual ou empírico de parâmetros multiescala a um determinado problema ou aplicação. Assim sendo, neste trabalho apresentamos uma alternativa automática para o delineamento do descritor e seus parâmetros às particularidades do problema  e da base em estudo.  
+Na metodologia proposta para análise de formas de folhas de plantas, a função objetivo, a ser minimizada no processo de busca dos parâmetros, é fundamentada na medida de qualidade de agrupamento \textit{silhouette}. Como resultado da minimização desta função objetivo, encontramos em um conjunto otimizado de parâmetros de escala dos descritores de forma que são utilizados na análise de formas, em particular de folhas de plantas.  A versatilidade desta metodologia se deve portanto, ao fato de que a mesma pode ser ajustada à função  objetivo ou função custo e moldada assim para as bases de imagens do problema abordado.
+O desempenho da metodologia de otimização se mostrou satisfatório e promissor uma vez que os parâmetros otimizados incorporaram características e detalhes sutis das formas, o que foi confirmado pelas técnicas de avaliação qualitativa e quantitativa. De fato o conjunto otimizado de parâmetros, moldados pela minimização da função objetivo,  embute essas nuances da forma. A comprovação desde achado se deu pela considerável melhoria alcançada na organização dos agrupamentos, quantificada pela medida da qualidade de agrupamento e pela elevação na taxa de acerto da classificação das formas ao utilizarmos os descritores otimizados em bases com elevada similaridade de formas entre classes. As versões otimizadas dos descritores estudados discriminaram diferenças de formas dentro de uma mesma classe e entre classes.  
 Observamos ainda que determinadas classes de formas apresentaram-se mais desafiadoras que as demais para a representação das mesmas, e isso foi comprovado pela medida \textit{silhouette}  e o arranjo espacial exibido pelas técnicas de visualização exploratória de agrupamentos.
-Experimentos com uma base pública de imagem de folhas indicaram a adequação das metodologias propostas em problemas de taxonomia de folhas de plantas.
-Ademais, estas metodologias constituem uma ferramenta adicional e fonte de informação para taxonomistas discriminarem e agruparem espécies de plantas. 
+Experimentos com uma base pública de imagem de folhas indicaram a adequação das metodologias propostas em problemas de taxonomia de folhas de plantas. Vale ressaltar que a base de imagens de folhas de plantas Flavia é bastante desafiadora pois a mesma apresenta uma elevada similaridade entre formas de classes distintas. Isso significa que formas de classes distintas não apresentam significativas variações nos contornos das mesmas. Entretanto, essas particularidades podem ser captadas pelos descritores multiescala, os quais se mostraram bastante efetivos no agrupamento e classificação de formas de folhas.
+Esta importante característica da base Flavia é portanto um desafio para a metodologia e  para os descritores, de modo geral. 
+Ademais, a metodologia proposto constitui uma ferramenta adicional e fonte de informação para taxonomistas discriminarem e agruparem espécies de plantas. 
 
 
 \subsection{Trabalhos futuros}
 A partir deste trabalho, observamos que se desdobram outras ações futuras relacionadas a seguir: 
 \begin{itemize}
 
-\item melhoria do processo de otimização dos parâmetros, buscando outras alternativas para a função objetivo, de modo que se reduza o custo computacional do mesmo e melhore as taxas de classificação e recuperação;
+\item melhoria do processo de otimização dos parâmetros, buscando outras alternativas para a função objetivo, de modo que se reduza o custo computacional da metodologia e melhore as taxas de classificação e recuperação;
+
+\item análise de desempenho da metodologia proposta em outros problemas de visão computacional como reconhecimento automático de células saudáveis e com carcinoma a partir de descritores multiescala de formas;
+
+\item aplicação da metodologia de otimização em classificação taxonômica de outras espécies vegetais e animais;
 
 \item investigação e ajuste dos parâmetros dos algoritmos de otimização de modo que resultem em maior estabilidade na convergência, assim como em maior velocidade de processamento;
+
+\item seleção e testes de outros algoritmos de otimização evolucionária em análise  de formas;
 
 \end{itemize}
 

@@ -1,12 +1,18 @@
 \chapter{Metodologia}
 \label{chap:MatMet}
-{\color{red} POR NA SEÇÃO 3.4.1 A FIGURA 11 POIS ILUSTRAM A METODOLOGIA DE AVALIAÇÃO E VISUALIZAÇÃO}
 
 O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes dependentes da natureza da aplicação, ou seja,  das características da base de imagens e o propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e dos valores das escalas utilizadas na representação das formas. 
 
 Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar descritores multiescala à base de imagens de formas, para fins de melhoria do desempenho em classificação supervisionada e não supervisionada. 
 
 \section{Base de imagens}
+Temos na Figura \ref{fig:leaves} exemplares de folhas extraídas da base de imagens Flavia \cite{}.
+
+\begin{figure}[!ht]
+\caption{\label{fig:leaves} Trinta e duas amostras extraídas da base Flavia, que contém $1907$ imagens de folhas de $32$ espécies diferentes. Cada amostra corresponde a uma espécie.}
+\centering
+\includegraphics[width= \textwidth]{folhas.eps}
+\end{figure}
 
 \section{Extração de atributos}
 
@@ -85,8 +91,8 @@ NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ 
 \label{eq:nmbe}
 \end{equation}
 
-\section{Função custo}
-A metodologia para escolha de parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. Essa metodologia melhora a representação do descritor utilizando métodos de otimização evolutivos para minimizar uma função custo, que corresponde a mediana do erro absoluto da silhouette dos descritores ($MAD$). O que motivou a escolha dessa função objetivo é sua robustez a valores extremos \cite{Rousseeuw:1987:2}, sendo sua equação 
+\section{Função custo e otimização}
+A metodologia para escolha de parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. Essa metodologia melhora a representação do descritor utilizando métodos de otimização evolutivos para minimizar uma função custo, que corresponde a mediana do erro absoluto da \textit{silhouette} dos descritores ($MAD$). O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação 
 
 \begin{equation}
 \label{eq:mad}
@@ -97,12 +103,12 @@ MAD = \operatorname{mediana}\big(|s_i - 1|_{i =1,\:2,\:\cdots,\:L}\big)\text{,}
 \caption{\label{fig:Avaliacao}
  Proposta de uma metodologia para otimização evolucionária de um descritor multiescala de forma.} 
 \centering
-\includegraphics[width=\textwidth,trim = 14mm 164mm 0mm 24mm,clip]{Final_Flux.pdf}
+\includegraphics[width=\textwidth]{finalFlux.eps}
 \end{figure*}
 
 \noindent aonde $S = \{s_1,s_2,\cdots,s_L\}$ é o conjunto das \emph{silhouettes} calculadas para $L$ descritores de forma. Os operadores $|.|$  e {$mediana ( )$} retornam o valor absoluto e a mediana de um conjunto de valores, respectivamente.
 
-A Silhouette \cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, levando em conta as distâncias médias entre classes e intra classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
+A \textit{silhouette }\cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, levando em conta as distâncias médias entre classes e intra classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
 \begin{equation}
 s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
 \end{equation}
@@ -113,22 +119,20 @@ Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores nega
 
 Os valores da função objetivo $MAD$ assume valores no intervalo $[0,2]$. De forma análoga a silhouette, um valor igual a zero desta função indica que a estrutura dos clusters é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos clusters é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
 
-\section{Otimização}
-A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como se dá o ajuste dos parâmetros do descritor multiescala dentro da metodologia proposta. Primeiramente, é amostrado na base de folhas um subconjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor NMBE que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas e, em seguida, a avaliação de desempenho do mesmo.
+%\section{Otimização}
+Uma vez definida a função custo, o processo de otimização dos parâmetros descritor ajustará os mesmos ao problema em estudo. No caso da análise de formas de folhas, a otimização permite que os parâmetros, que minimizam a função objetivo ou função custo (\textit{MAD}),  incorporem nuances e detalhes do contorno das formas de folhas. O ajuste dos parâmetros ao problema em questão deverá melhorar as taxas de classificação e recuperação de formas de folhas de plantas. Vale destacar que a metodologia é versátil pois é ajustável a outras aplicações e portanto, suporta a definição de uma outra função objetivo. A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como se dá o ajuste dos parâmetros do descritor multiescala dentro da metodologia proposta, aplicada a um problema de análise de formas. Primeiramente, é amostrado na base de folhas um subconjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor NMBE que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas e, em seguida, a avaliação de desempenho do mesmo.
 
 \section{Avaliação do descritor}
 
-O desempenho do descritor é avaliado neste trabalho qualitativamente e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Já na avaliação quantitativa são analisadas as métricas de avaliação Precisão e Revocação, obtidas em experimentos de classificação supervisionada, a métrica \textit{bulls-eye} {\color{red}(CITAR)}, classicamente utilizada na comparação de descritores em recuperação de formas (CBIR) e a medida de avaliação de agrupamentos silhouette \cite{Rousseeuw:1987}. 
+O desempenho do descritor é avaliado neste trabalho qualitativamente e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa são analisadas as métricas de avaliação Precisão e Revocação, obtidas em experimentos de classificação supervisionada, a métrica \textit{Bulls-eye} \citeonline{Ling:2007:SCU:1191552.1191806}, classicamente utilizada na comparação de descritores em recuperação de formas (CBIR) e a medida de avaliação de agrupamentos silhouette \cite{Rousseeuw:1987}. 
 
-Para fins de comparação,  essas avaliações foram realizadas com o descritor otimizado com o método proposto {\color{red}( subseção xx)}, com parâmetros do descritor escolhidos aleatoriamente e de acordo com o método de ajuste dos parâmetros do descritor proposto em {\color{red}(ref do artigo do Luciano)}.
+Para fins de comparação,  as avaliações de desempenho qualitativa e quantitativa foram realizadas com as versões dos descritores otimizados com o método proposto e não otimizados, seja por escolha aleatória dos parâmetros ou por meio de ajuste apresentado em \cite{Costa:1997}.
 
 \subsection{Visualização dos dados}
 
-Algoritmos de visualização de dados produzem projeções bidimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas.
+Algoritmos de visualização de dados produzem projeções bidimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas. Os métodos de visualização empregados neste trabalho são o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional (MDS)} \cite{cox:2000}.
 
-Os métodos de visualização empregados neste trabalho são o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional (MDS)} \cite{cox:2000}.
-
-As projeções \textit{MDS} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo DE busca os parâmetros otimizados do descritor (NMBE). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções MDS do descritor NMBE otimizado utilizando o algoritmo DE.  Figure \ref{fig:optimization_result} demonstra que a medida que os valores de MAD decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta imagem, quando o método de otimização converge, ou seja MAD alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos. 
+As projeções \textit{MDS} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo DE busca os parâmetros otimizados do descritor (NMBE). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções MDS do descritor NMBE otimizado utilizando o algoritmo DE.  A Figura \ref{fig:optimization_result} demonstra que à medida que os valores de MAD decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta imagem, quando o método de otimização converge, ou seja MAD alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos. 
 
 \begin{figure}[t]
 \caption{\label{fig:optimization_result} Projeções do escalonamento multidimensional das formas da base Kimia-99 \citeonline{Sebastian:2004}. As imagens mostram como os agrupamentos evoluem ao longo do processo de otimização (DE), assim como os valores de MAD e $R^2$.}
@@ -168,27 +172,21 @@ A medida Bulls-eye também é utilizada na literatura para a comparação de dif
 
 \begin{figure*}[]
 \caption{\label{fig:Classific}
-Metodologia de classificação para avaliação de desempenho do descritor otimizado pelo método da {\color{red}Figura xx.}} 
+Metodologia de classificação para avaliação de desempenho do descritor otimizado pelo método proposto exibido na Figura.  \ref{fig:Avaliacao}} 
 \centering
 \includegraphics[width=0.7\textwidth]{fig_metodo_classifica_folhas.eps}
 \end{figure*}
 
-O procedimento adotado para avaliar o desempenho do descritor multiescala em classificação supervisionada está ilustrado na Figura \ref{fig:Classific}. 
-
-A etapa de pré-processamento consiste na segmentação das imagens das formas. Essa etapa só se aplica para a base de folhas Flavia, aonde um método simples de segmentação por limiar foi empregado. Já para o caso das formas das bases MPEG7-CE e Kimia, esta etapa não é necessária, pois as formas destas bases estão disponíveis já binarizadas.
+O procedimento adotado para avaliar o desempenho do descritor multiescala em classificação supervisionada está ilustrado na Figura \ref{fig:Classific}. A etapa de pré-processamento consiste na segmentação das imagens das formas. Essa etapa só se aplica para a base de folhas Flavia, aonde um método  de segmentação por limiar \cite{Gonzalez:2006} foi empregado. Para as formas das bases MPEG7-CE e Kimia-99, esta etapa não é necessária, pois as formas destas bases estão disponíveis já binarizadas.
 
 Após a extração de características das formas, os descritores obtidos (vetores de características) são divididos em grupos de amostras de teste/treino pelo método de validação cruzada K-Fold (K = 10) \cite{Webb:2002}. Então, os descritores são transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e em seguida, pela análise das componentes principais (PCA) para descorrelacioná-los. Cabe aqui salientar que as matrizes dessas transformações são obtidas apenas considerando as amostras de treino.
 
-A etapa de classificação utiliza os classificadores Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002},  o discriminante linear de Fisher (LDA) \cite{Webb:2002} e o discriminante quadrático (QDA) \cite{Fukunaga:1990}. 
-
-Para cada classificador foram realizadas $100$ rodadas da validação cruzada, tendo como resultado os valores médios e os desvios da Precisão e Revocação obtidos nesses experimentos. 
-
-Precisão e Revocação são medidas clássicas na avaliação do desempenho de descritores em experimentos de classificação supervisionada.
+A etapa de classificação utiliza os classificadores Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002},  o discriminante linear de Fisher (LDA) \cite{Webb:2002} e o discriminante quadrático (QDA) \cite{Fukunaga:1990}. Para cada classificador foram realizadas $100$ execuções da validação cruzada, tendo como resultado os valores médios e os desvios da precisão e revocação obtidos nesses experimentos.  As medidas clássicas de precisão e revocação são empregadas na avaliação do desempenho de descritores em experimentos de classificação supervisionada.
 
 
 \subsection{Avaliação quantitativa de agrupamentos}
 
-A silhouette média por classe avalia tanto a coesão como a separação das classes através da distância entre os vetores de características.
+A \textit{silhouette} média por classe avalia tanto a coesão como a separação das classes através da distância entre os vetores de características.
 
 
 

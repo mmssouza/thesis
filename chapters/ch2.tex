@@ -61,11 +61,11 @@ Dentre as abordagens empregadas na obtenção de representações a partir das f
 
 Na representação estrutural, as formas são divididas em um conjunto de partes constituintes, sendo cada parte representada individualmente através de vetores de características. O descritor é composto a partir desses vetores e da relação existente entre as partes, representadas através de estruturas de dados como grafos, árvores ou cadeias de caracteres. Uma vez que esses métodos comparam as formas a partir das suas estruturas, esses conseguem uma boa acurácia, porém a um custo computacional elevado.
 
-{\color{red}Métodos de representação de formas por transformação empregam transformadas como wavelet, Fourier e Espaço-Escala para descrever as formasESTA PEDINDO PARA CITAR TRABALHOS AQUI, OU ENTAO ELIMINA. Em \emph{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. }
+% {\color{red}Métodos de representação de formas por transformação empregam transformadas como wavelet, Fourier e Espaço-Escala para descrever as formasESTA PEDINDO PARA CITAR TRABALHOS AQUI, OU ENTAO ELIMINA. Em \emph{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. }
 
-Por último, os métodos por correspondência, ou alinhamento, representam as formas diretamente no domínio espacial. Esses métodos determinam o grau de similaridade entre duas formas tentando alinhá-las e medindo a diferença residual existente entre as mesmas.
 
 O descritor do contorno da forma SC ou \emph{shape context} \cite{Belongie:2002} avalia a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
+Os métodos que usam correspondência, ou alinhamento, representam as formas diretamente no domínio espacial. Esses métodos determinam o grau de similaridade entre duas formas tentando alinhá-las de modo a medir a diferença residual existente entre as mesmas.
 
 
 \begin{comment}
@@ -86,8 +86,7 @@ Técnicas de representação por vetores de características são classificadas 
 \subsection{Medidas de similaridade}
 O processo de recuperação de imagens pelo conteúdo requer que alguma medida seja empregada na avaliação da similaridade entre as representações das imagens. Nas técnicas de extração de características que resultam em representações vetoriais, as medidas de distância entre vetores são comumente empregadas para este fim. Desta forma, o grau de similaridade entre duas representações guarda uma relação inversa com a medida de distância correspondente. 
 
-{\color{blue}  Uma medida entre dois vetores $p$ e $q$ é considerada uma distância quando satisfaz as seguintes propriedades \cite{Ullah1996}: 
-}
+ Uma medida entre dois vetores $p$ e $q$ é considerada uma distância quando satisfaz as seguintes propriedades \cite{Ullah1996}: 
 
 \begin{alineas}
 \item Positividade: $d(p,q) \geq 0$;  
@@ -151,9 +150,7 @@ Técnicas baseadas em contorno de formas exploram apenas a região da borda da f
 \subsection{\label{sec:Assinatura}Representação paramétrica do contorno e curvatura
 }
 
-\citeonline{Costa:2009} definem assinatura de uma forma como sendo um sinal discreto unidimensional que descreve algumas das características do seu contorno ou da sua região. Devido a redução de dimensionalidade, as assinaturas do contorno são representações compactas das formas. 
-
-Estas podem ser utilizadas diretamente como descritores, porém o custo computacional envolvido em sua comparação direta é elevado. Isso porque as assinaturas, em geral, não são totalmente insensíveis a rotação, translação e escalamento das formas, bem como variam no total de amostras conforme varia a resolução das imagens{\color{red} SE NAO É SUA ESTA DESCOBERTA DÊ OS CRÉDITOS A QUEM O FEZ }. Algumas assinaturas são mais sensíveis a ruído e a pequenas distorções dos contornos, tornando necessário realizar filtragens. Embora melhore a robustez, tal processo acarreta em alguma perda de informação.
+\citeonline{Costa:2009} definem assinatura de uma forma como sendo um sinal discreto unidimensional que descreve algumas das características do seu contorno ou da sua região. Devido a redução de dimensionalidade, as assinaturas do contorno são representações compactas das formas. Estas assinaturas podem ser utilizadas diretamente como descritores, porém o custo computacional envolvido em sua comparação direta é elevado. Isso porque as assinaturas, em geral, não são totalmente insensíveis a rotação, translação e escalamento das formas, bem como variam no total de amostras conforme varia a resolução das imagens. Algumas assinaturas são mais sensíveis a ruído e a pequenas distorções dos contornos, tornando necessário realizar filtragens. Embora melhore a robustez, tal processo acarreta em alguma perda de informação.
 
 % Várias assinaturas vêm sendo empregadas na literatura para descrição de formas nas mais diversas aplicações, tais como a distância ao centroide, as coordenadas complexas, ângulo tangente, ângulo acumulativo, curvatura, área e comprimento da corda \cite{Zhang:2004}.
 
@@ -443,11 +440,24 @@ G_\sigma(f) = F\big\{ g_{\sigma}(l)\big\} = e^{-2 \pi^2 f^2 \sigma^2}\text{.}
   \caption{\label{fig:curv_ms} Curvatura multiescala do contorno da folha da Figura \ref{fig:folha_contorno1}.}
   \centering
   \includegraphics[width=0.75\textwidth]{curvograma_v2.png}
-  \legend{Fonte: próprio autor}
-\end{figure}
+ \end{figure}
 
 A Figura \ref{fig:curv_ms} ilustra a evolução do sinal de curvatura do contorno da folha da Figura \ref{fig:folha_contorno1} para diferentes níveis de suavização. Os picos da curvatura que se preservam nas escalas de baixa resolução correspondem às informações mais salientes do contorno, que o caracterizam globalmente. As informações de detalhes, que tendem a desaparecer nas escalas de baixa resolução e se preservam nas escalas de alta resolução, representam as características mais especificas do contorno.
 
+{\color{blue}
+\citeonline{Costa:1997} propuseram um método para o ajuste das escalas através das expressões
+
+\begin{equation}
+oct_l = (\sqrt{2})^l;\text{ }l = 1,\ldots,S
+\end{equation} 
+\noindent e
+\begin{equation}
+\sigma_l = \big(\frac{\sigma_{max} - \sigma{min}}{oct_{max}-\sqrt{2}}\big)(oct_l - \sqrt{2})+\sigma_{min}\text{,}
+\end{equation}
+
+\noindent aonde $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
+}
+ 
 \subsubsection*{Dimensão Fractal multiescala (DFM)}
 
 O conceito de fractal, introduzido por \citeonline{Mandelbrot:2000}, está intimamente relacionado com a auto-similaridade ou escala de uma forma, o que por sua vez estabelece a noção de dimensão fractal.
@@ -495,15 +505,13 @@ O propósito da análise das componentes principais é obter um conjunto de vari
 
 Desde que a maior parte da variância esteja concentrada nas primeiras componentes das variáveis transformadas, consegue-se obter através dessa técnica uma representação com um número reduzido de variáveis.
 
-A técnica \emph{PCA} é não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  
-
-Sendo a transformação \emph{PCA} linear, temos que
+A técnica \emph{PCA} é não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  Sendo a transformação \emph{PCA} linear, temos que
 
 \begin{equation}\label{eq:PCA1}
 \mathbf{y}=\mathbf{A}^T\mathbf{x}
 \end{equation}
 
-, aonde $ \mathbf{A} = \begin{pmatrix}
+\noindent aonde $ \mathbf{A} = \begin{pmatrix}
   a_{1,1} & a_{2,1} & \cdots & a_{p,1} \\
   a_{1,2} & a_{2,2} & \cdots & a_{p,2} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
@@ -528,12 +536,12 @@ Pode-se demonstrar que, para se obter em $\mathbf{y}$ variáveis que não são c
 \mathbf{\Sigma_x} = E{[\mathbf{xx}^T]}-E{[\mathbf{x}]}E{[\mathbf{x}^T]}
 \end{equation}
 
- aonde $E[.]$ denota o operador esperança. 
+\noindent aonde $E[.]$ denota o operador esperança. 
 Já que $\mathbf{\Sigma_x}$ é de dimensão $p \times p$, temos associada a esta $p$ auto-vetores ($\mathbf{a_1}\text{, }\mathbf{a_2}\text{, }\ldots\text{, }\mathbf{a_p}$) com $p$ auto-valores ($\lambda_1 > \lambda_2 \ldots > \lambda_p$) correspondentes, sendo cada auto-valor $\lambda_i$ a variância de cada variável de saída $y_i$ obtida através da Equação \ref{eq:PCA2}. 
 
 Selecionando dentre as componentes somente aquelas de maior variância, que implica em construir a matriz de transformação apenas com os auto-vetores mais significativos, é possível obter uma representação dos dados em um espaço de dimensão reduzida e de mais fácil entendimento do ponto de vista geométrico.
 
-Na figura \ref{fig:nuvem_pca} temos representadas as projeções das duas componentes principais de maior variância para cada um dos descritores avaliados. Os valores numéricos correspondem a taxa de acerto média nos experimentos de recuperação de formas pelo conteúdo alcanças para cada classe de formas representada.
+Na Figura \ref{fig:nuvem_pca} temos representadas as projeções das duas componentes principais de maior variância para cada um dos descritores avaliados. Os valores numéricos correspondem a taxa de acerto média nos experimentos de recuperação de formas pelo conteúdo alcanças para cada classe de formas representada.
 
 \subsection{Escalonamento multidimensional (\emph{MDS})}
 
@@ -541,9 +549,7 @@ O escalonamento multidimensional \cite{cox:2000} consiste em um método para rep
 
 Há dois tipos de algoritmos \emph{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem  mais próximas possível àquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
-O coeficiente $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quando mais próximo de 1 o valor de $R^2$, melhor o ajuste do modelo aos dados observados.  
-
-Sejam $d$ e $\hat{d}$ as matrizes de distância simétricas entre dois vetores nos espaços de menor e maior dimensão, respectivamente. O coeficiente $R^2$ é dado por 
+O coeficiente $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quando mais próximo de 1 o valor de $R^2$, melhor o ajuste do modelo aos dados observados.  Sejam $d$ e $\hat{d}$ as matrizes de distância simétricas entre dois vetores nos espaços de menor e maior dimensão, respectivamente. O coeficiente $R^2$ é dado por 
 \begin{equation}
 R^2= 1-\frac{\sum_{i=1}^n \sum_{j = i}^{n}(\hat{d}_{i,j} - d_{i,j})^2}{\sum_{i=1}^n\sum_{j=i}^n (d_{i,j}-\bar{d})^2}
 \text{,}\:\: R^2 \in [0,1]
@@ -616,7 +622,7 @@ MFD = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 \section{Métodos de otimização}
 
-Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos, como o de Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global no entanto, tais condições não são encontradas em diversos problemas. 
+Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos,{\color{red} PRECISA CITAR UMA FONTE AQUI como o de Newton-Rapson }e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global no entanto, tais condições não são encontradas em diversos problemas. 
 
 Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
