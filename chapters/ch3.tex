@@ -56,9 +56,39 @@ $0,829$\footnote{Using PSO}        & $0,86\pm0,03$          & $0,85\pm0,03$     
   
 Os resultados da Tabela \ref{tab:leaves_supervised_results} confirmam que os classificadores que utilizaram descritores gerados a partir de escalas selecionadas arbitrariamente não tiveram desempenho satisfatório, pois alcançaram os menores valores de Precisão e Revocação e os maiores valores da função MAD. Portanto, escalas aleatórias levam a uma representação multiescala menos sensível a variações de características das folhas, consequentemente, mais erros de classificação. 
 
-
 \section{\emph{Análise exploratória visual de agrupamentos}}
-A análise exploratória visual dos agrupamentos  produzidos pela descrição NMBE das folhas indica que a descrição otimizada melhora a organização dos agrupamentos, o que reforça que a função objetivo MAD é adequada para guiar o processo de otimização desse descritor. A Figura \ref{fig:MatrizU_leaves_256}a mostra a matriz-U obtida para as formas de folhas representadas pelo descritor NMBE otimizado e a Figura \ref{fig:MatrizU_leaves_256}b, pelo descritor NMBE não otimizado. A visualização das formas nas matrizes-U da Figura \ref{fig:MatrizU_leaves_256}  aponta diferenças entre os dois arranjos promovidos pelos referidos descritores. A cada posição ou elemento da matriz, os valores numéricos foram substituídos pela imagem das folhas correspondentes, estando as cores das folhas em correspondência com o rótulo das classes exibidas na Figura \ref{fig:bases}. Nessas matrizes-U estão representadas as $1907$ formas de folhas da base Flávia, sendo cada folha representada por sua descrição multiescala.
+
+Nesta seção utilizamos técnicas de visualização de dados multidimensionais, como PCA e matriz-U, para observar os resultados dos descritores multiescala NMBE e DFM. O uso dessas técnicas suportam a análise do comportamento dos descritores a partir de suas relações com os agrupamentos observados em um espaço bidimensional. 
+
+As três imagens na Figura \ref{fig:nuvem_pca} representam projeções bidimensionais das duas primeiras componentes principais (mais relevantes) dos vetores de características obtidos a partir dos descritores \emph{NMBE} e DFM transformados através da \emph{PCA}, assim como a combinação de ambos. Os números anotados dentro dos gráficos indicam a acurácia média por classe. Visualmente as projeções das duas componentes indicam a complexidade do problema da análise de formas, a dimensionalidade do problema e a dificuldade em projetar descritores e ajustar seus parâmetros de modo que descrevam as mais diversas nuances de formas de bases de uso geral (Kimia-99, Kimia-216, MPEG7 CE-Shape-1) e aplicadas (Flavia). Observa-se que a qualidade dos agrupamentos em geral não é boa para todas as classes, quando se aplica \emph{NMBE} e DFM, entretanto a combinação de ambos os descritores elevou a qualidade da discriminação das formas e da recuperação das mesmas.  
+
+\begin{figure}[t]
+  \caption{\label{fig:nuvem_pca} Imagens das projeções das duas primeiras componentes principais, obtidas através de PCA, dos vetores de características transformados para os descritores \emph{NMBE} e  DFM individualmente e combinados.}
+  \centering
+  \includegraphics[width=0.75\textwidth]{nuvem_pca.eps}
+\end{figure}
+
+\begin{figure}[t]
+ \caption{\label{fig:nmbe_dfm_99} Resultados dos descritores NMBE e DFM para a base Kimia-99. (a) Matriz-U obtida com o descritor NMBE e respectiva \textit{Silhouette} média por classe. (b) Matriz-U obtida com o descritor DFM e respectiva \textit{Silhouette} média por classe.}
+  \centering
+  \includegraphics[width=\textwidth]{nmbe_dfm_99.eps}
+\end{figure}
+
+\begin{figure}[t]
+ \caption{\label{fig:nmbe_dfm_216} Resultados dos descritores NMBE e DFM para a base Kimia-216. (a) Matriz-U obtida com o descritor NMBE e respectiva \textit{Silhouette} média por classe. (b) Matriz-U obtida com o descritor DFM e respectiva \textit{Silhouette} média por classe.}
+  \centering
+  \includegraphics[width=\textwidth]{nmbe_dfm_216.eps}
+\end{figure}
+
+Para ilustrar o poder discriminativo dos descritores de forma multiescala NMBE e DFM, bem como mostrar a relação existente entre a medida de avaliação quantitativa da qualidade dos agrupamentos, \emph{silhouette}, e a representação qualitativa obtida através da matriz U, foram realizadas as extrações de características das formas das bases Kimia-99 e Kimia-216 com os referidos descritores. Os resultados estão expostos nas Figuras \ref{fig:nmbe_dfm_99} e \ref{fig:nmbe_dfm_216}. 
+
+Em ambas as figuras, observa-se que as formas correspondentes às classes com  \emph{silhouette} média positiva são visualizadas na matriz-U mantendo forte relação de vizinhança entre si, enquanto que formas correspondentes às classes cuja \emph{silhouette} média é negativa encontram-se dispersas nessas matrizes. Isso denota a inabilidade da descrição  em representa-as adequadamente.
+
+Assim, os descritores conseguem capturar características tanto globais como locais, uma vez que classes de formas com características globais semelhantes, como por exemplo as formas alongadas do canto superior esquerdo da Figura \ref{fig:nmbe_dfm_216}a, estabelecem uma relação de vizinhança entre si. Apesar disso, formas alongadas de classes distintas não se misturam, o que é um indicativo de que o descritor foi capaz também de representar características locais discriminativas que permitem a separação entre as classes.
+
+Existe no entanto,  casos em que ambos os descritores não foram capazes de discriminar formas com características globais semelhantes, como é o caso das classes de formas de elefantes e camelos na Figura \ref{fig:nmbe_dfm_216}. Na matriz-U, estas formas aparecem agrupadas como se pertencessem a uma mesma classe e consequentemente, com valores de \emph{silhouette} média significativamente menores em relação às formas que foram discriminadas corretamente pelos descritores.
+
+A Figura \ref{fig:MatrizU_leaves_256}a mostra a matriz-U obtida para as formas de folhas de plantas da base Flavia representadas pelo descritor NMBE otimizado e a Figura \ref{fig:MatrizU_leaves_256}b, pelo descritor NMBE não otimizado. A análise exploratória visual dos agrupamentos produzidos pela descrição NMBE indica que a descrição otimizada melhora a organização dos agrupamentos. Essa evidência então confirma que a função objetivo MAD é adequada para guiar o processo de otimização desse descritor. A visualização das formas nas matrizes-U da Figura \ref{fig:MatrizU_leaves_256}  aponta diferenças entre os dois arranjos promovidos pelos referidos descritores. A cada posição ou elemento da matriz, os valores numéricos foram substituídos pela imagem das folhas correspondentes, estando as cores das folhas em correspondência com o rótulo das classes exibidas na Figura \ref{fig:bases}. Nessas matrizes-U estão representadas as $1907$ formas de folhas da base Flavia, sendo cada folha representada por sua descrição multiescala.
 
 Os gráficos representativos da \emph{silhouette} média nas  Figura \ref{fig:MatrizU_leaves_256}a  e Figura \ref{fig:MatrizU_leaves_256}b demonstram que as classes das folhas bem caracterizadas e, portanto, agrupadas adequadamente são as que apresentam valores de \emph{silhouette} média positivos. Por outro lado, as classes de folhas que o descritor não foi capaz de caracterizar e agrupar adequadamente são as que apresentaram valores negativos de \emph{silhouette} média. Comparando estes resultados, observa-se que na Figura \ref{fig:MatrizU_leaves_256}a há expressiva redução dos valores negativos de \emph{silhouette} média quando se utiliza o descritor $\operatorname{NMBE_{opt}}$. 
 
@@ -70,43 +100,38 @@ Os gráficos representativos da \emph{silhouette} média nas  Figura \ref{fig:Ma
 
 \end{figure}
 
+O quadrado preto inserido na Figura \ref{fig:MatrizU_leaves_256} destaca o desempenho do descritor otimizado em termos de melhoria no arranjo das formas na matriz-U. É possível ainda observar quão bem o descritor otimizado mapeou as folhas em grupos de acordo com as respectivas classes rotuladas das mesmas.  Além do mais, o resultado com as escalas otimizadas melhorou significativamente a \emph{silhouette} média por classe para quase todas as classes de folhas da base. Por outro lado, a região interna ao quadrado preto na Figura \ref{fig:MatrizU_leaves_256}b destaca que o descritor não otimizado não foi capaz de mapear satisfatoriamente as formas de  folhas em suas classes correspondentes. Deduzimos que essa melhoria se deve ao fato de que as escalas otimizadas dos descritores são mais sensíveis a variações intrínsecas das formas, ou sejam, incorporam nuances presentes nos seus contornos, os quais os métodos tradicionais não o fazem adequadamente. Além do mais, o ajuste automático das escalas é de fato uma tarefa alternativa para o ajuste arbitrário ou empírico, sendo que esta última não é uma tarefa simples e está sujeita à fadiga e subjetividade do realizador da mesma.
 
 
+As Figuras \ref{fig:MatrizU_leaves_II}a, \ref{fig:MatrizU_leaves_II}b and \ref{fig:MatrizU_leaves_II}c exibem as matrizes-U correspondentes aos valores MAD dos experimentos na base Flavia utilizando os algoritmos de otimização SA, DE e PSO, respectivamente. Um aspecto interessante a examinar é o fato dos três algoritmos apresentarem diferentes soluções, ou valores de MAD. Estas soluções resultaram em diferentes arranjos de folhas e consequentemente diferentes relações entre as estruturas de vizinhança dos grupos ou classes.
+Por exemplo, a dispersão geral dos elementos nas Figuras \ref{fig:MatrizU_leaves_II}a e \ref{fig:MatrizU_leaves_II}b tende a ser muito semelhante uma vez que seus respectivos valores da função objetivo minimizada são bem próximos em magnitude. Ao mesmo tempo, concluímos que o resultado que corresponde ao mais elevado valor de MAD ($0,829$) exibe uma dispersão particularmente elevada no centro da Matriz-U (Figura \ref{fig:MatrizU_leaves_II}c). Este é um detalhe que reforça a observação anterior de que o PSO convergiu para um mínimo local. 
+Estes achados apontam para a importante conclusão de que quanto menor o valor de MAD, melhor o arranjo dos grupos ou do agrupamento, e consequentemente a qualidade do agrupamento. Por isso, afirmamos que a qualidade dos grupos e o valor de MAD são negativamente correlacionados. Nossa análise ainda considera que devam existir outras soluções no espaço de busca, além da solução mínima, que sejam adequadas ao problema em estudo.
 
-O quadrado preto inserido na Figura \ref{fig:MatrizU_leaves_256} destaca o desempenho do descritor otimizado em termos de melhoria no arranjo das formas na matriz-U. É possível ainda observar quão bem o descritor otimizado mapeou as folhas em grupos de acordo com as respectivas classes rotuladas das mesmas.  Além do mais, o resultado com as escalas otimizadas melhorou significativamente a \emph{silhouette} média por classe para quase todas as classes de folhas da base. Por outro lado, a região interna ao quadrado preto na Figura \ref{fig:MatrizU_leaves_256}b destaca que o descritor não otimizado não foi capaz de mapear satisfatoriamente as formas de  folhas em suas classes correspondentes. Deduzimos que essa melhoria se deve ao fato de que as escalas otimizadas dos descritores são mais sensíveis a variações intrísecas das formas, ou sejam, incorporam nuances presentes nos seus contornos, os quais os métodos tradicionais não o fazem adequadamente. Além do mais, o ajuste automático das escalas pela metodologia de otimização se mostra um tarefa menos fatigante que  o ajuste arbitrário ou empírico.
-
-
-As Figuras \ref{fig:MatrizU_leaves_II}a, \ref{fig:MatrizU_leaves_II}b and \ref{fig:MatrizU_leaves_II}c exibem as matrizes-U correspondentes aos valores MAD dos experimentos na base Flavia utilizando os algoritmos de otimização SA, DE e PSO, respectivamente. Um aspecto interessante a examinar é o fato dos três algoritmos apresentarem diferentes soluções, ou MADs.Estas soluções resultaram em diferentes arranjos de folhas e consequentemente diferentes relações entre as estruturas de vizinhança dos grupos ou classes.
-Por exemplo, a dispersão geral dos elementos nas Figuras \ref{fig:MatrizU_leaves_II}a e \ref{fig:MatrizU_leaves_II}b tende a ser muito semelhante já que seus respectivos valores da função objetivo minimizada são bem próximos em magnitude. Ao mesmo tempo, concluímos que o resultado que corresponde ao mais elevado valor de MAD ($0,829$) exibe uma dispersão particularmente elevada no centro da Matriz-U (Figura \ref{fig:MatrizU_leaves_II}c). Este é um detalhe que reforça a observação anterior de que o PSO convergiu para um mínimo local. 
-Estes achados apontam para a importante conclusão de que quanto menor o valor de MAD, melhor o arranjo dos grupos ou do agrupamento, e consequentemente a qualidade do agrupamento. Por isso, afirmamos que a qualidade dos grupos e o valor de MAD são negativamente correlacionados. Nossa análise ainda considera que devam existir outras soluções no espaço de busca, além da solução mínima, que sejam adequadas ao problem em estudo.
-{\color{red}
- 
-
-\begin{figure}[h!]
- \caption{\label{fig:MatrizU_leaves_II}Matrizes-U e valores MADs obtidos para a base de imagens Flavia por uso da NMBE otimizada pelos algoritmos (a) SA, (b) DE, (c) PSO.}
+\begin{figure}[h!] \caption{\label{fig:MatrizU_leaves_II}Matrizes-U e valores MADs obtidos para a base de imagens Flavia por uso da NMBE otimizada pelos algoritmos (a) SA, (b) DE, (c) PSO.}
 \centering
 \includegraphics[width=\textwidth,trim = 0mm 0mm 0mm 4.5mm,clip]{fig8.eps}
 \end{figure}
 
-Figure \ref{MDS:Leaves} illustrates the MDS projections for three different MAD values. Figure \ref{MDS:Leaves}a corresponds to the cluster arrangement after the convergence of the SA algorithm, i.e. after reaching the minimum MAD value. These projections confirmed that the minimization of the objective function provided leaf cluster arrangements with lower average within-class distances and higher inter-class distances, and thus  more compact and separated clusters. The visual analysis of the three detail images in Figure \ref{MDS:Leaves}a discloses that the MDS projection of the optimized NMBE descriptor increased inter-class distances, whereas it reduced the within-class distances when compared to Figure \ref{MDS:Leaves}b and \ref{MDS:Leaves}c. Moreover, the $R^2$ coefficient values close to 1 imply that the low-dimensional representation preserved the mean distance in the original high-dimensional data space.
+A Figura \ref{MDS:Leaves} ilustra as projeções MDS para três valores distintos de MAD. Na Figura \ref{MDS:Leaves}a temos o arranjo dos agrupamentos após a convergência do algoritmo de otimização SA, ou seja, para o descritor cujos parâmetros otimizados correspondem ao mínimo valor da função MAD encontrado nas otimizações. Analisando essas projeções, observa-se que a minimização da função objetivo resultou em agrupamentos de folhas com maior coesão intra classe e maior separação entre classes. A análise visual das três regiões detalhadas  nessa imagem indica mais claramente que o descritor NMBE otimizado melhorou a representação das formas de folhas em comparação aos resultados das Figuras \ref{MDS:Leaves}b e \ref{MDS:Leaves}c. Ademais, os valores do coeficiente $R^2$ próximos de $1,0$ indicam que a representação no espaço bi-dimensional preservou a relação de distâncias entre as amostras no espaço de alta dimensão.
 
-\begin{figure}[h!]
+\begin{figure}[t]
  \caption{\label{MDS:Leaves} Projeções MDS dos descritores NMBE para formas da base de folhas Flavia. (a) Descritor NMBE otimizado pelo algoritmo SA com valor de função $MAD = 0,762$ (b) Descritor NMBE não otimizado com valor de função $MAD =0,969$ and (c) Descritor NMBE não otimizado com valor de função $MAD = 1,044$.}
 
 \centering
-\includegraphics[width=\textwidth]{fig9.eps}
+\includegraphics[width=0.7\textwidth]{fig9.eps}
 \end{figure}
-\section{\emph{Recuperação de imagens baseada em conteúdo - CBIR}}
-For the sake of comparison, we have optimized the parameters of another shape descriptor namely inner distance shape context (IDSC) \citeonline{Ling:2007:SCU:1191552.1191806}.
-This descriptor is mainly applied to shape retrieval, which involves unsupervised shape classification tasks.  Moreover, IDSC employs dynamic programming (DP), such as Dynamic Time Warping (DTW) \citeonline{PalazonGonzalez2012978}, to improve shape matching accuracy. In this paper, we have replaced the $L_2$ norm by DTW to compute the \emph{silhouette} measure and the cost function defined in equation \ref{eq:mad}.  
-Figure \ref{figfig1Optmization-IDSC} exhibits the comparison of shape retrieval experiments which were performed on the public Flavia leaf data set and with both non-optimized NMBE and IDSC and their optimized counterparts ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$).
-The performance evaluation methodology has adapted the Bulls-eye measure, where the result is the overall number of shapes correctly  retrieved, in each rank position, for each shape in data set taken as a query.  Let $N_c$ be the number of shapes which belong to the class $c$. Here, the number of retrieved shapes ($N_r$) was adjusted to $N_r = 2\displaystyle \min_{c = 1,2,\dots 32}{N_c}$. Figure \ref{figfig1Optmization-IDSC} also demonstrates that the optimization methodology was decisive for both descriptors to achieve better retrieval rates. 
-Figure \ref{fig1Ooptimization_graph}  shows that after tuning IDSC parameters for the Flavia leaf data set with the optimization methodology the retrieval rate has remarkably increased. Therefore, $\operatorname{IDSC_{opt}}$  outperformed the optimized NMBE ($\operatorname{NMBE_{opt}}$) and non-optimized NMBE. In this sense, the optimized parameters of $\operatorname{IDSC_{opt}}$ may have incorporated subtle details of leaf shapes. On the other hand, we have observed that the non-optimized IDSC underperformed the non-optimized NMBE. 
-In order to provide a non-optimized counterpart of IDSC, we have followed the parameter setting introduced in \citeonline{wang2015march}.
-Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} exemplify samples of  plant leaves which were retrieved according to the rank of the similarity to the two queries. These results have demonstrated that the non-optimized descriptors in Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} were unable to retrieve all samples for the two queries, whereas the  optimized descriptors retrieved all of them, correctly.
+
+\section{Recuperação de imagens baseada em conteúdo - CBIR}
+
+O descritor IDSC \cite{Ling:2007:SCU:1191552.1191806} foi otimizado para fins de comparação com o descritor multiescala. Desenvolvido para aplicações de recuperação de formas, o IDSC utiliza algoritmos de programação dinâmica, tal como o DTW \cite{PalazonGonzalez2012978}, para melhorar a precisão da avaliação de similaridade entre formas. Assim sendo, subsituimos a norma $L_2$ pelo algoritmo DTW no cálculo da medida \emph{silhouette}, uma vez que esta última é requerida para a avaliação da função objetivo MAD na Equação \ref{eq:mad}. 
+
+A Figura \ref{fig1Ooptimization_graph}a exibe gráficos que permitem a comparação dos resultados dos experimentos realizados para as versões otimizadas ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$)
+ e não otimizadas ($\operatorname{NMBE}$, $\operatorname{IDSC}$) de ambos descritores. Os gráficos mostram que o ajuste dos parâmetros dos descritores pelo método de otimização melhorou o resultado (taxa) de recuperação de folhas consideravelmente. Observamos ainda que o descritor $\operatorname{IDSC_{opt}}$ superou ambos os descritores $\operatorname{NMBE_{opt}}$ e NMBE não otimizado com relação à taxa de recuperação. Logo, podemos afirmar que a otimização de parâmetros melhorou a capacidade de discriminação do  $\operatorname{IDSC_{opt}}$, incorporando ao descritor um mecanismo de extração de informações relevantes de detalhes intrínsecos das formas das folhas. Por outro lado, observamos que o desempenho do IDSC não otimizado foi inferior ao do NMBE não otimizado. 
+
+As Figuras \ref{fig1Ooptimization_graph}b e \ref{fig1Ooptimization_graph}c ilustram resultados obtidos de recuperação de dois exemplares da base de imagens de folhas para experimentos realizados com os descritores NMBE não otimizado e $\operatorname{NMBE_{opt}}$,  IDSC não otimizado com parâmetros ajustados conforme recomendado em \cite{wang2015march} e $\operatorname{IDSC_{opt}}$. Observa-se na Figura \ref{fig1Ooptimization_graph}b que o descritor NMBE não otimizado falhou parcialmente na recuperação das formas, enquanto a versão otimizada ($\operatorname{NMBE_{opt}}$) com sucesso recuperou todas as formas. O mesmo comentário se aplica ao descritor $\operatorname{IDSC_{opt}}$, cujos resultados mostram o sucesso da recuperação. Ainda na Figura \ref{fig1Ooptimization_graph}c, o descritor IDSC não otimizado não foi capaz de recuperar as amostras corretamente.
 
 \begin{figure}[]
-\caption{Experimentos realizados com formas da base de imagens de folhas Flavia (a) taxa de recuperação  obtida com os descritores NMBE e IDSC originais e suas versões otimizadas, (b) e (c)recuperação de duas amostras de folhas utilizando os descritores NMBE e IDSC otimizados e não otimizados, respectivamente.  respectively.\label{fig1Ooptimization_graph}}
+\caption{Experimentos realizados com formas da base de imagens de folhas Flavia (a) taxa de recuperação  obtida com os descritores NMBE e IDSC originais e suas versões otimizadas, (b) e (c) recuperação de duas amostras de folhas utilizando os descritores NMBE e IDSC otimizados e não otimizados, respectivamente.\label{fig1Ooptimization_graph}}
 \includegraphics[width=\textwidth]{fig10.eps}
 \end{figure}
 
@@ -135,7 +160,7 @@ Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} exemplify samples o
 \end{figure}
 \end{comment}
 
- Table \ref{table_bull_eyes_leaves} presents the performance evaluation of NMBE, whose scales were computed using the scheme introduced by \citeonline{Cesar:1996}, IDSC and their optimized counterparts.  The retrieval rates show that both optimized descriptors outperformed their non-optimized counterparts on Flavia data set. The remarkable improvement on the Bulls-eye rates reinforces our assumption that the optimization methodology is suitable for leaf shape retrieval and analysis.
+A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de desempenho dos descritores $\operatorname{NMBE_{opt}}$ e NMBE não otimizado com escalas ajustadas conforme recomendado em \cite{Cesar:1996},  $\operatorname{IDSC_{opt}}$ e o IDSC não otimizado. Esses resultados mostram que a taxa de recuperação para ambos os descritores otimizados superou os resultados dos pares correspondentes não otimizados. A melhoria significativa observada nas medidas Bulls-eye reforça a hipótese de que a metodologia de otimização proposta é adequada para ajuste dos descritores em aplicações de recuperação e análise de formas de folhas.
 
 \begin{table}[h!]
 \centering
@@ -149,11 +174,10 @@ Figure \ref{subfig:upper-right} and \ref{subfig:lower-right} exemplify samples o
   \end{tabular}
 \end{table}
 
-Thus, we can infer that the optimized descriptors are more likely to succeed in shape retrieval experiments because the optimized sets of parameters probably embody intrinsic and subtle information about leaf shapes. We can also assume that these optimized descriptors may reliably characterize and also discriminate shape differences within and among leaf classes. 
+\section{Custo computacional da otimização \label{sec:comp_cost}}
 
-\subsection{Computational cost \label{sec:comp_cost}}
 
-A Tabela \ref{tbl:complexity} mostra os resultados de complexidade computacional dos três algoritmos de otimização estudados. SA and PSO apresentam complexidades similares e dependem do número de iterações para convergir ($N_{iter}$), tamanho da população  ($N_{pop}$) e do parâmetro $P$.  Por outro lado, o algoritmo DE demanda maior complexidade e depende da dimensão ($D$) do problema a ser otimizado, do tamanho da população ($N_{pop}$) e do número de  ($N_{iter}$).
+ Nesta tese avaliamos a complexidade computacional dos três algoritmos de otimização como exibe a Tabela \ref{tbl:complexity}.  Os algoritmos SA e PSO apresentam complexidades similares e estas dependem do número de iterações para convergir ($N_{iter}$), do tamanho da população  ($N_{pop}$) e do parâmetro $P$.  Por outro lado, o algoritmo DE demanda maior complexidade, pois depende da dimensão ($D$) do problema a ser otimizado, do tamanho da população ($N_{pop}$) e do número de interações ($N_{iter}$).
 
 \begin{table}[h!]
 \centering
@@ -170,49 +194,10 @@ A Tabela \ref{tbl:complexity} mostra os resultados de complexidade computacional
   \end{tabular}
 \end{table}
 
-For the sake of comparison, we assumed that the computational cost is the number of times that the objective function is demanded throughout the optimization process. Its calculation takes into account the parameter setting of each method, presented in Section \ref{subsec:opmet}, and the corresponding computational complexity.  The computational cost to address the optimization of the multiscale descriptor for SA, DE and PSO yielded $7,4314$, $19,500$ and $1,107$, respectively. 
+Para fins de comparação dos métodos de otimização, sob o aspecto de custo computacional, assumimos o custo computacional dos algoritmos como sendo o número de vezes que a função objetivo é demandada ao longo do processo de otimização. Considerando para cada método de otimização o ajuste de parâmetros adotado, bem como a complexidade computacional correspondente, os custos computacionais calculados para os algoritmos SA, DE e PSO resultaram em $7.4314$, $19.500$ e $1.107$, respectivamente. 
 
-It is worth noting that there is a trade-off between the computational cost and the quality of the optimal solution found. Although the reduction of the number of shape samples, image resolution and the $N_{pop}$ variable can lessen the computational cost, it may degrade the optimization result. Moreover, parallelism may contribute to reduce the computational cost without degrading the optimization result.  However, it adds an extra computational complexity to the optimization algorithms.
-}
+Vale destacar que existe um compromisso entre o custo computacional e a qualidade da solução ótima obtida. Assim sendo a redução do número de amostras de formas, da resolução das imagens e do tamanho da população dos métodos ($N_{pop}$) ameniza o custo computacional, porém estas reduções degradam a qualidade do resultado da otimização. Ademais, o uso de processamento paralelo pode contribuir para a redução do custo computacional, sem degradar a qualidade da solução ótima, entretanto o paralelismo adiciona complexidade aos algoritmos de otimização. 
 
-
-%\section{Visualização dos dados}
-
-%\subsection{\emph{DFM}}
-
-
-Com base na metodologia exposta apresentamos neste capítulo os resultados experimentais obtidos na análise dos descritores dimensão fractal multiescala, energia de dobramento multiescala Uma avaliação comparativa dos resultados obtidos com os descritores \emph{NMBE} e \emph{DFM} é apresentada na seção a seguir.
-
-\begin{figure}[h!]
-  \caption{\label{fig:nuvem_pca} Projeções das três primeiras componentes principais dos vetores de características obtidos  a partir do descritor \emph{NMBE} e os vetores transformados através de \emph{PCA}.}
-  \centering
-  \includegraphics[width=0.75\textwidth]{nuvem_pca.eps}
-\end{figure}
-
-
-\begin{figure}
- \caption{\label{fig:dfm99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor dimensão fractal multiescala. (b) \textit{Silhouette} média por classe obtida a partir do referido descritor.}
-  \centering
-  \includegraphics[width=\textwidth]{dfm99.png}
-\end{figure}
-
-\begin{figure}
- \caption{\label{fig:dfm216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor dimensão fractal multiescala. (b) \textit{Silhouette} média por classe obtida a partir do referido descritor.}
-  \centering
-  \includegraphics[width=\textwidth]{dfm216.png}
-\end{figure}
-
-\begin{figure}
- \caption{\label{fig:nmbe99} (a) Matriz-U para as formas da base Kimia-99 representadas com o descritor energia de dobramento multiescala. (b) \textit{Silhouette }média por classe obtida a partir do referido descritor.}
-  \centering
-  \includegraphics[width=\textwidth]{nmbe99.png}
-\end{figure}
-
-\begin{figure}
- \caption{\label{fig:nmbe216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor energia de dobramento multiescala. (b) Silhouette média por classe aferida a partir do descritor}
-  \centering
-  \includegraphics[width=\textwidth]{nmbe216.png}
-\end{figure}
 
 
 \begin{comment}

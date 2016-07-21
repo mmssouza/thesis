@@ -169,7 +169,7 @@ Técnicas baseadas em contorno de formas exploram apenas a região da borda da f
 % Várias assinaturas vêm sendo empregadas na literatura para descrição de formas nas mais diversas aplicações, tais como a distância ao centroide, as coordenadas complexas, ângulo tangente, ângulo acumulativo, curvatura, área e comprimento da corda \cite{Zhang:2004}.
 
 % \subsubsection*{\label{sec:Rep_par}Coordenadas paramétricas}
-A representação por coordenadas paramétricas consiste na otenção das coordenadas dos pontos amostrados do contorno, representados a partir de um sistema de coordenadas preestabelecido, percorrendo-o sequencialmente em sentido horário ou anti-horário. Para o contorno discreto $\mathbf{C}$, com $N$ amostras, representado num sistema de coordenadas cartesianas, tal processo origina um conjunto de tuplas $\mathbf{C}[n] = \big(\mathbf{x}[n]\:\text{,}\:\mathbf{y}[n]\big)$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$, cujas componentes $\mathbf{x}[n]$ e $\mathbf{y}[n]$ são sinais discretos vetoriais das coordenadas amostradas do contorno.
+A representação por coordenadas paramétricas consiste na obtenção das coordenadas dos pontos amostrados do contorno, representados a partir de um sistema de coordenadas preestabelecido, percorrendo-o sequencialmente em sentido horário ou anti-horário. Para o contorno discreto $\mathbf{C}$, com $N$ amostras, representado num sistema de coordenadas cartesianas, tal processo origina um conjunto de tuplas $\mathbf{C}[n] = \big(\mathbf{x}[n]\:\text{,}\:\mathbf{y}[n]\big)$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$, cujas componentes $\mathbf{x}[n]$ e $\mathbf{y}[n]$ são sinais discretos vetoriais das coordenadas amostradas do contorno.
 
 Na Figura \ref{fig:folha_contorno} estão representados os sinais obtidos para o contorno da folha da Figura \ref{fig:folha_contorno1} com a amostragem $N = 280$ pontos. Em vermelho está destacado o ponto de origem aonde a varredura, em sentido horário, se inicia. Os dois pontos observados aonde a evolução do sinal $\mathbf{x}[n]$ inverte sua tendência (de crescente para decrescente e de decrescente para crescente) correspondem aos pontos mais salientes da folha. Já o platô observado no sinal $\mathbf{y}[n]$ corresponde a região da parte inferior da folha, em que quase não se observa variações do contorno ao longo do eixo $Y$.
    
@@ -557,7 +557,7 @@ Selecionar dentre as componentes somente aquelas de maior variância, implica em
 
 \subsection{Escalonamento multidimensional (\emph{MDS})}
 
-O escalonamento multidimensional \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial, multidimensional, para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou disimilaridade dos dados como distâncias no espaço geométrico.
+O escalonamento multidimensional \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial, multidimensional, para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou dissimilaridade dos dados como distâncias no espaço geométrico.
 
 Há dois tipos de algoritmos \emph{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem o mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
@@ -638,7 +638,7 @@ Os métodos de otimização evolutivos foram desenvolvidos para lidar com o prob
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
 \subsection{Recozimento simulado (\emph{SA})}
 
-O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a termperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores descresce exponencialmente à medida que o algoritmo interage.  
+O  recozimento simulado é um método clássico de otimização metaheurístico que simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
 
 Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um fator de perturbação aleatório a cada coordenada da solução atual. Na implementação utilizada neste trabalho, o fator de perturbação corresponde a uma variável aleatória com distribuição normal com média zero e variância $\kappa = 0.2$.
 
@@ -681,7 +681,7 @@ $n \gets n + 1$
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Evolução diferencial \emph{DE}}
+\subsection{Evolução diferencial (\emph{DE})}
 
 O algoritmo de otimização denominado evolução diferencial \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos ou vetores de soluções candidatas. A cada iteração, o mecanismo de cruzamento e mutação  acontece para cada indivíduo da população. O cruzamento consiste em produzir uma novo indivíduo ($d$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
 
