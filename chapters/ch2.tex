@@ -40,11 +40,11 @@ A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \emph{CBIR} cláss
 \legend{Fonte: \citeonline{Torres:2006}.}
 \end{figure}
  
-Neste trabalho enfatizamos os processos de extração de características e de avaliação de similaridade em \emph{CBIR}, sendo esses processos destacados nas subseções a seguir.
+Neste trabalho enfatizamos os processos de extração de características e de avaliação de similaridade em experimentos \emph{CBIR}, sendo esses processos destacados nas subseções a seguir.
 
 \subsection{Extração de características}
 
-O processo de extração de características das imagens forma é fundamental para os sistemas \emph{CBIR}. Tal processo se dá através de operações de processamento de imagens, cujo objetivo é extrair informação que seja semanticamente relevante dos atributos da imagem para a realização das buscas por similaridade de conteúdo. Os atributos comumente empregados para extração de características em \emph{CBIR} são a cor, a textura, a forma e a localização espacial dos elementos constituintes de uma imagem. 
+O processo de extração de características das imagens forma é fundamental para os sistemas \emph{CBIR}. Tal processo se dá através de operações de processamento de imagens, cujo objetivo é extrair informação que seja semanticamente relevante dos atributos da imagem para a realização das buscas por similaridade de conteúdo. Os atributos comumente empregados para extração de características em \emph{CBIR} são a cor, a textura, a forma e a localização espacial dos elementos constituintes de uma imagem. Alguns métodos de representação de formas por transformação empregam transformada de Fourier \cite{Costa:1997,ShuPanWu2015}. Em \emph{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. 
 
 A cor é o atributo mais empregado em \emph{CBIR}, pois a mesma permite discriminar uma ampla gama de imagens. Quando se utiliza esse atributo deve se considerar que o registro da cor em uma imagem varia consideravelmente com a orientação da superfície imageada, o posicionamento da câmera, a posição da fonte de iluminação e a maneira como a luz interage com os objetos imageados \cite{Smeulders:2000}. Ademais, a percepção humana da cor é um assunto complexo que ainda não está completamente elucidado \cite{Smeulders:2000}. De acordo com \citeonline{Torres:2006}, as técnicas de descrição por cores podem ser agrupadas em duas grandes classes dependendo se a informação de cor é codificada correlacionada com a sua distribuição espacial ou não. 
 
@@ -61,7 +61,21 @@ Dentre as abordagens empregadas na obtenção de representações a partir das f
 
 Na representação estrutural, as formas são divididas em um conjunto de partes constituintes, sendo cada parte representada individualmente através de vetores de características. O descritor é composto a partir desses vetores e da relação existente entre as partes, representadas através de estruturas de dados como grafos, árvores ou cadeias de caracteres. Uma vez que esses métodos comparam as formas a partir das suas estruturas, esses conseguem uma boa acurácia, porém a um custo computacional elevado.
 
-% {\color{red}Métodos de representação de formas por transformação empregam transformadas como wavelet, Fourier e Espaço-Escala para descrever as formasESTA PEDINDO PARA CITAR TRABALHOS AQUI, OU ENTAO ELIMINA. Em \emph{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. }
+
+
+% {\color{red}
+% MAIS MULTIESCALA (NÃO LI EM DETALHES)
+
+% ShuPanWu2015 - Multi-scale contour flexibility shape signature for Fourier descriptor
+%  \cite{ShuPanWu2015}.
+
+% LiKuangLiuEtAl2016 - Multiscale shape context and re-ranking for deformable shape retrieval
+%  \cite{LiKuangLiuEtAl2016}.
+
+% HuangHanHe2014 - Multi-scale embedded descriptor for shape classification
+% \cite{HuangHanHe2014}.
+% }
+
 
 
 O descritor do contorno da forma SC ou \emph{shape context} \cite{Belongie:2002} avalia a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
@@ -197,7 +211,7 @@ Cruzamentos de zero & Pontos de inflexão \\ \bottomrule
 \legend{Fonte: \citeonline{Costa:2009}}
 \end{table}
 
-A função curvatura ($K(l)$), para uma curva contínua fechada $C = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que encontra-se parametrizada em $l \in [0\text{,}L]$, é definida como sendo \cite{Kindratenko:2003}:
+A função curvatura ($K(l)$), para uma curva contínua fechada $C = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que se encontra parametrizada em $l \in [0\text{,}L]$, é definida como sendo \cite{Kindratenko:2003}:
 
 \begin{equation} \label{eq:curvatura}
 K(l) = \frac{x^{'}(l)y^{''}(l)-x^{''}(l)y^{'}(l)}{((x^{''}(l))^{2}+(y^{''}(l))^{2})^{\frac{3}{2}}}\text{,}
@@ -208,7 +222,7 @@ sendo $\big(x^{'}(l) \text{, }y^{'}(l)\big)$ e $\big(x^{''}(l)\text{ , }y^{''}(l
 
 Sob o aspecto computacional, o cálculo da curvatura do contorno de uma forma requer que o mesmo seja espacialmente amostrado e discretizado. Tal processo torna o cálculo das derivadas da Equação \ref{eq:curvatura} sensível ao ruído e inviável, o que limita a aplicação direta da curvatura para a obtenção de descritores. 
 
-A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. A Figura \ref{fig:cir1}a representa o gráfico da curvatura teórica, obtida analiticamente, pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Já na  Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $K(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
+A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. Em particular, Figura \ref{fig:cir1}a mostra o gráfico da curvatura teórica, obtida analiticamente, pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Na Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $K(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
 
 \begin{figure}[h!]
   \caption{\label{fig:cir1} Efeito do ruído na estimativa computacional da curvatura para uma forma circular.}
@@ -217,9 +231,7 @@ A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. A 
   %\legend{Fonte: próprio autor}
 \end{figure}
 
-Diversas estratégias foram propostas na literatura para contornar o problema da sensibilidade ao ruído do cálculo computacional da curvatura. Trabalhos clássicos, como os de \citeonline{5009188} e \citeonline{LynnBeus1987291} estimam a curvatura a partir do ângulo formado entre vetores obtidos a partir dos pontos do contorno. \citeonline{Cazals:2003} e \citeonline{Shi20022051} apresentaram trabalhos que utilizavam métodos para estimação da curvatura por interpolação de pontos. 
-
-\citeonline{149591} introduziram um método que suaviza o contorno, através da convolução do mesmo com um filtro gaussiano, antes de se calcular a curvatura.
+Diversas estratégias foram propostas na literatura para contornar o problema da sensibilidade ao ruído do cálculo computacional da curvatura. Trabalhos clássicos, como os de \citeonline{5009188} e \citeonline{LynnBeus1987291} estimam a curvatura a partir do ângulo formado entre vetores obtidos a partir dos pontos do contorno. \citeonline{Cazals:2003} e \citeonline{Shi20022051} apresentaram trabalhos que utilizavam métodos para estimação da curvatura por interpolação de pontos. \citeonline{149591} introduziram um método que suaviza o contorno, através da convolução do mesmo com um filtro gaussiano, antes de calcular a curvatura.
 
 \begin{figure}[h!]
  \caption{\label{fig:curv_folha} Curvatura estimada do contorno da folha da Figura \ref{fig:folha_contorno1} através de método computacional.}
@@ -373,6 +385,14 @@ No caso de curvas planas, a análise multiescala permite descrevê-las em vário
 
 Inspirados na técnica de \citeonline{Witkin:1983} e \citeonline{Koenderink:1984}, \citeonline{149591} propuseram um método para análise multiescala do contorno através da assinatura da curvatura. O referido método emprega como função de transformação um filtro passa-baixas gaussiano, $g_{\sigma}(l) = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{l^2}{2\sigma^2}}$, que suaviza o contorno antes do cálculo de sua curvatura. Nesse caso, o ajuste do desvio padrão da função gaussiana ($\sigma^2$) atua como fator de escala, regulando a largura de banda do filtro e o nível de suavização do contorno.
 
+A Figura \ref{fig:kk_cont} ilustra o efeito da suavização do contorno para diferentes valores do fator de escala. Observa-se nesta figura que, à medida que o fator de escala aumenta, o grau de suavização também aumenta e, consequentemente, mais informações de detalhes são eliminadas do contorno suavizado. Esse efeito permite obter uma representação do contorno em diferentes níveis de detalhes.
+
+\begin{figure}[h!]
+  \caption{\label{fig:kk_cont} Efeito da suavização sobre o contorno da forma para diferentes valores de escala }
+  \centering
+  \includegraphics[width=\textwidth]{kk735.eps}
+ \end{figure}
+
 %Desta forma, o sinal da curvatura é obtido em múltiplas escalas uma vez que a suavização do contorno possibilita o cálculo das derivadas. 
 
 
@@ -437,14 +457,14 @@ G_\sigma(f) = F\big\{ g_{\sigma}(l)\big\} = e^{-2 \pi^2 f^2 \sigma^2}\text{.}
 \end{equation}
 
 \begin{figure}[h!]
-  \caption{\label{fig:curv_ms} Curvatura multiescala do contorno da folha da Figura \ref{fig:folha_contorno1}.}
+  \caption{\label{fig:curv_ms} Curvatura multiescala do contorno da forma da folha da Figura \ref{fig:folha_contorno1}.}
   \centering
   \includegraphics[width=0.75\textwidth]{curvograma_v2.png}
  \end{figure}
 
-A Figura \ref{fig:curv_ms} ilustra a evolução do sinal de curvatura do contorno da folha da Figura \ref{fig:folha_contorno1} para diferentes níveis de suavização. Os picos da curvatura que se preservam nas escalas de baixa resolução correspondem às informações mais salientes do contorno, que o caracterizam globalmente. As informações de detalhes, que tendem a desaparecer nas escalas de baixa resolução e se preservam nas escalas de alta resolução, representam as características mais especificas do contorno.
+A Figura \ref{fig:curv_ms} ilustra a evolução do sinal de curvatura do contorno da folha da Figura \ref{fig:folha_contorno1} para diferentes níveis de suavização. Os picos da curvatura que se preservam nas escalas de baixa resolução correspondem às informações mais salientes do contorno, que o caracterizam globalmente. As informações de detalhes, que tendem a desaparecer nas escalas de baixa resolução e se preservam nas escalas de alta resolução, representam as características mais especificas do contorno. Essa imagem com diferentes curvaturas multiescalas também é conhecida na literatura como curvograma \cite{Cesar:1996}.
 
-{\color{blue}
+
 \citeonline{Costa:1997} propuseram um método para o ajuste das escalas através das expressões
 
 \begin{equation}
@@ -455,8 +475,8 @@ oct_l = (\sqrt{2})^l;\text{ }l = 1,\ldots,S
 \sigma_l = \big(\frac{\sigma_{max} - \sigma{min}}{oct_{max}-\sqrt{2}}\big)(oct_l - \sqrt{2})+\sigma_{min}\text{,}
 \end{equation}
 
-\noindent aonde $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
-}
+\noindent em que $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
+
  
 \subsubsection*{Dimensão Fractal multiescala (DFM)}
 
@@ -495,17 +515,11 @@ Apresentamos neste capítulo duas técnicas de visualização de dados que foram
 
 \subsection{Análise das componentes principais (PCA)}
 
-\begin{figure}[h!]
-  \caption{\label{fig:nuvem_pca} Projeções das três primeiras componentes principais dos vetores de características obtidos  a partir do descritor \emph{NMBE} e os vetores transformados através de \emph{PCA}.}
-  \centering
-  \includegraphics[width=0.75\textwidth]{nuvem_pca.eps}
-\end{figure}
-
 O propósito da análise das componentes principais é obter um conjunto de variáveis não correlacionadas, em ordem decrescente de importância, a partir da combinação linear das variáveis originais. Sob o aspecto geométrico, esse processo de combinar linearmente as variáveis pode ser entendido como realizar a rotação dos eixos do sistema de coordenadas original, a fim de se encontrar um novo sistema de coordenadas ortogonal em que as variáveis transformadas apresentem máxima variância. 
 
 Desde que a maior parte da variância esteja concentrada nas primeiras componentes das variáveis transformadas, consegue-se obter através dessa técnica uma representação com um número reduzido de variáveis.
 
-A técnica \emph{PCA} é não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  Sendo a transformação \emph{PCA} linear, temos que
+A técnica \emph{PCA} é não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  Sendo a transformação \emph{PCA} linear, temos que \cite{Gonzalez:2006}
 
 \begin{equation}\label{eq:PCA1}
 \mathbf{y}=\mathbf{A}^T\mathbf{x}
@@ -530,24 +544,22 @@ Logo, cada variável de saída $y_i$ é obtida através da combinação linear d
  y_i = \sum\limits_{j = 1}^p a_{i,j}x_j = \mathbf{a_i}^T\mathbf{x}
  \end{equation}
 
-Pode-se demonstrar que, para se obter em $\mathbf{y}$ variáveis que não são correlacionadas,  deve-se atribuir aos vetores de coeficientes $\mathbf{a_1} \ldots \mathbf{a_p}$ os auto-vetores da matriz de covariância de $\mathbf{x}$, sendo esta última dada por: 
+Pode-se demonstrar que, para se obter $\mathbf{y}$ variáveis que não são correlacionadas,  deve-se atribuir aos vetores de coeficientes $\mathbf{a_1} \ldots \mathbf{a_p}$ os auto-vetores da matriz de covariância de $\mathbf{x}$, sendo esta última dada por: 
 
 \begin{equation}\label{eq:PCA3}
 \mathbf{\Sigma_x} = E{[\mathbf{xx}^T]}-E{[\mathbf{x}]}E{[\mathbf{x}^T]}
 \end{equation}
 
 \noindent aonde $E[.]$ denota o operador esperança. 
-Já que $\mathbf{\Sigma_x}$ é de dimensão $p \times p$, temos associada a esta $p$ auto-vetores ($\mathbf{a_1}\text{, }\mathbf{a_2}\text{, }\ldots\text{, }\mathbf{a_p}$) com $p$ auto-valores ($\lambda_1 > \lambda_2 \ldots > \lambda_p$) correspondentes, sendo cada auto-valor $\lambda_i$ a variância de cada variável de saída $y_i$ obtida através da Equação \ref{eq:PCA2}. 
+A dimensão da matriz de covariância $\mathbf{\Sigma_x}$ é  $p \times p$ e a ela estão associados $p$ autovetores ($\mathbf{a_1}\text{, }\mathbf{a_2}\text{, }\ldots\text{, }\mathbf{a_p}$) e $p$ autovalores ($\lambda_1 > \lambda_2 \ldots > \lambda_p$) correspondentes, sendo cada auto-valor $\lambda_i$ a variância de cada variável de saída $y_i$ obtida através da Equação \ref{eq:PCA2}. 
 
-Selecionando dentre as componentes somente aquelas de maior variância, que implica em construir a matriz de transformação apenas com os auto-vetores mais significativos, é possível obter uma representação dos dados em um espaço de dimensão reduzida e de mais fácil entendimento do ponto de vista geométrico.
-
-Na Figura \ref{fig:nuvem_pca} temos representadas as projeções das duas componentes principais de maior variância para cada um dos descritores avaliados. Os valores numéricos correspondem a taxa de acerto média nos experimentos de recuperação de formas pelo conteúdo alcanças para cada classe de formas representada.
+Selecionar dentre as componentes somente aquelas de maior variância, implica em construir a matriz de transformação apenas com os autovetores mais significativos. Dessa forma, é possível obter uma representação dos dados em um espaço de dimensão reduzida e de mais fácil entendimento do ponto de vista geométrico e espacial. Na Figura \ref{fig:nuvem_pca} temos representadas as projeções das duas componentes principais de maior variância para cada um dos descritores avaliados. Os valores numéricos correspondem a taxa de acerto média nos experimentos de recuperação de formas pelo conteúdo alcanças para cada classe de formas representada.
 
 \subsection{Escalonamento multidimensional (\emph{MDS})}
 
-O escalonamento multidimensional \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial, multi dimensional, para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou disimilaridade dos dados como distâncias no espaço geométrico.
+O escalonamento multidimensional \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial, multidimensional, para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou disimilaridade dos dados como distâncias no espaço geométrico.
 
-Há dois tipos de algoritmos \emph{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem  mais próximas possível àquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
+Há dois tipos de algoritmos \emph{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem o mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
 O coeficiente $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quando mais próximo de 1 o valor de $R^2$, melhor o ajuste do modelo aos dados observados.  Sejam $d$ e $\hat{d}$ as matrizes de distância simétricas entre dois vetores nos espaços de menor e maior dimensão, respectivamente. O coeficiente $R^2$ é dado por 
 \begin{equation}
@@ -569,11 +581,9 @@ Em seu processo de treinamento, a rede \emph{SOM} agrupa os vetores de entrada a
 
 Sendo uma ferramenta para análise exploratória de dados, esse tipo de rede neural tem sido empregada para visualização de imagens \cite{Strong2011774}, identificação de agrupamentos \cite{Kuroiwa200031}, classificação de texturas \cite{595364}, bem como outras aplicações.
 
-\citeonline{Ultsch:1990} demonstraram que, embora a rede \emph{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a análise dos agrupamentos estabelecidos. 
+\citeonline{Ultsch:1990} demonstraram que, embora a rede \emph{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a análise dos agrupamentos estabelecidos. Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir do mapa \emph{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
 
-Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir do mapa \emph{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
-
-Para ilustrarmos como se interpreta a informação contida na matriz-U apresentamos como exemplo a imagem da Figura \ref{fig:u-matrix}. Nesta imagem a matriz-U é representada por um conjunto de células em níveis de cinza. As estruturas claras rotuladas representam os neurônios da rede SOM, enquanto as demais células representam o grau de separação existente entre as estruturas. Células mais escuras representam maior grau de separação entre as estruturas mapeadas pela matriz. Já células mais claras, tais como as que tendem ao branco, representam maior grau de proximidade entre as estruturas mapeadas. 
+A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpretação da informação contida na matriz-U. Neste exemplo a matriz-U é representada por um conjunto de células em níveis de cinza. As estruturas claras rotuladas representam os neurônios da rede SOM, enquanto as demais células representam o grau de separação existente entre as estruturas. Células mais escuras representam maior grau de separação entre as estruturas mapeadas pela matriz. As células mais claras, tais como as que tendem ao branco, representam maior grau de proximidade entre as estruturas mapeadas. 
 
 \begin{figure}[]
   \caption{\label{fig:u-matrix} Representação da Matriz-U como imagem em níveis de cinza. As células brancas rotuladas correspondem aos neurônios da rede SOM. Células escuras indicam maior separação entre neurônios e células claras indicam maior proximidade entre neurônios.}
@@ -581,7 +591,7 @@ Para ilustrarmos como se interpreta a informação contida na matriz-U apresenta
   \includegraphics[width=0.4\textwidth]{u-matrix_gray.png}
 \end{figure}
 
-Interpretando esta figura observamos que as estruturas A5, A4 e A8 estão bem próximas umas das outras. Já a estrutura A9 encontra-se afastada das referidas estruturas. Dada a grande separação existente entre as quatro estruturas analisadas e as demais estruturas da matriz (E8, E6, E10, E9, E3 e B9), podemos inferir que as quatro estruturas (A5, A4, A8 e A9) formam um agrupamento. Já as estruturas E8, E6, E10 e E9 formam um outro agrupamento, embora não estejam tão próximas umas das outras como no caso anterior. Quanto às estruturas B9 e E3, estas estão isoladas, ou seja, muito distante das demais estruturas da matriz.
+A interpretação visual da  Figura \ref{fig:u-matrix} mostra que as estruturas A4, A5 e A8 estão bem próximas umas das outras, enquanto a estrutura A9 encontra-se afastada das referidas estruturas. Dada a grande separação existente entre as quatro estruturas analisadas e as demais estruturas da matriz (E3,E6, E8,E9 e B9), podemos inferir que as quatro estruturas (A4, A5, A8 e A9) formam um agrupamento. Por outro lado, as estruturas E6, E8, E9 e E10 formam um outro agrupamento, mesmo não estando tão próximas umas das outras como no caso anterior. Quanto às estruturas B9 e E3, estas estão isoladas, ou seja, distantes das demais estruturas da matriz.
 
 \begin{comment}
 
@@ -622,7 +632,7 @@ MFD = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 \section{Métodos de otimização}
 
-Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos,{\color{red} PRECISA CITAR UMA FONTE AQUI como o de Newton-Rapson }e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global no entanto, tais condições não são encontradas em diversos problemas. 
+Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos como Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global no entanto, tais condições não são encontradas em diversos problemas. 
 
 Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: evolução diferencial  \cite{Storn:1007}, enxame de partículas  \cite{Yuhui:1998} e recozimento simulado \cite{Andries:2007}.
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
@@ -673,7 +683,7 @@ $n \gets n + 1$
 
 \subsection{Evolução diferencial \emph{DE}}
 
-O algoritmo de otimização evolução diferencial \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos ou vetores de soluções candidatas. A cada interação, o mecanismo de cruzamento e mutação  se dá para cada indivíduo da população. O cruzamento consiste em produzir uma novo indivíduo ($d$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
+O algoritmo de otimização denominado evolução diferencial \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos ou vetores de soluções candidatas. A cada iteração, o mecanismo de cruzamento e mutação  acontece para cada indivíduo da população. O cruzamento consiste em produzir uma novo indivíduo ($d$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
 
 \noindent
 \begin{equation}
@@ -724,9 +734,9 @@ O mecanismo de mutação do \emph{DE} utiliza o indivíduo $\boldsymbol{d}$, pro
 \end{algorithm}
 
 \subsection{Enxame de partículas (\emph{PSO})}
- O enxame de partículas é um algoritmo de otimização bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada interação o algoritmo \emph{PSO}: a) registra as melhores posições alcançadas por cada partícula (\emph{bpp}) e a melhor posição globalmente encontrada por todas as partículas do enxame (\emph{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de \emph{bpp} e o segundo a tendência da partícula se movimentar em direção a \emph{bgp}; c) Atualiza a posição das partículas a partir das suas velocidades.
+ O enxame de partículas é um algoritmo de otimização bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o algoritmo \emph{PSO}: a) registra as melhores posições alcançadas por cada partícula (\emph{bpp}) e a melhor posição globalmente encontrada por todas as partículas do enxame (\emph{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de \emph{bpp} e o segundo a tendência da partícula se movimentar em direção a \emph{bgp}; c) Atualiza a posição das partículas a partir das suas velocidades.
  
- Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada interação por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo $PSO$ é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}. O Algoritmo \label{alg:pso} detalha a implementação do \emph{PSO} 
+ Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada iteração por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo $PSO$ é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}. O Algoritmo \label{alg:pso} detalha a implementação do \emph{PSO}. 
   
   
 \begin{algorithm}[ht]

@@ -8,7 +8,7 @@ Como principal sentido humano, a visão tem inspirado toda uma área de pesquisa
 
 Dentre as informações visuais, a forma desempenha um papel importante no sistema de percepção visual humano pela riqueza de informação que esta propicia. A forma advém da imagem resultante da projeção dos objetos existentes no espaço tridimensional em estruturas bidimensionais, como a retina do olho humano ou um sensor de \emph{CCD} de uma câmera.
 
-Em várias aplicações, informações sobre a forma são suficientes para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem \cite{Zhang201661,deSouza2016,Zhao20153203}. Na medicina, descritores de forma foram aplicados no diagnóstico de doenças da coluna vertebral \cite{Lee:2009}, na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009} e na identificação automática de pílulas \cite{Ushizima:2015}. Em microscopia, descritores de forma foram aplicados na análise de materiais \cite{Zhang201661}. Descritores de forma também são encontrados em busca de informação de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
+Em várias aplicações\cite{Zhang201661,Zhao20153203}, informações sobre a forma são suficientes para caracterizar os objetos existentes em uma cena independente dos demais atributos da imagem. Na medicina, descritores de forma foram aplicados no diagnóstico de doenças da coluna vertebral \cite{Lee:2009}, na avaliação clínica de tumores de mama a partir de imagens de ultrassom \cite{Yang:2009} e na identificação automática de pílulas \cite{Ushizima:2015}. Em microscopia, descritores de forma foram aplicados na análise de materiais \cite{Zhang201661}. Descritores de forma também são encontrados em busca de informação de marcas registradas por similaridade de conteúdo \cite{MohdAnuar2013105,Qi20102017}.
 
 Uma área de particular interesse em aplicações de visão computacional é o processo de análise e reconhecimento de formas, que envolve representá-las computacionalmente e avaliar, com base nessa representação, o grau de similaridade entre as mesmas. Esse processo consiste em detectar e representar pistas visuais das imagens suficientemente informativas para melhorar o desempenho dos algoritmos que realizam as tarefas de classificar, comparar ou reconhecer os objetos \cite{Escolano:2009}. Quanto a avaliação de similaridade, procura-se por medidas que sejam semelhantes ao sistema de percepção da visão humana, ainda que não esteja totalmente claro como tal sistema opera \cite{4815272}. 
 
@@ -26,19 +26,6 @@ Muitas vezes, no projeto de descritores de forma, atribui-se valores de parâmet
 
 O ajuste de parâmetros dos descritores pode ser considerado um problema de otimização e inteligência computacional (CI) \cite{Andries:2007}, sendo esta uma subárea da inteligência artificial. Estudos nessa área envolvem o desenvolvimento de algoritmos bio-inspirados, que apresentam comportamento inteligente, para resolução de problemas complexos. Em otimização, os algoritmos de computação evolucionária (EC) imitam a evolução natural dos processos de populações. Desta forma, cada solução candidata é análoga a um indivíduo em uma população e sua qualidade, à aptidão desse indivíduo \cite{Eiben:2015}.
 
-{\color{red}
-MAIS MULTIESCALA (NÃO LI EM DETALHES)
-
-ShuPanWu2015 - Multi-scale contour flexibility shape signature for Fourier descriptor
- \cite{ShuPanWu2015}.
-
-LiKuangLiuEtAl2016 - Multiscale shape context and re-ranking for deformable shape retrieval
- \cite{LiKuangLiuEtAl2016}.
-
-HuangHanHe2014 - Multi-scale embedded descriptor for shape classification
-\cite{HuangHanHe2014}.
-}
-
 A descrição multiescala de formas \cite{LiKuangLiuEtAl2016,ShuPanWu2015, HuangHanHe2014, Costa:2009} é uma abordagem promissora em reconhecimento de padrões em imagens \cite{Direkoglu:2011}. Na descrição multiescala os atributos das formas são representados em vários níveis de detalhes, variando de escalas de baixa resolução, aonde os detalhes que diferenciam as formas de uma mesma classe não são levados em consideração, até escalas de alta resolução aonde esses detalhes são preservados \cite{Ullman:1996}. Desta forma, a combinação desses atributos, de baixa e alta resolução, aumentam o poder de discriminação do descritor, melhorando o desempenho na tarefa de classificação \cite{Direkoglu:2011}.
 
 \citeonline{YangWangYuanEtAl2016} também apresentam uma proposta robusta de descritor multiescala para a recuperação de formas pelo conteúdo, com propriedades de invariância à rotação, escala, variação intraclasse, deformação,  oclusão parcial e ruídos. Esta proposta utiliza três assinaturas invariantes de contorno para capturar características locais e globais das formas em múltiplas escalas, sendo a avaliação da similaridade entre as assinaturas feita através de programação dinâmica.
@@ -48,7 +35,7 @@ A descrição multiescala de formas \cite{LiKuangLiuEtAl2016,ShuPanWu2015, Huang
 
 Outras técnicas consistem em aproximar o contorno da forma através de uma função espaço escala do ângulo de giro (\textit{d-TAS}) \cite{4202050}, \textit{b-splines} \cite{1168520} e as funções peso, ou \textit{height functions} \cite{Wang2012134}. A função peso de um ponto amostral do contorno é definida como sendo pelas distâncias de todos os outros pontos amostrais a sua linha tangente. A função peso obtida é então suavizada para representar e reconhecer objetos bidimensionais
 
-A técnica contexto da forma, do inglês \textit{shape context} (\textit{SC}), \cite{Belongie:2002} é um método clássico de encontrar correspondência entre conjuntos de pontos que utiliza a distância euclidiana como métrica para construção da matriz de distâncias. Já \citeonline{1467513} propuseram o \textit{inner distance shape context} (\textit{IDSC}) substituindo, no \textit{SC}, a distância euclidiana pela do produto escalar. Embora esses métodos tenham a habilidade de extrair características bastante discriminativas das formas, lidando também com o problema da inexatidão de correspondência, estes são sensíveis a diferentes deformações e poses de uma mesma forma. Ademais, por utilizarem programação dinâmica, apresentam a desvantagem de ter um custo computacional elevado na avaliação da similaridade entre as formas \cite{FreitasS.TorresMiranda2016}.
+A técnica contexto da forma, do inglês \textit{shape context} (\textit{SC}), \cite{Belongie:2002} é um método clássico de encontrar correspondência entre conjuntos de pontos que utiliza a distância euclidiana como métrica para construção da matriz de distâncias. \citeonline{1467513} propuseram o \textit{inner distance shape context} (\textit{IDSC}) substituindo, no \textit{SC}, a distância euclidiana pela do produto escalar. Embora esses métodos tenham a habilidade de extrair características bastante discriminativas das formas, lidando também com o problema da inexatidão de correspondência, estes são sensíveis a diferentes deformações e poses de uma mesma forma. Ademais, por utilizarem programação dinâmica, apresentam a desvantagem de ter um custo computacional elevado na avaliação da similaridade entre as formas \cite{FreitasS.TorresMiranda2016}.
 
 Variantes do \textit{SC} e \textit{IDSC} são encontrados em \cite{Nanni20122254}. O método desses autores transforma os descritores obtidos a partir da \textit{IDSC}, \textit{SC} e funções de peso em um descritor matricial por quantização local de fase. Os descritores matriciais das formas são então comparados através do divergente de Jeffrey \cite{Ullah1996}. \citeonline{Hu20123348} propuseram um descritor baseado em contorno para o reconhecimento de formas de mão, o qual foi nomeado de distância coerente do contexto da forma, do inglês \textit{coherent distance shape context} (\textit{CDSC}). O método \textit{CDSC} é robusto a diferentes poses da mão e pode ser utilizado tanto para o reconhecimento das formas como das palmas das mãos.  
 
@@ -97,7 +84,7 @@ Historicamente, as amostras de espécies são armazenadas em arquivos físicos, 
 O objetivo geral deste trabalho é investigar a aplicabilidade dos métodos multiescala de descrição de forma ao problema de identificação das espécies de plantas a partir dos atributos de forma das imagens de folhas, bem como introduzir um método automático para adequação desses descritores ao problema em questão. Quanto aos objetivos específicos destacamos:
 
 \begin{itemize}
-\item Desenvolver descritores multiescala de formas a partir de características do contorno que envolvam informação sobre a curvatura, energia de dobramento;
+\item Otimizar descritores multiescala de formas baseados em curvatura e energia de dobramento;
 
 \item Empregar técnicas de visualização de dados e medidas de avaliação da qualidade de agrupamentos para quantificar a capacidade discriminativa dos descritores estudados; 
 

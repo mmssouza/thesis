@@ -2,19 +2,58 @@
 \label{chap:MatMet}
 
 O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes dependentes da natureza da aplicação, ou seja,  das características da base de imagens e o propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e dos valores das escalas utilizadas na representação das formas. 
-
-Esse capítulo apresenta um método robusto e versátil para o ajuste desses parâmetros para customizar descritores multiescala à base de imagens de formas, para fins de melhoria do desempenho em classificação supervisionada e não supervisionada. 
+Esse capítulo apresenta um método versátil para o ajuste desses parâmetros de modo a customizar descritores multiescala à base de imagens de formas e melhorar o desempenho em classificação supervisionada e não supervisionada. 
 
 \section{Base de imagens}
-Temos na Figura \ref{fig:leaves} exemplares de folhas extraídas da base de imagens Flavia \cite{}.
+
+Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}.
+
+\begin{table}[]
+\centering
+\caption{Características das bases de imagens utilizadas nos experimentos}
+\label{tbl:bases}
+\begin{tabular}{lll}
+\toprule
+Base de imagens       & Total de formas & Total de classes \\
+\midrule
+Kimia-99      & $99$   & $9$     \\
+Kimia-216     & $216$  & $12$    \\
+MPEG7-CE      & $1400$ & $70$    \\
+Flavia leaves & $1907$ & $32$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A Figura \ref{fig:db1} apresenta todas as $99$ formas da base Kimia-99, enquanto as Figuras \ref{fig:db2} e \ref{fig:db3} ilustram algumas das formas da base Kimia-216 e MPEG7-CE, respectivamente.
+
+\begin{figure}[h!]
+  \caption{\label{fig:db1} Formas da base de imagens Kimia-99.}
+  \centering
+  \includegraphics[width=0.5\textwidth]{db.eps}
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{\label{fig:db2} Amostras de formas da base de imagens Kimia-216.}
+  \centering
+  \includegraphics[width=0.5\textwidth]{Dataset.jpg}
+\end{figure}
+
+\begin{figure}[h!]
+  \caption{\label{fig:db3} Amostras de formas da base de imagens MPEG-7.}
+  \centering
+  \includegraphics[width=0.5\textwidth]{mpeg7.png}
+\end{figure}
+
+Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \cite{4458016} são exibidos na Figura \ref{fig:leaves}. Esta base, composta de  $1907$ imagens de folhas de $32$ espécies distintas, tem sido extensivamente utilizada em trabalhos recentes para testes de métodos de reconhecimento automático de espécies de plantas \cite{wang2015march,quteprints78723,Quadri:2015,Chaki201561}. A base Flavia é bastante desafiadora pois, além de ser desbalanceada, ou seja,  conter classes com quantidades distintas de folhas, ela ainda apresenta espécies com grande variabilidade intra classe e pequena variabilidade entre classes. 
+ 
 
 \begin{figure}[!ht]
 \caption{\label{fig:leaves} Trinta e duas amostras extraídas da base Flavia, que contém $1907$ imagens de folhas de $32$ espécies diferentes. Cada amostra corresponde a uma espécie.}
 \centering
-\includegraphics[width= \textwidth]{folhas.eps}
+\includegraphics[width= 0.6\textwidth]{folhas.eps}
 \end{figure}
 
-\section{Extração de atributos}
+\section{Extração de atributos\label{sec:EA}}
 
 \subsection{Energia de dobramento multiescala\label{subsec:BE}}
 
@@ -48,10 +87,10 @@ K[n] = \frac{-Im(z^{'}[n](z^{''}[n])^{*})}{|z^{'}[n]|^3} \text{,}
 \noindent
 aonde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda e $z^{*}[n]$ o conjugado de $z[n]$. 
 
-A energia de dobramento multiescala resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
+A energia de dobramento multiescala resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
 
 \begin{equation}
-Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n].e^{\frac{-j2\pi ns}{N}} \text{,}
+Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{,}
 \end{equation}
 
 $s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)$.
@@ -70,21 +109,21 @@ n = 0 \: \ldots \: N-1$:
 Z_\sigma[s] = Z[s].F\big\{g_\sigma[n]\big\}\text{,}
 \end{equation}
 \noindent
- sendo as referidas derivadas do contorno suavizado:
+ sendo as referidas derivadas do contorno suavizado dadas por:
 \begin{equation}
 z_\sigma'[n] = F^{-1}\big\{j2\pi s Z_\sigma[s]\big\}
-\end{equation} e
+\end{equation}
 \begin{equation}
 z_\sigma''[n] = F^{-1}\big\{-(2\pi s)^2 Z_\sigma[s]\big\}\text{.}
 \end{equation}
 
-O processo de filtragem passa-baixas diminui a energia espectral da representação complexa do contorno resultando no encolhimento do seu perímetro. Uma estratégia para compensar tal efeito é normalizar o contorno suavizado com a razão entre o perímetro do contorno não suavizado ($L$) e o seu perímetro ($L_{\sigma}$) \cite{Cesar:1996,Costa:1997}:
+O processo de filtragem passa-baixas reduz a energia espectral da representação complexa do contorno causando portanto, o encolhimento do seu perímetro. Uma estratégia para compensar tal efeito é normalizar o contorno suavizado com a razão entre o perímetro do contorno não suavizado ($L$) e o seu perímetro ($L_{\sigma}$) \cite{Cesar:1996,Costa:1997}:
 
 \begin{equation}
 \breve{z}_{\sigma}[n] = \frac{L}{L_{\sigma}}z_{\sigma}[n]\text{.}
 \end{equation}
 
-Substituindo $K[n]$ por $K_{\sigma}[n]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na representação multiescala da energia de dobramento:
+Substituindo $K[n]$ por $K_{\sigma}[n]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas Equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na representação multiescala da energia de dobramento:
 
 \begin{equation}
 NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ , }\log{E_{\sigma_{M}}})\text{.}
@@ -92,7 +131,7 @@ NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ 
 \end{equation}
 
 \section{Função custo e otimização}
-A metodologia para escolha de parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. Essa metodologia melhora a representação do descritor utilizando métodos de otimização evolutivos para minimizar uma função custo, que corresponde a mediana do erro absoluto da \textit{silhouette} dos descritores ($MAD$). O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação 
+A metodologia para otimização dos parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas utilizando métodos de otimização evolutivos para minimizar uma função custo. Esta função corresponde à mediana do erro absoluto da \textit{silhouette} ($MAD$) dos descritores. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
 
 \begin{equation}
 \label{eq:mad}
@@ -108,7 +147,7 @@ MAD = \operatorname{mediana}\big(|s_i - 1|_{i =1,\:2,\:\cdots,\:L}\big)\text{,}
 
 \noindent aonde $S = \{s_1,s_2,\cdots,s_L\}$ é o conjunto das \emph{silhouettes} calculadas para $L$ descritores de forma. Os operadores $|.|$  e {$mediana ( )$} retornam o valor absoluto e a mediana de um conjunto de valores, respectivamente.
 
-A \textit{silhouette }\cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, levando em conta as distâncias médias entre classes e intra classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
+A \textit{silhouette }\cite{Rousseeuw:1987} é uma medida de qualidade de agrupamentos que indica o grau de afinidade de uma amostra  a um agrupamento, considerando as distâncias médias entre classes e intra classes de um objeto $i$ atribuído a uma dada classe $A$. Logo, esta métrica é definida como 
 \begin{equation}
 s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
 \end{equation}
@@ -124,49 +163,80 @@ Uma vez definida a função custo, o processo de otimização dos parâmetros de
 
 \section{Avaliação do descritor}
 
-O desempenho do descritor é avaliado neste trabalho qualitativamente e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa são analisadas as métricas de avaliação Precisão e Revocação, obtidas em experimentos de classificação supervisionada, a métrica \textit{Bulls-eye} \citeonline{Ling:2007:SCU:1191552.1191806}, classicamente utilizada na comparação de descritores em recuperação de formas (CBIR) e a medida de avaliação de agrupamentos silhouette \cite{Rousseeuw:1987}. 
+Nesta tese, o desempenho do descritor é avaliado qualitativa e quantitativamente. Na avaliação qualitativa dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (CBIR) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
 
-Para fins de comparação,  as avaliações de desempenho qualitativa e quantitativa foram realizadas com as versões dos descritores otimizados com o método proposto e não otimizados, seja por escolha aleatória dos parâmetros ou por meio de ajuste apresentado em \cite{Costa:1997}.
+Para fins de comparação,  as avaliações de desempenho qualitativa e quantitativa foram realizadas com as versões dos descritores otimizados pelo método proposto e não otimizados, seja por escolha aleatória dos parâmetros ou por meio de ajuste apresentado em \cite{Costa:1997}.
 
 \subsection{Visualização dos dados}
 
 Algoritmos de visualização de dados produzem projeções bidimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas. Os métodos de visualização empregados neste trabalho são o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional (MDS)} \cite{cox:2000}.
 
-As projeções \textit{MDS} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo DE busca os parâmetros otimizados do descritor (NMBE). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções MDS do descritor NMBE otimizado utilizando o algoritmo DE.  A Figura \ref{fig:optimization_result} demonstra que à medida que os valores de MAD decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta imagem, quando o método de otimização converge, ou seja MAD alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos. 
+A Figura \ref{fig:projkimia99} mostra a matriz-U para formas da base MPEG-7 CE-Shape-1 data set \cite{855850}. A imagem central é o resultado do processamento de todas as imagens da base descrita pela NMBE otimizada. As quatro imagens dos cantos são detalhes da imagem central. 
 
-\begin{figure}[t]
+\begin{figure}[h]
+\caption{\label{fig:projkimia99} Matrizes-U para as formas da base MPEG7 CE-Shape-1.}
+\centering
+\includegraphics[width=0.8\textwidth]{fig3.eps}
+\end{figure}
+
+Essa ferramenta de visualização identifica quão bem a NMBE descreve detalhes sutis das formas de um mesmo agrupamento e de diferentes agrupamentos. Nas imagens de detalhes se observa que as fronteiras entre os agrupamentos (cor cinza) estão evidentes e separam agrupamentos bem definidos. Nesta tese assumimos que agrupamentos bem definidos são aqueles com menor distância dentro das classes e maior distância entre classes.  
+
+As projeções \textit{MDS} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo DE busca os parâmetros otimizados do descritor (NMBE). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções MDS do descritor NMBE otimizado utilizando o algoritmo DE.  A Figura \ref{fig:optimization_result} demonstra que à medida que os valores de MAD decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta imagem, quando o método de otimização converge, ou seja MAD alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos.
+
+\begin{figure}[h]
 \caption{\label{fig:optimization_result} Projeções do escalonamento multidimensional das formas da base Kimia-99 \citeonline{Sebastian:2004}. As imagens mostram como os agrupamentos evoluem ao longo do processo de otimização (DE), assim como os valores de MAD e $R^2$.}
 \centering
 \includegraphics[width = \textwidth]{fig4.eps}
 \end{figure}
 
-\begin{figure}[!ht]
-\caption{\label{fig:projkimia99} Matrizes-U para as formas da base MPEG7 CE-Shape-1.}
-\centering
-\includegraphics[width=\textwidth]{fig3.eps}
-\end{figure}
-
 \subsection{Recuperação de formas (CBIR)}
 
-Foram realizados experimentos de recuperação de imagens pelo conteúdo visando avaliar o desempenho dos descritores de formas e das medidas de similaridade estudadas neste trabalho. As metodologias utilizadas nesses experimentos são as mesmas encontradas em diversos trabalhos de recuperação de formas da literatura.
+Visando avaliar o desempenho dos descritores de  forma, foram realizados experimentos de recuperação de imagens pelo conteúdo em duas bases de imagens de formas binárias (Kimia-99 e MPEG-7 CE-Shape-1) e uma  base de folhas (Flavia). 
 
-Foram realizados experimentos em duas bases de imagens de formas binárias: a Kimia, de 99 formas, e a MPEG-7 CE-Shape-1 de 1400 formas. Ambas as bases estão apresentadas no Apêndice deste trabalho.
+A  Figura \ref{fig:metodo_cbir} ilustra a metodologia dos experimentos de recuperação de formas.  Primeiramente realiza-se a extração de características das formas da base de imagens com o método de descrição sob avaliação. Desse processo resulta uma base de dados com os vetores de características associados às formas, que serão utilizados no experimento. 
 
-A  Figura \ref{fig:metodo_cbir} ilustra a metodologia dos experimentos de recuperação de formas.  Primeiramente realiza-se a extração de características das formas da base de imagens de formas binárias com o método de descrição sob avaliação. O mesmo processo de extração de características é aplicado a imagem de uma forma de consulta. Esse processo resulta numa base de dados com os vetores de características associados às formas utilizadas no experimento. 
+O mesmo processo de extração de características é aplicado à imagem da forma de consulta. Essa última corresponde ao padrão de entrada ao qual as demais formas da base serão comparadas, através de uma medida de similaridade, a fim de se estabelecer o grau de correspondência existente entre as mesmas. Desta forma, tem-se como resultado a lista das imagens recuperadas na ordem decrescente da similaridade que apresentam em relação à forma de consulta. Todo esse processo é realizado tomando-se cada forma da base de imagens como forma de consulta para realização da recuperação das demais.
 
-Com a medida de similaridade avalia-se o grau de correspondência existente entre o vetor de características da forma de consulta e os vetores associados a cada uma das formas da base. Tem-se assim como resultado uma lista de imagens recuperadas em ordem decrescente de similaridade à forma de consulta. Todo esse processo é realizado repetidamente tomando-se cada forma da base de imagens como forma de consulta e recuperando-se as demais.
+
+
+Como medida de dissimilaridade nos experimentos CBIR com descritores multiescala, empregamos a distância  euclidiana entre os vetores de características das formas. A distância euclidiana entre os vetores $a$ e $b$ de mesma dimensão $n$ é definida como: %${d}_{euclidiana} =  \sum_{i=1}^{N}{({a}_{i}-{b}_{i})}^{2}$,
+\begin{equation}
+\label{eq:dist_euclidiana}
+{d}_{euclidiana} = \sqrt{\sum_{i=1}^{n}{({a}_{i}-{b}_{i})}^{2}},
+\end{equation}
+em ${a}_{i}$ e ${b}_{i}$ correspondem às $i$-ésimas componentes dos vetores $a$ e $b$, respectivamente.
+
+%As metodologias utilizadas nesses experimentos são as mesmas encontradas em diversos trabalhos de recuperação de formas da literatura.
 
 \begin{figure}[h!]
-  \caption{\label{fig:metodo_cbir} Metodologia empregada para os experimentos de recuperação de formas pelo conteúdo.}
+\caption{\label{fig:metodo_cbir} Metodologia empregada para os experimentos de recuperação de formas pelo conteúdo.}
   \centering
   \includegraphics[width=0.55\textwidth]{Metodologia1.jpg}
 \end{figure}
 
-Na avaliação do desempenho dos experimentos duas medidas são utilizadas: o número total de acertos por posição recuperada e a medida bull-eyes.
+%Com a medida de similaridade avalia-se o grau de correspondência existente entre o vetor de características da forma de consulta e os vetores associados a cada uma das formas da base. 
 
-A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Tendo esta base 99 formas, igualmente distribuídas em 9 classes, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
 
-A medida Bulls-eye também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Essa medida é calculada para a base MPEG-7 CE-Shape-1 da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes a mesma classe da forma de consulta dentre as $40$ primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas poro forma}$. 
+Na avaliação do desempenho destes experimentos empregamos duas medidas que são  o número total de acertos por posição recuperada e a medida \textit{Bulls-eye} \cite{Ling:2007:SCU:1191552.1191806,Latecki2000}.
+A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Para esta base, que contém 99 formas igualmente distribuídas em 9 classes, ou seja é uma base balanceada, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
+
+A medida  \textit{Bulls-eye} \cite{Latecki2000} originalmente foi definida para avaliar o desempenho de descritores de forma em experimentos CBIR com a base de imagens MPEG-7, podendo ser adaptada para outras bases. Esta medida também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Seu cálculo  para a base MPEG-7 CE-Shape-1 é obtido da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes à mesma classe da forma de consulta dentre as $40$ primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas por forma}$.
+
+
+%
+% Considerando uma base de imagens, cujo número de elementos é dado por $N_B$, com a mesma quantidade de objetos em todas suas classes. O número de classes é representado por $N_C$ e o de elementos de determinada classe é denotado por $N_E$.
+
+Em caso de bases de imagens balanceadas, ou seja, com a mesma quantidade de objetos em todas suas classes, pode-se definir $N_B$ como o número de imagens da base e $N_C$ como o número de elementos de uma determinada classe. Sendo assim, ao realizar o experimento CBIR, recupera-se as $2N_C$ imagens mais semelhantes e contabiliza-se quantas foram recuperadas da mesma classe da imagem usada na consulta, sendo esse processo executado para todas $N_B$ imagens da base. O número de imagens recuperadas da mesma classe das imagens testadas em todas iterações é denotado por $N_A$, ou seja, a quantidade de acertos.
+Assim a medida \textit{Bulls-eye} ($B_e$) é definida por: %$BE=\frac{Q_A}{N_B N_C}$.
+\begin{equation} 
+\label{eq:Bulls-eye}
+B_e=\frac{N_A}{N_B N_C}.
+\end{equation}
+
+O teste \textit{Bulls-eye} apresenta  escores ou valores no intervalo $[0,1]$. Valores próximos a $0$ indicam que os descritores  utilizados no experimento $CBIR$ não desempenharam bem na caracterização dos elementos da base em estudo, e valores perto de $1$ indicam  bom desempenho.
+
+
+
 
 \subsection{Classificação supervisionada}
 
@@ -177,12 +247,40 @@ Metodologia de classificação para avaliação de desempenho do descritor otimi
 \includegraphics[width=0.7\textwidth]{fig_metodo_classifica_folhas.eps}
 \end{figure*}
 
-O procedimento adotado para avaliar o desempenho do descritor multiescala em classificação supervisionada está ilustrado na Figura \ref{fig:Classific}. A etapa de pré-processamento consiste na segmentação das imagens das formas. Essa etapa só se aplica para a base de folhas Flavia, aonde um método  de segmentação por limiar \cite{Gonzalez:2006} foi empregado. Para as formas das bases MPEG7-CE e Kimia-99, esta etapa não é necessária, pois as formas destas bases estão disponíveis já binarizadas.
+O procedimento para avaliar o desempenho do descritor multiescala em classificação supervisionada está ilustrado na Figura \ref{fig:Classific}. Para fins de clareza, este procedimento foi dividido em três etapas: pré-processamento, extração de características e a classificação propriamente dita. Detalhamos cada dessas etapas, bem como as sub-etapas a elas relacionadas.
 
-Após a extração de características das formas, os descritores obtidos (vetores de características) são divididos em grupos de amostras de teste/treino pelo método de validação cruzada K-Fold (K = 10) \cite{Webb:2002}. Então, os descritores são transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e em seguida, pela análise das componentes principais (PCA) para descorrelacioná-los. Cabe aqui salientar que as matrizes dessas transformações são obtidas apenas considerando as amostras de treino.
+\subsubsection*{Pré-processamento}
 
-A etapa de classificação utiliza os classificadores Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002},  o discriminante linear de Fisher (LDA) \cite{Webb:2002} e o discriminante quadrático (QDA) \cite{Fukunaga:1990}. Para cada classificador foram realizadas $100$ execuções da validação cruzada, tendo como resultado os valores médios e os desvios da precisão e revocação obtidos nesses experimentos.  As medidas clássicas de precisão e revocação são empregadas na avaliação do desempenho de descritores em experimentos de classificação supervisionada.
+A etapa de pré-processamento é aplicada às imagens das folhas da base Flavia, uma vez que as imagens das bases MPEG7-CE e Kimia-99 já encontram-se binarizadas. Essa etapa está dividida em duas sub-etapas: preparação das imagens e segmentação. 
 
+A preparação das imagens elimina os ruídos inerentes ao processo de aquisição das imagens das folhas. Essa sub-etapa é um tratamento preliminar, que é realizado para garantir um bom resultado de segmentação. Esse tratamento preliminar começa com a extração de um dos três canais de cor RGB da imagem, sendo o canal G o que foi extraído para segmentação. A razão dessa escolha é que este canal incorpora boa parte da informação contida nas imagens de interesse, que correspondem apenas a imagens de folhas verdes. 
+
+O próximo passo consiste na aplicação de um filtro bilateral \cite{Gonzalez:2006} às imagens para homogeneizar as intensidades dos pixels.  Além de favorecer a segmentação, este tipo de filtro tem a propriedade de preservar as bordas das formas, que é aonde se encontra a informação de interesse para a extração dos atributos (Seção \ref{sec:EA}). 
+
+Finalizando o pré-processamento, a segmentação por limiar \cite{Gonzalez:2006} é aplicada às imagens tratadas, estando assim as imagens preparadas para a próxima etapa, que é a extração de características.
+
+\subsubsection*{Extração de características}
+
+Antes da etapa de extração de características, obtém-se as coordenadas paramétricas do contorno das formas segmentadas através do seguidor de bordas proposto por \citeonline{Suzuki198532}.
+Os descritores são então obtidos, a partir dos contornos das formas, pelo método de extração de atributos descrito na Seção \ref{sec:EA}. 
+
+\subsubsection*{Classificação}
+
+Para a etapa de classificação, os descritores  obtidos na etapa anterior são divididos em grupos de amostras de teste/treino, sendo o método utilizado para geração desses grupos o K-Fold (K = 10) \cite{Webb:2002}. 
+
+Para cada grupo de testes e treino, os descritores são  transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e pela análise das componentes principais (PCA), para  descorrelacioná-los. Cabe aqui salientar que as matrizes utilizadas nessas transformações são obtidas apenas considerando as amostras selecionadas para treino dos classificadores.
+
+A última sub-etapa da classificação envolve a realização da validação cruzada, com os $10$ grupos de teste e treino gerados \cite{Webb:2002}, para quatro classificadores estatísticos: Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{K}-vizinhos próximos (Knn, $K = 5$) \cite{Fukunaga:1990,Webb:2002}, discriminante linear de Fisher (LDA) \cite{Webb:2002} e discriminante quadrático (QDA) \cite{Fukunaga:1990}. 
+
+O LDA e o QDA são classificadores que assumem modelo Gaussiano multivariado dos dados. Como os nomes sugerem,  estes classificadores estabelecem superfícies de decisão lineares e quadráticas, respectivamente. Por serem paramétricos apresentam soluções fechadas, o que os torna simples de serem implementados. Ademais, o LDA e o QDA são inerentemente adequados para resolução de problemas que envolvam a classificação de múltiplas classes.
+
+Quando se assume, no modelo do classificador QDA, que as matrizes de covariância das classes são diagonal e idênticas, que significa assumir classes condicionalmente independentes, o QDA se torna o Naive Bayes (NB). 
+
+Apesar da aparente simplicidade, o NB tem demonstrado desempenho satisfatório em diversas aplicações de reconhecimento de padrões, como a classificação de documentos e a filtragem de spams. Além de sua eficiência computacional, o NB requer pequenas quantidades de amostras de treino para estimação de seus parâmetros.
+
+O Knn é um classificador não paramétrico, comumente utilizado em situações aonde a superfície de decisão entre classes é irregular. Por não ser paramétrico, este classificador não constrói um modelo de distribuição das classes a partir de amostras de treino, mas inferere a classe das amostras de teste diretamente a partir das amostras de treino. Desta forma, a classificação se dá por votação entre os K vizinhos mais próximos à amostra de teste da qual se deseja inferir a classe, sendo atribuído o rótulo da classe que é a mais representativa entre os K pontos vizinhos consultados. Em geral, a métrica de distância utilizada é a euclidiana, porém outras métricas podem ser empregadas. A desvantagem do Knn é que a escolha do parâmetro K é extremamente dependente dos dados. Em geral, valores grandes de K aumentam a robustez do classificador a ruídos, mas torna as fronteiras de decisão entre as classes menos evidente.
+
+A partir dos resultados de $100$ execuções da validação cruzada, foram calculados os valores médios e os desvios padrão das medidas clássicas de desempenho Precisão e Revocação.
 
 \subsection{Avaliação quantitativa de agrupamentos}
 
