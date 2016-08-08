@@ -65,7 +65,7 @@
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-
+\usepackage{acronym}
 % ---
 
 % ---
@@ -354,7 +354,7 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
 
    \assinatura{\imprimirorientador  (Orientadora) \\ Universidade Federal do Ceará (UFC)} 
    \assinatura{Prof. Dr. Victor Hugo Costa de Albuquerque \\ Universidade de Fortaleza (UNIFOR)}
-   \assinatura{Prof. Dr. Auzuir Ricardo Alexandria\\ 
+   \assinatura{Prof. Dr. Auzuir Ripardo Alexandria\\ 
    Instituto Federal do Ceará (IFCE)}
    \assinatura{Prof. Dr. Francisco Nivando Bezerra\\ Instituto Federal do Ceará (IFCE)}
    \assinatura{Prof. Dr. Walter da Cruz Freitas Júnior\\ Universidade Federal do Ceará(UFC)}
@@ -381,7 +381,7 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
 Aos colegas do LABVIS pelo companherismo e pela ajuda no desenvolvimento deste trabalho.
 Ao Renato Vasconcelos, secretário da Pós-Graduação em Engenharia de Teleinformática.
 Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pelo desafio imposto à realização deste trabalho.
-À FUNCAP e ao CNPq` pelo apoio financeiro.
+À FUNCAP e ao CNPq pelo apoio financeiro.
 \end{agradecimentos}
 % ---
 
@@ -391,7 +391,7 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 \begin{epigrafe}
     \vspace*{\fill}
 	\begin{flushright}
-		\textit{''No words can describe it\\
+		\textit{``No words can describe it\\
     No example can point to it\\
     Samsara does not make it worse\\
     Nirvana does not make it better\\
@@ -419,7 +419,7 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 \vspace{\onelineskip}
 \noindent\\ 
 \textbf{Palavras-chaves}: 
- Recuperação de imagens pelo conteúdo. Análise de formas. Descritor multiescala de forma. Energia de dobramento multiescala. Análise de similaridade de formas.  Otimização evolucionária.  
+ Recuperação de imagens pelo conteúdo. Análise de formas. Descritor multiescala de forma. Energia de dobramento multiescala. Análise de similaridade de formas. Otimização evolucionária.  
 \end{resumo}
 
 % resumo em inglês
@@ -454,35 +454,36 @@ Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Norm
 % ---
 % inserir lista de abreviaturas e siglas
 % ---
-\begin{siglas}
-  \item[CBIR] \textit{Content-Based Image Retrieval}
-\item[CCD] \textit{Charge-coupled device}
-\item[CSS] \textit{Curvature scale space}
-\item[TAR] \textit{Triangle area representation}
-\item[NMBE] \textit{Normalized multiscale bending energy}
-\item[PCA] \textit{Principal components analysis}
-\item[MDS] \textit{Multidimensional scaling}
-\item[SOM] \textit{Self organization map}
-\item[DFM] \textit{Dimensão fractal multiscale}
-\item[CDSC] \textit{Coherent distance shape context}
-\item[IDSC] \textit{Inner distance shape context}
-\item[d-TAS] \textit{Differential turning angle scalogram}
-\item[DSW] \textit{Dynamic space warping}
-\item[KL] \textit{Kullback-Leiben divergence}
-\item[JS] \textit{Jensen-Shannon divergence}
-\item[PF] \textit{Patrick Fisher divergence}
-\item[CD] \textit{Centroid distance}
-\item[AII] \textit{Area integral invariant}
-\item[AS] \textit{Angle sequence}
-\item[MAD] \textit{Mean absolute deviation}
-\item[QDA] \textit{Quadratic discriminant analysis}
-\item[LDA] \textit{Linear discriminant analysis}
-\item[NB] \textit{Naive Bayes}
-\item[Knn] \textit{K-nearest neighbours}
-\item[DE] \textit{Differential evolution}
-\item[PSO] \textit{Particle swarm optimization}
-\item[SA] \textit{Simulated anealing}  
-\end{siglas}
+%\begin{siglas}
+\begin{acronym}
+\acro{CBIR}{recuperação de imagens por conteúdo}
+\acro{CCD}{\textit{charge-coupled device}}
+\acro{CSS}{curvatura espaço-escala}
+\acro{TAR}{representação por área de triângulos}
+\acro{NMBE}{energia de dobramento multiescala normalizada}
+\acro{PCA}{análise das componentes principais}
+\acro{MDS}{escalonamento multidimensional}
+\acro{SOM}{mapa auto-organizável do Kohonen}
+\acro{DFM}{dimensão fractal multiscala}
+\acro{CDSC}{\textit{coherent distance shape context}}
+\acro{SC}{\textit{shape context}}
+\acro{IDSC}{\textit{inner distance shape context}}
+\acro{d-TAS}{\textit{differential turning angle scalogram}}
+\acro{DSW}{\textit{dynamic space warping}}
+\acro{DTW}{\textit{dynamic time warping}}
+\acro{MAD}{desvio mediano absoluto}
+\acro{QDA}{análise por discriminante quadrático}
+\acro{LDA}{análise por discriminante linear}
+\acro{NB}{\textit{naive Bayes}}
+\acro{kNN}{K-vizinhos próximos}
+\acro{PSO}{otimização por enxame de partículas}
+\acro{DE}{evolução diferencial}
+\acro{SA}{resfriamento simulado}	
+\acro{CI}{inteligência computacional}
+\acro{EC}{computação evolucionária}
+\end{acronym}
+
+%\end{siglas}
 % ---
 
 % ---
