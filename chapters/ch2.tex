@@ -480,6 +480,77 @@ oct_l = (\sqrt{2})^l;\text{ }l = 1,\ldots,S
 
 \noindent em que $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
 
+\subsection*{Energia de dobramento multiescala normalizada\label{subsec:BE}}
+
+\citeonline{Young:1974} propuseram a energia de dobramento como uma medida de complexidade para análise de formas biológicas. Conceitualmente, esta é definida como sendo a energia necessária para se modificar uma forma, através de deformações, ao seu estado de menor energia, ou seja, um círculo do mesmo perímetro da forma deformada.
+
+A maneira mais direta de se obter a energia de dobramento de um contorno fechado é a partir de sua curvatura pela seguinte expressão:
+
+\begin{equation}\label{eq:be}
+E = \frac{1}{L}\int\limits_{l}\kappa^2(l)dl\text{,}
+\end{equation}
+\noindent
+sendo $L$ o perímetro do contorno e a integral calculada ao longo do comprimento de seu arco. O resultado da equação \ref{eq:be} é um escalar que representa a energia média do sinal da curvatura.
+
+\begin{comment}
+A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavização do contorno e cálculo da curvatura. 
+\end{comment}
+
+A \acl{NMBE} foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese, investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo. Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a \ac{NMBE} é dada por: 
+
+\begin{equation}
+E_{be} = \frac{L^{2}}{N}\sum_{n=0}^{N-1}\kappa^{2}[n]\text{,}
+\label{eq:ebe}
+\end{equation}
+\noindent
+sendo o perímetro do contorno elevado ao quadrado ($L^2$) uma constante de normalização para que o descritor tenha invariância a escala. A curvatura discreta $\kappa[n]$ é calculada a partir de $z[n]$ através da seguinte expressão:
+
+\begin{equation}
+\kappa[n] = \frac{-Im(z^{'}[n](z^{''}[n])^{*})}{|z^{'}[n]|^3} \text{,}
+\label{eq:kn}
+\end{equation}
+\noindent
+onde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda e $z^{*}[n]$ o conjugado de $z[n]$. 
+
+A \ac{NMBE} resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
+
+\begin{equation}
+Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{, }s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)\text{.}
+\end{equation}
+
+A transformada inversa é dada por  
+
+\begin{equation}
+z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac{j2\pi n s}{N}}\text{, }n = 0\: \ldots \: N-1\text{.}
+\end{equation}
+
+No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas gaussiano $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
+n = 0 \: \ldots \: N-1$:
+
+\begin{equation}
+Z_\sigma[s] = Z[s].F\big\{g_\sigma[n]\big\}\text{,}
+\end{equation}
+\noindent
+sendo as referidas derivadas do contorno suavizado dadas por:
+\begin{equation}
+z_\sigma'[n] = F^{-1}\big\{j2\pi s Z_\sigma[s]\big\}
+\end{equation}
+\begin{equation}
+z_\sigma''[n] = F^{-1}\big\{-(2\pi s)^2 Z_\sigma[s]\big\}\text{.}
+\end{equation}
+
+O processo de filtragem passa-baixas reduz a energia espectral da representação complexa do contorno causando portanto, o encolhimento do seu perímetro. Uma estratégia para compensar tal efeito é normalizar o contorno suavizado com a razão entre o perímetro do contorno não suavizado ($L$) e o seu perímetro ($L_{\sigma}$) \cite{Cesar:1996,Costa:1997}:
+
+\begin{equation}
+\breve{z}_{\sigma}[n] = \frac{L}{L_{\sigma}}z_{\sigma}[n]\text{.}
+\end{equation}
+
+Substituindo $\kappa[n]$ por $\kappa_{\sigma}[n]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas Equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na seguinte representação multiescala da energia de dobramento:
+
+\begin{equation}
+NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ , }\log{E_{\sigma_{M}}})\text{.}
+\label{eq:nmbe}
+\end{equation}
  
 \subsubsection*{Dimensão fractal multiescala}
 

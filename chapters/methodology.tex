@@ -2,133 +2,13 @@
 \label{chap:MatMet}
 
 O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes dependentes da natureza da aplicação, ou seja,  das características da base de imagens e o propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e dos valores das escalas utilizadas na representação das formas. 
-Esse capítulo apresenta um método versátil para o ajuste desses parâmetros de modo a customizar descritores multiescala à base de imagens de formas e melhorar o desempenho em classificação supervisionada e não supervisionada. 
+Esse capítulo apresenta o método \emph{Optimizer Tabajara}, que permite customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. 
+\textcolor{red}{
+Iniciamos este capítulo apresentando, em linhas gerais, o método proposto (Sessão \ref{sec:met}). Nas sessões subsequentes detalhamos cada etapa envolvida no processo de customização do descritor. 
+}
 
-\section{Base de imagens}
-
-Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}.
-
-\begin{table}[]
-\centering
-\caption{Características das bases de imagens utilizadas nos experimentos}
-\label{tbl:bases}
-\begin{tabular}{lll}
-\toprule
-Base de imagens       & Total de formas & Total de classes \\
-\midrule
-Kimia-99      & $99$   & $9$     \\
-Kimia-216     & $216$  & $12$    \\
-MPEG7-CE      & $1400$ & $70$    \\
-Flavia leaves & $1907$ & $32$\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-A Figura \ref{fig:db1} apresenta todas as $99$ formas da base Kimia-99, enquanto as Figuras \ref{fig:db2} e \ref{fig:db3} ilustram algumas das formas da base Kimia-216 e MPEG7-CE, respectivamente.
-
-\begin{figure}[h!]
-  \caption{\label{fig:db1} Formas da base de imagens Kimia-99.}
-  \centering
-  \includegraphics[width=0.5\textwidth]{db.eps}
-\end{figure}
-
-\begin{figure}[h!]
-  \caption{\label{fig:db2} Amostras de formas da base de imagens Kimia-216.}
-  \centering
-  \includegraphics[width=0.5\textwidth]{Dataset.jpg}
-\end{figure}
-
-\begin{figure}[h!]
-  \caption{\label{fig:db3} Amostras de formas da base de imagens MPEG-7.}
-  \centering
-  \includegraphics[width=0.5\textwidth]{mpeg7.png}
-\end{figure}
-
-Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \cite{4458016} são exibidos na Figura \ref{fig:leaves}. Esta base, composta de  $1907$ imagens de folhas de $32$ espécies distintas, tem sido extensivamente utilizada em trabalhos recentes para testes de métodos de reconhecimento automático de espécies de plantas \cite{wang2015march,quteprints78723,Quadri:2015,Chaki201561}. A base Flavia é bastante desafiadora pois, além de ser desbalanceada, ou seja,  conter classes com quantidades distintas de folhas, ela ainda apresenta espécies com grande variabilidade intra classe e pequena variabilidade entre classes. 
- 
-
-\begin{figure}[!ht]
-\caption{\label{fig:leaves} Trinta e duas amostras extraídas da base Flavia, que contém $1907$ imagens de folhas de $32$ espécies diferentes. Cada amostra corresponde a uma espécie.}
-\centering
-\includegraphics[width= 0.6\textwidth]{folhas.eps}
-\end{figure}
-
-\section{Extração de atributos\label{sec:EA}}
-
-\subsection*{Energia de dobramento multiescala normalizada\label{subsec:BE}}
-
-\citeonline{Young:1974} propuseram a energia de dobramento como uma medida de complexidade para análise de formas biológicas. Conceitualmente, esta é definida como sendo a energia necessária para se modificar uma forma, através de deformações, ao seu estado de menor energia, ou seja, um círculo do mesmo perímetro da forma deformada.
-
-A maneira mais direta de se obter a energia de dobramento de um contorno fechado é a partir de sua curvatura pela seguinte expressão:
-
-\begin{equation}\label{eq:be}
-E = \frac{1}{L}\int\limits_{l}\kappa^2(l)dl\text{,}
-\end{equation}
-\noindent
-sendo $L$ o perímetro do contorno e a integral calculada ao longo do comprimento de seu arco. O resultado da equação \ref{eq:be} é um escalar que representa a energia média do sinal da curvatura.
-
-\begin{comment}
-A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavização do contorno e cálculo da curvatura. 
-\end{comment}
-
-A \acl{NMBE} foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese, investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo. Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a \ac{NMBE} é dada por: 
-
-\begin{equation}
-E_{be} = \frac{L^{2}}{N}\sum_{n=0}^{N-1}\kappa^{2}[n]\text{,}
-\label{eq:ebe}
-\end{equation}
-\noindent
-sendo o perímetro do contorno elevado ao quadrado ($L^2$) uma constante de normalização para que o descritor tenha invariância a escala. A curvatura discreta $\kappa[n]$ é calculada a partir de $z[n]$ através da seguinte expressão:
-
-\begin{equation}
-\kappa[n] = \frac{-Im(z^{'}[n](z^{''}[n])^{*})}{|z^{'}[n]|^3} \text{,}
-\label{eq:kn}
-\end{equation}
-\noindent
-onde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda e $z^{*}[n]$ o conjugado de $z[n]$. 
-
-A \ac{NMBE} resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
-
-\begin{equation}
-Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{, }s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)\text{.}
-\end{equation}
-
- A transformada inversa é dada por  
-
-\begin{equation}
-z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac{j2\pi n s}{N}}\text{, }n = 0\: \ldots \: N-1\text{.}
-\end{equation}
-  
-No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas gaussiano $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
-n = 0 \: \ldots \: N-1$:
-
-\begin{equation}
-Z_\sigma[s] = Z[s].F\big\{g_\sigma[n]\big\}\text{,}
-\end{equation}
-\noindent
- sendo as referidas derivadas do contorno suavizado dadas por:
-\begin{equation}
-z_\sigma'[n] = F^{-1}\big\{j2\pi s Z_\sigma[s]\big\}
-\end{equation}
-\begin{equation}
-z_\sigma''[n] = F^{-1}\big\{-(2\pi s)^2 Z_\sigma[s]\big\}\text{.}
-\end{equation}
-
-O processo de filtragem passa-baixas reduz a energia espectral da representação complexa do contorno causando portanto, o encolhimento do seu perímetro. Uma estratégia para compensar tal efeito é normalizar o contorno suavizado com a razão entre o perímetro do contorno não suavizado ($L$) e o seu perímetro ($L_{\sigma}$) \cite{Cesar:1996,Costa:1997}:
-
-\begin{equation}
-\breve{z}_{\sigma}[n] = \frac{L}{L_{\sigma}}z_{\sigma}[n]\text{.}
-\end{equation}
-
-Substituindo $\kappa[n]$ por $\kappa_{\sigma}[n]$ e $z[n]$ por $\breve{z}_{\sigma}[n]$ nas Equações \ref{eq:kn} e \ref{eq:ebe}, e realizando estes cálculos para $M$ escalas distintas $(\sigma_1\text{, }\sigma_2\text{, }\text{, }\ldots\text{, }\sigma_M)$ resulta na seguinte representação multiescala da energia de dobramento:
-
-\begin{equation}
-NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ , }\log{E_{\sigma_{M}}})\text{.}
-\label{eq:nmbe}
-\end{equation}
-
-\section{Função custo e otimização}
-A metodologia para otimização dos parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas utilizando métodos de otimização evolutivos para minimizar uma função custo. Esta função corresponde ao \ac{MAD} da \textit{silhouette} dos descritores. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
+\section{Optimizer Tabajara\label{sec:met}}
+O método Optimizer Tabajara para otimização dos parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas utilizando métodos de otimização evolutivos para minimizar uma função custo. Esta função corresponde ao \ac{MAD} da \textit{silhouette} dos descritores. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
 
 \begin{equation}
 \label{eq:mad}
@@ -158,9 +38,66 @@ A função objetivo \ac{MAD} assume valores no intervalo $[0,2]$. De forma anál
 %\section{Otimização}
 Uma vez definida a função custo, o processo de otimização dos parâmetros do descritor visa ajustá-lo ao problema em estudo. No caso da análise de formas de folhas, a otimização permite que os parâmetros, que minimizam a função objetivo ou função custo (\ac{MAD}), incorporem nuances e detalhes do contorno das formas de folhas. Assim, tal ajuste reflete em melhoria na acurácia da classificação e recuperação de formas de folhas de plantas. Vale destacar que a metodologia é versátil pois é ajustável a outras aplicações e portanto, suporta a definição de uma outra função objetivo. A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como se dá o ajuste dos parâmetros do descritor multiescala dentro da metodologia proposta, aplicada a um problema de análise de formas. Primeiramente, é amostrado na base de folhas um subconjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor \ac{NMBE} que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas e, em seguida, a avaliação de desempenho do mesmo.
 
+\section{Bases de formas binárias}
+
+Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}.
+
+\begin{table}[]
+	\centering
+	\caption{Características das bases de imagens utilizadas nos experimentos}
+	\label{tbl:bases}
+	\begin{tabular}{lll}
+		\toprule
+		Base de imagens       & Total de formas & Total de classes \\
+		\midrule
+		Kimia-99      & $99$   & $9$     \\
+		Kimia-216     & $216$  & $12$    \\
+		MPEG7-CE      & $1400$ & $70$    \\
+		Flavia leaves & $1907$ & $32$\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+A Figura \ref{fig:db1} apresenta todas as $99$ formas da base Kimia-99, enquanto as Figuras \ref{fig:db2} e \ref{fig:db3} ilustram algumas das formas da base Kimia-216 e MPEG7-CE, respectivamente.
+
+\begin{figure}[h!]
+	\caption{\label{fig:db1} Formas da base de imagens Kimia-99.}
+	\centering
+	\includegraphics[width=0.5\textwidth]{db.eps}
+\end{figure}
+
+\begin{figure}[h!]
+	\caption{\label{fig:db2} Amostras de formas da base de imagens Kimia-216.}
+	\centering
+	\includegraphics[width=0.5\textwidth]{Dataset.jpg}
+\end{figure}
+
+\begin{figure}[h!]
+	\caption{\label{fig:db3} Amostras de formas da base de imagens MPEG-7.}
+	\centering
+	\includegraphics[width=0.5\textwidth]{mpeg7.png}
+\end{figure}
+
+Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \cite{4458016} são exibidos na Figura \ref{fig:leaves}. Esta base, composta de  $1907$ imagens de folhas de $32$ espécies distintas, tem sido extensivamente utilizada em trabalhos recentes para testes de métodos de reconhecimento automático de espécies de plantas \cite{wang2015march,quteprints78723,Quadri:2015,Chaki201561}. A base Flavia é bastante desafiadora pois, além de ser desbalanceada, ou seja,  conter classes com quantidades distintas de folhas, ela ainda apresenta espécies com grande variabilidade intra classe e pequena variabilidade entre classes. 
+
+
+\begin{figure}[!ht]
+	\caption{\label{fig:leaves} Trinta e duas amostras extraídas da base Flavia, que contém $1907$ imagens de folhas de $32$ espécies diferentes. Cada amostra corresponde a uma espécie.}
+	\centering
+	\includegraphics[width= 0.6\textwidth]{folhas.eps}
+\end{figure}
+
+\textcolor{red}{
+\section{Extração de características\label{sec:EA}}
+Aqui vou comentar os dois métodos de extração de características no qual vou aplicar a metodologia (IDSC e NMBE).
+Vou também comentar como será feita a avaliação da 
+validade do método proposto (comparação do desempenho com o ajuste de parâmetros obtido através de otimização e valores dos parâmetros sugeridos na literatura.
+e por valores propostos na literatura.
+}
+
 \section{Avaliação do descritor}
 
-Nesta tese, o desempenho do descritor é avaliado qualitativa e quantitativamente. Na avaliação qualitativa, dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa,  são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (\ac{CBIR}) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
+Nesta tese, o desempenho do descritor customizado é avaliado qualitativa e quantitativamente. Na avaliação qualitativa, dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa,  são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (\ac{CBIR}) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
 
 Para fins de comparação,  as avaliações de desempenho qualitativa e quantitativa foram realizadas com as versões dos descritores otimizados pelo método proposto e não otimizados, seja por escolha aleatória dos parâmetros ou por meio de ajuste apresentado em \cite{Costa:1997}.
 
@@ -229,9 +166,6 @@ B_e=\frac{N_A}{N_B N_C}.
 \end{equation}
 
 O teste \textit{Bulls-eye} apresenta  escores ou valores no intervalo $[0,1]$. Valores próximos a $0$ indicam que os descritores  utilizados no experimento $\ac{CBIR}$ não desempenharam bem na caracterização dos elementos da base em estudo, e valores perto de $1$ indicam  bom desempenho.
-
-
-
 
 \subsection{Classificação supervisionada}
 
