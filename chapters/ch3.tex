@@ -31,29 +31,29 @@ s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
 
 \noindent sendo $a_i$ a dissimilaridade média entre o objeto $i$ e os demais objetos pertencentes a mesma classe de $a_i$ e $b_i$ é a dissimilaridade média do objeto $i$ e a classe vizinha mais próxima de $i$, excluída sua própria classe. 
 
-Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é alto. Um valor de silhouette próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
+Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é alto. Um valor de \textit{silhouette} próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
 
-A função objetivo \ac{MAD} assume valores no intervalo $[0,2]$. De forma análoga à silhouette, um valor igual a zero indica que a estrutura dos agrupamentos é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos agrupamentos é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
+A função objetivo \ac{MAD} assume valores no intervalo $[0,2]$. De forma análoga à \textit{silhouette}, um valor igual a zero indica que a estrutura dos agrupamentos é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos agrupamentos é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
 
 %\section{Otimização}
-Uma vez definida a função custo, o processo de otimização dos parâmetros do descritor visa ajustá-lo ao problema em estudo. No caso da análise de formas de folhas, a otimização permite que os parâmetros, que minimizam a função objetivo ou função custo (\ac{MAD}), incorporem nuances e detalhes do contorno das formas de folhas. Assim, tal ajuste reflete em melhoria na acurácia da classificação e recuperação de formas de folhas de plantas. Vale destacar que a metodologia é versátil pois é ajustável a outras aplicações e portanto, suporta a definição de uma outra função objetivo. A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como se dá o ajuste dos parâmetros do descritor multiescala dentro da metodologia proposta, aplicada a um problema de análise de formas. Primeiramente, é amostrado na base de folhas um subconjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor \ac{NMBE} que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas e, em seguida, a avaliação de desempenho do mesmo.
+Uma vez definida a função custo, o processo de otimização dos parâmetros do descritor visa ajustá-lo ao problema em estudo. No caso da análise de formas de folhas, a otimização permite que os parâmetros, que minimizam a função objetivo ou função custo (\ac{MAD}), incorporem nuances e detalhes do contorno das formas de folhas. Assim, tal ajuste reflete em melhoria na acurácia da classificação e recuperação de formas de folhas de plantas. Vale destacar que a metodologia é versátil pois é ajustável a outras aplicações e portanto, suporta a definição de uma outra função objetivo. A Figura  \ref{fig:Avaliacao} ilustra, em detalhes, como ocorre o ajuste dos parâmetros do descritor multiescala de acordo com a metodologia proposta, aplicada a um problema de análise de formas. Primeiramente, é amostrado na base de folhas um subconjunto das formas para, em seguida, realizar o procedimento de otimização e encontrar o melhor conjunto de parâmetros de escala  $\boldsymbol{\sigma}_{otim} = (\sigma_1,\:\sigma_2,\:\cdots,\:\sigma_k)$ do descritor \ac{NMBE} que minimize a função custo da Equação \ref{eq:mad}. Então, utilizando-se as escalas encontradas realiza-se, com o descritor multiescala, a extração de características de toda a base de folhas e, em seguida, a avaliação de desempenho do mesmo.
 
 \section{Bases de formas binárias}
 
-Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}.
+Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}. Embora o formato das imagens em cada base seja diferente, estas foram todas convertidas, para fins de padronização, a um padrão comum, no caso o formato PNG. 
 
 \begin{table}[]
 	\centering
 	\caption{Características das bases de imagens utilizadas nos experimentos}
 	\label{tbl:bases}
-	\begin{tabular}{lll}
+	\begin{tabular}{lcrr}
 		\toprule
-		Base de imagens       & Total de formas & Total de classes \\
+		Base de imagens       & Formato & Total de formas & Total de classes \\
 		\midrule
-		Kimia-99      & $99$   & $9$     \\
-		Kimia-216     & $216$  & $12$    \\
-		MPEG7-CE      & $1400$ & $70$    \\
-		Flavia leaves & $1907$ & $32$\\
+		Kimia-99      & PNG & $99$   & $9$     \\
+		Kimia-216     & PGM & $216$  & $12$    \\
+		MPEG7-CE      & GIF & $1400$ & $70$    \\
+		Flavia leaves & JPG & $1907$ & $32$\\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -78,8 +78,7 @@ A Figura \ref{fig:db1} apresenta todas as $99$ formas da base Kimia-99, enquanto
 	\includegraphics[width=0.5\textwidth]{mpeg7.png}
 \end{figure}
 
-Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \cite{4458016} são exibidos na Figura \ref{fig:leaves}. Esta base, composta de  $1907$ imagens de folhas de $32$ espécies distintas, tem sido extensivamente utilizada em trabalhos recentes para testes de métodos de reconhecimento automático de espécies de plantas \cite{wang2015march,quteprints78723,Quadri:2015,Chaki201561}. A base Flavia é bastante desafiadora pois, além de ser desbalanceada, ou seja,  conter classes com quantidades distintas de folhas, ela ainda apresenta espécies com grande variabilidade intra classe e pequena variabilidade entre classes. 
-
+Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \cite{4458016} são exibidos na Figura \ref{fig:leaves}. Esta base, composta de  $1907$ imagens de folhas de $32$ espécies distintas, tem sido extensivamente utilizada em trabalhos recentes para testes de métodos de reconhecimento automático de espécies de plantas \cite{wang2015march,quteprints78723,Quadri:2015,Chaki201561}. A base Flavia é bastante desafiadora pois, além de ser desbalanceada, ou seja,  conter classes com quantidades distintas de folhas, ela ainda apresenta espécies com grande variabilidade intra classe e pequena variabilidade entre classes.
 
 \begin{figure}[!ht]
 	\caption{\label{fig:leaves} Trinta e duas amostras extraídas da base Flavia, que contém $1907$ imagens de folhas de $32$ espécies diferentes. Cada amostra corresponde a uma espécie.}
