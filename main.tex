@@ -72,7 +72,7 @@
 % Pacotes de citações
 % ---
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+\usepackage[alf,abnt-etal-list=0]{abntex2cite}	% Citações padrão ABNT
 
 % --- 
 % CONFIGURAÇÕES DE PACOTES
@@ -151,6 +151,7 @@
 \imprimirdata
 \vspace*{1cm}
 \end{center}
+\cleardoublepage
 }
 \makeatother
 
@@ -267,27 +268,31 @@
 	\hspace{0.5cm} \imprimirtitulo  / \imprimirautor. --
 	\imprimirlocal, \imprimirdata-
 	
-	\hspace{0.5cm} \pageref{LastPage} p. : il. (algumas color.) ; 30 cm.\\
+	\hspace{0.5cm} \pageref{LastPage} p. : il. color.\\
 	
 	\hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador\\
 	
 	\hspace{0.5cm}
 	\parbox[t]{\textwidth}{\imprimirtipotrabalho~--~\imprimirinstituicao,
 	\imprimirdata.}\\
-	
+
 	\hspace{0.5cm}
-		1. Palavra-chave1.
-		2. Palavra-chave2.
-		I. Orientador.
+		1. Visão computacional.
+		2. Reconhecimento de padrões.
+		3. Análise de formas.
+		4. Descritores multiescala.
+		5. Ajuste de parâmetros.
+		6. Otimização evolucionária.
+		I. Fátima Nelsizeuma Sombra de Medeiros.
 		II. Universidade Federal do Ceará
 		III. Programa de Pós-Graduação em Engenharia de Teleinformática.
-		IV. Título\\ 			
-	
+		IV. Um método para otimização de descritores multiescala em análise de formas.\\ 				
 	\hspace{8.75cm} CDU 02:141:005.7\\
 	
 	\end{minipage}
 	\end{center}
 	\hrule
+	\cleardoublepage	
 \end{fichacatalografica}
 % ---
 
@@ -361,6 +366,7 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
    \assinatura{Prof. Dr. Walter da Cruz Freitas Júnior\\ Universidade Federal do Ceará(UFC)}
 \assinatura{Prof. Dr. Danielo Gonçalves Gomes\\ 
    Universidade Federal do Ceará (UFC)}
+\cleardoublepage
 \end{folhadeaprovacao}
 % ---
 
@@ -420,7 +426,7 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 \vspace{\onelineskip}
 \noindent\\ 
 \textbf{Palavras-chaves}: 
- Recuperação de imagens pelo conteúdo. Análise de formas. Descritor multiescala de forma. Energia de dobramento multiescala. Análise de similaridade de formas. Otimização evolucionária.  
+ Visão computacional. Reconhecimento de padrões. Análise de formas. Descritores multiescala. Ajuste de parâmetros. Otimização evolucionária.  
 \end{resumo}
 
 % resumo em inglês
@@ -430,7 +436,7 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 \vspace{\onelineskip}
 \noindent\\ 
 \textbf{Key-words}: 
-Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Normalized bending energy. Shape similarity.  Evolutionary optimization.  
+Computational vision. Pattern recognition. Shape analysis.  Multiscale descriptors. Parameters setting. Evolutionary optimization.  
  \end{otherlanguage*}
 \end{resumo}
 
@@ -456,6 +462,8 @@ Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Norm
 % inserir lista de abreviaturas e siglas
 % ---
 %\begin{siglas}
+\chapter*{Lista de abreviaturas e siglas}
+
 \begin{acronym}
 \acro{CBIR}{recuperação de imagens por conteúdo}
 \acro{CCD}{\textit{charge-coupled device}}
@@ -476,14 +484,15 @@ Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Norm
 \acro{QDA}{análise por discriminante quadrático}
 \acro{LDA}{análise por discriminante linear}
 \acro{NB}{\textit{naive Bayes}}
-\acro{kNN}{K-vizinhos próximos}
+\acro{kNN}{k-vizinhos próximos}
 \acro{PSO}{otimização por enxame de partículas}
 \acro{DE}{evolução diferencial}
 \acro{SA}{resfriamento simulado}	
 \acro{CI}{inteligência computacional}
 \acro{EC}{computação evolucionária}
+\acro{GA}{algoritmo genético}
 \end{acronym}
-
+\cleardoublepage
 %\end{siglas}
 % ---
 
@@ -520,6 +529,8 @@ Content-based image retrieval. Shape analysis. Multiscale shape descriptor. Norm
 % \chapter*[Introdução]{Introdução}
 % \addcontentsline{toc}{chapter}{Introdução}
 % ----------------------------------------------------------
+\acresetall
+
 \input{chapters/Introduction.tex}
 
 %

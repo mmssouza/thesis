@@ -7,13 +7,13 @@ Este capítulo apresenta os conceitos necessários para a compreensão das técn
 
 \section{\label{chap:CBIR} Sistemas de recuperação de imagens pelo conteúdo}
 
-A disseminação dos sistemas de \textit{hardware} embarcado com capacidade de coletar, armazenar e disponibilizar imagens digitais em redes de computadores, ampliou a demanda por aplicações de visão computacional em áreas como a medicina, indústria, segurança e biologia, entre outras. Dentre estas  demandas destacam-se as ferramentas efetivas de gerenciamento de informação multimídia que facilitam a organização e a busca automática desse tipo de conteúdo. 
+A disseminação dos sistemas de \textit{hardware} embarcado com capacidade de coletar, armazenar e disponibilizar imagens digitais em redes de computadores, ampliou a demanda por aplicações de visão computacional em áreas como a medicina, indústria, segurança, biologia, entre outras. Dentre estas  demandas destacam-se as ferramentas efetivas de gerenciamento de informação multimídia que facilitam a organização e a busca automática desse tipo de conteúdo. 
 
 Busca de imagens em grandes bases de dados multimídia é um dos serviços importantes disponibilizados pelos sistemas de gerenciamento de informação na atualidade. O método clássico para se prover tal serviço emprega a rotulação textual por palavras-chave. Nessa abordagem, o usuário realiza buscas fornecendo informações textuais ao sistema. Esse último recupera a informação multimídia empregando métodos tradicionais de buscas textuais por palavras-chave. Atualmente, essa abordagem tem se tornado inviável devido ao grande volume de informação multimídia disponível na internet, o que torna o processo de anotação textual demasiadamente dispendioso. Ademais o processo de descrição textual é impreciso e sujeito a erros, uma vez que diferentes indivíduos tendem a interpretar e descrever uma mesma imagem subjetivamente e, portanto, empregando diferentes palavras-chave na descrição. Os sistemas  \ac{CBIR} foram propostos em resposta a essas dificuldades. Nesses sistemas, o processo de busca utiliza o conteúdo visual das imagens ao invés da rotulação textual. 
 
 \subsection{Arquitetura dos sistemas de \acl{CBIR}}
 
-Sistemas \acp{CBIR} empregam o conteúdo visual das imagens para formar uma base de dados de representações na forma de vetores de características. A busca é então realizada com o usuário fornecendo ao sistema uma imagem, ou figura de consulta, a qual também é representada vetorialmente. Assim, através da avaliação da similaridade existente entre as representações da imagem de consulta e das imagens da base, o sistema procura retornar ao usuário as imagens que sejam do seu interesse. Dependendo das particularidades da aplicação, esse padrão de consulta, que corresponde também a uma imagem, pode ser um esboço, um modelo ou uma cópia exata do que se deseja procurar \cite{Smeulders:2000}.
+Sistemas \ac{CBIR} empregam o conteúdo visual das imagens para formar uma base de dados de representações na forma de vetores de características. A busca é então realizada com o usuário fornecendo ao sistema uma imagem, ou figura de consulta, a qual também é representada vetorialmente. Assim, através da avaliação da similaridade existente entre as representações da imagem de consulta e das imagens da base, o sistema procura retornar ao usuário as imagens que sejam do seu interesse. Dependendo das particularidades da aplicação, esse padrão de consulta, que corresponde também a uma imagem, pode ser um esboço, um modelo ou uma cópia exata do que se deseja procurar \cite{Smeulders:2000}.
 
 \begin{comment}
 Sistemas \emph{CBIR} realizam buscas em bases multimídia utilizando o conteúdo visual das imagens, visando recuperar imagens que sejam do interesse do usuário mediante um padrão de consulta especificado. O campo das pesquisas em recuperação de imagens pelo conteúdo é vasto e relativamente recente.
@@ -51,7 +51,7 @@ A cor é o atributo mais empregado em extração de características em \ac{CBIR
 \begin{comment}Esses mesmos autores exemplificam como técnicas que não levam em consideração a distribuição espacial das cores os histogramas e os momentos de cores. 
 \end{comment}
 
-Atributos de textura são úteis na recuperação de imagens de satélites, bem como na busca de documentos digitalizados \cite{Smeulders:2000}. A textura é definida em termos de estruturas formadas por grupos de \textit{pixels} que aparecem na imagem com certa periodicidade ou aleatoriedade. O método já consagrado para descrição de características de texturas é a matriz de coocorrência proposta por \citeonline{4309314}. No entanto, métodos baseados em transformações wavelet têm sido utilizados \cite{5376587}, mais notoriamente a transformada wavelet de Gabor \cite{531803}. Outra técnica que tem sido explorada na atualidade para descrição de texturas é a dimensão fractal multiescala \cite{Florindo:2013}. 
+Atributos de textura são úteis na recuperação de imagens de satélites, bem como na busca de documentos digitalizados \cite{Smeulders:2000}. A textura é definida em termos de estruturas formadas por grupos de \textit{pixels} que aparecem na imagem com certa periodicidade ou aleatoriedade \cite{Gonzalez:2006}. O método já consagrado para descrição de características de texturas é a matriz de co-ocorrência proposta por \citeonline{4309314}. No entanto, métodos baseados em transformações wavelet têm sido utilizados \cite{5376587}, mais notoriamente a transformada wavelet de Gabor \cite{531803}. Outra técnica que tem sido explorada na atualidade para descrição de texturas é a dimensão fractal multiescala \cite{Florindo:2013}. 
 
 Informação relativa à localização espacial dos elementos de uma imagem permite, por exemplo, recuperar imagens fotográficas de paisagens externas, aonde distingue-se a localização do céu na região superior da imagem. Ademais, imagens fotográficas também tendem a apresentar em seu centro alguma informação significativa que difere do entorno da imagem, sendo essa informação útil no processo de recuperação de imagens de fotografias de pessoas, animais, etc \cite{Liu:2007}.
 
@@ -134,11 +134,10 @@ Os estímulos visuais, ao qual os sistemas de visão biológicos estão submetid
 Em visão computacional e reconhecimento de padrões, dá-se o nome a esse processo de eliminação das redundâncias de extração de características. Esta etapa de baixo nível busca encontrar informação relevante em uma imagem e representá-la convenientemente para a realização de uma tarefa específica de visão computacional. Uma vez que o processo de extração de características determina o desempenho de um sistema de visão computacional, este recebe especial atenção no desenvolvimento de tais sistemas.
 
 Dentre os atributos dos quais se realizam a extração de características, a forma é considerada a mais relevante em diversas aplicações de visão artificial pela riqueza de informações que esta possui. Uma forma é obtida quando um objeto de interesse é identificado e segmentado em uma imagem. 
- De acordo com \citeonline{Zhang:2004}, para que se obtenha uma representação conveniente com base nesse atributo, deve-se buscar por informações que tenham importância em sua percepção, seja no contorno ou na região que a delimita. 
 
-Obter uma representação, ou descrição, de objetos a partir de formas planas é uma tarefa complexa. Isso porque quando projetamos os objetos tridimensionais do mundo real em duas dimensões, perdemos as informações de uma das dimensões. Como resultado temos uma representação bidimensional parcial do objeto projetado. O problema torna-se ainda mais complexo se levarmos em conta que a forma é frequentemente corrompida por ruídos, defeitos, distorções arbitrárias e oclusões.
+De acordo com \citeonline{Zhang:2004}, a representação das formas envolve a busca por informações, tanto em sua borda como em sua região interior, que sejam perceptualmente relevantes. Obter uma representação, ou descrição dessa natureza é uma tarefa complexa porque, quando projetamos os objetos tridimensionais do mundo real em duas dimensões, perdemos as informações de uma das dimensões. Como resultado, temos uma representação bidimensional parcial do objeto projetado. O problema torna-se ainda mais complexo se levarmos em conta que a forma é frequentemente corrompida por ruídos, defeitos, distorções arbitrárias e oclusões.
 
-\citeonline{Zhang:2004} classificam as técnicas de representação de formas em duas grandes classes de métodos: os baseados em contorno e os baseados em região. Nos métodos baseados em região as características são extraídas de toda região da forma, enquanto que nos métodos baseados em contorno, as características são extraídas apenas da borda. Os referidos autores ainda subdividem cada classe de métodos em métodos estruturais e globais. Essa subdivisão é baseada em se a forma como um todo é utilizada na representação ou se a representação é obtida de partes, segmentos e seções das formas. 
+\citeonline{Zhang:2004} classificam as técnicas de representação de formas em dois grupos: métodos baseados em contorno e em região. No primeiro grupo, as características das formas são extraídas de toda sua região, enquanto que no segundo grupo, as características são extraídas apenas da borda. Os referidos autores ainda subdividem os métodos em cada um dos grupos supracitados em estruturais e globais. Essa subdivisão é baseada em se a forma como um todo é utilizada na representação ou se apenas partes, segmentos e seções das formas são utilizadas. 
 
 A Figura \ref{fig:folha_contorno1} ilustra as etapas envolvidas no processo de representação de uma forma. Temos nesse caso a segmentação da imagem por limiar seguida da extração do contorno. Com base no contorno, obtém-se uma variedade de representações, na forma de sinais, adequadas para as tarefas de comparação, classificação e reconhecimento de formas.
 
@@ -210,7 +209,7 @@ Cruzamentos de zero & Pontos de inflexão \\ \bottomrule
 \legend{Fonte: \citeonline{Costa:2009}}
 \end{table}
 
-A função curvatura ($\kappa(l)$), para uma curva contínua fechada $\Gamma = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que se encontra parametrizada em $l \in [0\text{,}L]$, é definida como sendo \cite{Kindratenko:2003}:
+Para uma curva contínua fechada $\Gamma = \big(x(l)\:\text{,}\:y(l)\big)$,  cujo perímetro é $L$ e que se encontra parametrizada em $l \in [0\text{,}L]$, a curvatura ($\kappa(l)$) é definida como sendo \cite{Kindratenko:2003}:
 
 \begin{equation} \label{eq:curvatura}
 \kappa(l) = \frac{x^{'}(l)y^{''}(l)-x^{''}(l)y^{'}(l)}{((x^{''}(l))^{2}+(y^{''}(l))^{2})^{\frac{3}{2}}}\text{,}
@@ -221,7 +220,7 @@ sendo $\big(x^{'}(l) \text{, }y^{'}(l)\big)$ e $\big(x^{''}(l)\text{ , }y^{''}(l
 
 Sob o aspecto computacional, o cálculo da curvatura do contorno de uma forma requer que o mesmo seja espacialmente amostrado e discretizado. Tal processo torna o cálculo das derivadas da Equação \ref{eq:curvatura} sensível ao ruído e inviável, o que limita a aplicação direta da curvatura para a obtenção de descritores. 
 
-A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. Em particular, Figura \ref{fig:cir1}a mostra o gráfico da curvatura teórica, obtida analiticamente, pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Na Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $\kappa(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
+A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. Em particular, a  Figura \ref{fig:cir1}a mostra o gráfico da curvatura teórica, ao longo do perímetro $t$ do contorno, obtida analiticamente pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Na Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $\kappa(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
 
 \begin{figure}[h!]
   \caption{\label{fig:cir1} Efeito do ruído na estimativa computacional da curvatura para uma forma circular.}
@@ -376,7 +375,7 @@ k[n,\sigma_i] = F[n,\sigma_i]*k[n]\text{,}
 \end{equation}
 
 \noindent
- aonde o operador $*$ denota a convolução entre o sinal $k[n]$ e a transformação $F[n,\sigma_i]$.  Assim, cada elemento de $k[n,\sigma]$ corresponde ao sinal $k[n]$ analisado na escala $\sigma_i$.
+ em que o operador $*$ denota a convolução entre o sinal $k[n]$ e a transformação $F[n,\sigma_i]$.  Assim, cada elemento de $k[n,\sigma]$ corresponde ao sinal $k[n]$ analisado na escala $\sigma_i$.
 
 No caso de curvas planas, a análise multiescala permite descrevê-las em vários níveis de detalhes e de abstração a partir de suas assinaturas, tornando a representação mais discriminativa que os métodos que empregam medidas quantitativas globais, como área, perímetro e compacidade, devido a sua robustez e estabilidade \cite{4756134}.    
 
@@ -416,21 +415,21 @@ O cálculo da curvatura do contorno suavizado $\kappa_{\sigma}(l)$ se dá atrav�
 Uma outra abordagem utilizada para se calcular a curvatura multiescala, que foi proposta por \citeonline{Cesar:1996} e adotada nesta tese, opera com a representação do contorno no domínio da frequência. A partir da transformada de Fourier das coordenadas do contorno suavizado $X_{\sigma}(f) = F\big\{x_{\sigma}(l)\big\}$ e $Y_{\sigma}(f) = F\big\{y_{\sigma}(l)\big\}$. Os referidos autores calculam derivadas utilizando a propriedade da derivada da transformada de Fourier, ou seja:
 
 \begin{equation}
-x_{\sigma}^{'}(l) = F^{-1}\big\{2 \pi j f  X_{\sigma}(f)\big\}
+x_{\sigma}^{'}(l) = F^{-1}\big\{2 \pi j f  X_{\sigma}(f)\big\}\text{,}
 \end{equation}
 
 \begin{equation}
-y_{\sigma}^{'}(l) = F^{-1}\big\{2 \pi j f  Y_{\sigma}(f)\big\}
+y_{\sigma}^{'}(l) = F^{-1}\big\{2 \pi j f  Y_{\sigma}(f)\big\}\text{,}
 \end{equation}
 
 \begin{equation}
-x_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 X_{\sigma}(f)\big\}
+x_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 X_{\sigma}(f)\big\}\text{ e}
 \end{equation}
 
 \begin{equation}
-y_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 Y_{\sigma}(f)\big\}\text{ ,}
+y_{\sigma}^{''}(l) = F^{-1}\big\{- (2 \pi f)^2 Y_{\sigma}(f)\big\}\text{,}
 \end{equation} 
-\noindent onde $F^{-1}\big\{X(f)\big\}$ denota a transformada de Fourier inversa do sinal $X(f)$.
+\noindent em que $F^{-1}\big\{X(f)\big\}$ denota a transformada de Fourier inversa do sinal $X(f)$.
 
 \begin{comment}
 \begin{equation}
@@ -445,14 +444,12 @@ x(l) = F^{-1}\big\{X(f)\big\} \int\limits^\infty_\infty X(f)e^{2 \pi j f l}df
 Na suavização do contorno no domínio da frequência, ao invés da convolução, realiza-se o produto dos sinais $X(f)$ e $Y(f)$ com a transformada de Fourier da expressão do filtro gaussiano:
 
 \begin{equation}
-X_\sigma(f) = X(f).G_\sigma(f)
+X_\sigma(f) = X(f)G_\sigma(f) \text{,}
 \end{equation}
 
 \begin{equation}
-Y_\sigma(f) = Y(f).G_\sigma(f)\text{,}
+Y_\sigma(f) = Y(f)G_\sigma(f)\text{ e}
 \end{equation} 
-\noindent sendo
-
 \begin{equation}
 G_\sigma(f) = F\big\{ g_{\sigma}(l)\big\} = e^{-2 \pi^2 f^2 \sigma^2}\text{.}
 \end{equation}
@@ -473,7 +470,7 @@ oct_l = (\sqrt{2})^l;\text{ }l = 1,\ldots,S
 \end{equation} 
 \noindent e
 \begin{equation}
-\sigma_l = \big(\frac{\sigma_{max} - \sigma{min}}{oct_{max}-\sqrt{2}}\big)(oct_l - \sqrt{2})+\sigma_{min}\text{,}
+\sigma_l = \big(\frac{\sigma_{max} - \sigma_{min}}{oct_{max}-\sqrt{2}}\big)(oct_l - \sqrt{2})+\sigma_{min}\text{,}
 \end{equation}
 
 \noindent em que $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
@@ -552,11 +549,12 @@ NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ 
  
 \subsubsection*{Dimensão fractal multiescala}
 
-O conceito de fractal, introduzido por \citeonline{Mandelbrot:2000}, está intimamente relacionado com a auto-similaridade ou escala de uma forma, o que por sua vez estabelece a noção de dimensão fractal.
 
-Tanto a dimensão fractal como a \ac{DFM} permitem estimar a complexidade de uma forma \cite{Backes:2012}. Complexidade é uma propriedade importante das formas que informa quanto espaço uma determinada forma ocupa \cite{Costa:2009}. A \ac{DFM} estima a complexidade da forma através de uma curva que representa as mudanças na complexidade à medida que a escala de visualização da forma varia \cite{Florindo:2012}.
+As raízes conceituais da geometria fractal foram introduzidas por \citeonline{Mandelbrot:2000} para descrever os objetos que as definições tradicionais da geometria euclidiana não consegue descrever. A dimensão fractal é definida a partir de um número não inteiro que quantifica a complexidade de um objeto, sob os aspectos de fragmentação e auto-similaridade \cite{Mandelbrot:2000}. Complexidade é uma propriedade importante dos objetos que informa quanto espaço este ocupa \cite{Costa:2009}. 
 
-Nesta tese o método empregado para estimar a dimensão fractal e a \acl{DFM} é o método de Minkowski-Bouligand \cite{Costa:2009}. Este método dilata a forma sob análise utilizando como elemento estruturante um disco de raio $r > 0$, sucessivamente. A inclinação da interpolação linear da curva $\log{A(r)}$ versus $\log{r}$, sendo $A(r)$ a área total dilatada para o elemento estruturante de raio $r$, determina a estimativa da dimensão fractal $D_f$ como sendo:
+
+A \ac{DFM} estima a complexidade das formas através de uma curva que representa as mudanças na complexidade à medida que a escala de visualização da forma varia \cite{Florindo:2012}.
+ O método empregado para estimar a dimensão fractal e a \ac{DFM} nesta tese é o método de Minkowski-Bouligand \cite{Costa:2009}. Este método dilata a forma sob análise utilizando como elemento estruturante um disco de raio $r > 0$, sucessivamente. A inclinação da interpolação linear da curva $\log{A(r)}$ versus $\log{r}$, sendo $A(r)$ a área total dilatada para o elemento estruturante de raio $r$, determina a estimativa da dimensão fractal $D_f$ como sendo:
 
 \begin{equation}
 D_f = 2 - \lim_{r \to 0}  \frac{\log{A(r)}}{\log{r}}.
@@ -577,9 +575,7 @@ DFM = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 Um problema dos algoritmos empregados na extração de características que foram abordados nesse capítulo é a elevada dimensionalidade da representação vetorial obtida. Além de dificultar compreender a organização dos dados, essa elevada dimensionalidade acarreta em maior complexidade do sistema computacional que deve lidar com essa informação. 
 
-Através de técnicas de redução de dimensionalidade é possível gerar visualizações gráficas dos dados, o que permite compreender melhor sua estrutura. Ademais, tais técnicas removem informações redundantes e irrelevantes, reduzindo assim a complexidade da representação obtida.
-
-Apresentamos neste capítulo duas técnicas de visualização de dados que foram empregadas neste trabalho na avaliação da capacidade discriminativa dos descritores do contorno de formas: \acf{SOM} e \acf{MDS}.
+Através de técnicas de redução de dimensionalidade é possível gerar visualizações gráficas dos dados que permitem compreender melhor sua estrutura. Este capítulo apresenta duas técnicas de visualização de dados que foram empregadas neste trabalho na avaliação da capacidade discriminativa dos descritores do contorno de formas: \acf{MDS} e \acf{SOM}.
 
 %Essas técnicas foram aplicadas aos descritores energia de dobramento multiescala, dimensão fractal multiescala, entropia diferencial multiescala e entropia discreta multiescala. Limitamos esse estudo a tais descritores porque os mesmos representam as formas através de vetores de características de mesma dimensão, que é um requisito para a aplicação das técnicas de visualização estudadas.
 
@@ -635,15 +631,13 @@ O \acf{MDS} \cite{cox:2000} consiste em um método para representação de dados
 
 Há dois tipos de algoritmos \ac{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem as mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
-O coeficiente $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quanto mais próximo de 1 o valor de $R^2$, melhor é o ajuste do modelo aos dados observados.  Sejam $d$ e $\hat{d}$ as matrizes de distância simétricas entre dois vetores nos espaços de menor e maior dimensão, respectivamente. O coeficiente $R^2$ é dado por 
+O coeficiente de determinação $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quanto mais próximo de 1 o valor de $R^2$, melhor é o ajuste do modelo aos dados observados.  Sejam $\mathbf{D}=(d_{ij})_{NxM}$ e $\mathbf{\hat{D}}=(\hat{d}_{ij})_{NXO}$ as matrizes de distância simétricas entre $N$ vetores nos espaços de dimensão $M$ e $O$ ($M > O$) respectivamente. O coeficiente de determinação é dado por 
 \begin{equation}
-R^2= 1-\frac{\sum_{i=1}^n \sum_{j = i}^{n}(\hat{d}_{i,j} - d_{i,j})^2}{\sum_{i=1}^n\sum_{j=i}^n (d_{i,j}-\bar{d})^2}
+R^2= 1-\frac{\sum_{i=1}^N \sum_{j = i}^{N}(\hat{d}_{ij} - d_{ij})^2}{\sum_{i=1}^N\sum_{j=i}^N (d_{ij}-\bar{d})^2}
 \text{,}\:\: R^2 \in [0,1]\text{,}
 \end{equation}
 
-\noindent em que  $n$ é o número de amostras, $d_{i,j}$ é a distância entre as amostras $i$ e $j$ no espaço de mais alta dimensão, $\hat{d}_{i,j}$ é a distância entre as amostras $i$ e $j$ no espaço de menor dimensão e $\bar{d}$  é a distância média no espaço de mais alta dimensão.
-
-
+\noindent em que $d_{ij}$ é a distância entre as amostras $i$ e $j$ no espaço de dimensão $M$,  $\hat{d}_{ij}$ a distância entre as amostras $i$ e $j$ no espaço de dimensão $O$ e $\bar{d}$ é a distância média no espaço de dimensão $M$.
 
 \subsection{Mapa auto-organizável de Kohonen}
 
@@ -706,15 +700,15 @@ MFD = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 \section{Métodos de otimização}
 
-Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos como Newton-Rapson e suas variantes, funcionam muito bem no caso em que a função objetivo é diferenciável e com um único ótimo global no entanto, tais condições não são encontradas em diversos problemas. 
+Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos como Newton-Rapson e suas variantes, funcionam muito bem no caso de funções convexas, em que a função objetivo é diferenciável e com um único ótimo global, porém tais condições não são encontradas em diversos problemas. 
 
-Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções de múltiplas  variáveis, não diferenciáveis e com ótimos locais. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: \acl{DE} \cite{Storn:1007}, \acl{PSO}  \cite{Yuhui:1998} e \acl{SA} \cite{Andries:2007}.
+Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções não convexas e não diferenciáveis. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: \acl{DE} \cite{Storn:1007}, \acl{PSO}  \cite{Yuhui:1998} e \acl{SA} \cite{Andries:2007}.
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
 \subsection{Resfriamento simulado}
 
 O  método de otimização \ac{SA} simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
 
-Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um fator de perturbação aleatório a cada coordenada da solução atual. Na implementação utilizada neste trabalho, o fator de perturbação corresponde a uma variável aleatória com distribuição normal com média zero e variância $\kappa = 0,2$.
+Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um ruído de natureza estocástica a cada coordenada da solução atual. Na implementação utilizada neste trabalho esse mecanismo corresponde a um ruído branco de variância $0,2$.
 
 \begin{comment}
 \begin{algorithm}[ht]
@@ -759,7 +753,9 @@ $n \gets n + 1$
 
 \subsection{Evolução diferencial}
 
-O algoritmo de otimização \ac{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos, ou vetores de soluções candidatas. A cada iteração, o mecanismo de cruzamento e mutação  acontece para cada indivíduo da população. O cruzamento consiste em produzir uma novo indivíduo ($d$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
+Analogamente ao \ac{GA} de otimização, o \ac{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos. No entanto, a forma como tais mecanismos são implementados no \ac{DE} difere significativamente em relação ao \ac{GA}. 
+
+O cruzamento consiste em produzir uma novo indivíduo ($\mathbf{d}$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
 
 \noindent
 \begin{equation}
@@ -812,7 +808,7 @@ O mecanismo de mutação do \ac{DE} utiliza o indivíduo $\boldsymbol{d}$, produ
 \end{comment}
 
 \subsection{Otimização por enxame de partículas}
- O \ac{PSO} é um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \ac{PSO}: a) registra as melhores posições alcançadas por cada partícula (\emph{bpp}) e a melhor posição globalmente encontrada por todas as partículas do enxame (\emph{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de \emph{bpp} e o segundo a tendência da partícula se movimentar em direção a \emph{bgp}; c) Atualiza a posição das partículas a partir das suas velocidades.
+ O \ac{PSO} é um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \ac{PSO}: a) registra as melhores posições alcançadas por cada partícula ($\mathbf{bpp}$) e a melhor posição globalmente encontrada por todas as partículas do enxame (\mathbf{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de $\mathbf{bpp}$ e o segundo a tendência da partícula se movimentar em direção a $\mathbf{bgp}$; c) Atualiza a posição das partículas a partir das suas velocidades.
  
  Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada iteração por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo \ac{PSO} é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}.
   

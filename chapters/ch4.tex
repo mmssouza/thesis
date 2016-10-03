@@ -26,11 +26,36 @@ Neste contexto, observa-se na Figura \ref{fig:converge}c que o \ac{PSO} encontro
 \includegraphics[width = \textwidth]{converge.jpg}
 \end{figure}
 
-A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes resultados obtidos nos experimentos de classificação para diferentes classificadores. Observa-se que os melhores resultados de classificação correspondem aos menores valores de \ac{MAD} obtidos através da metodologia de otimização de parâmetros. Os resultados de classificação para o descritor \ac{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{NMBE_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Os resultados mostram que o descritor \ac{NMBE} otimizado ($\operatorname{NMBE_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação para os menores valores de \ac{MAD}, o que confirma a hipótese inicial.
+A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes resultados obtidos nos experimentos de classificação para diferentes classificadores. Observa-se que os melhores resultados de classificação correspondem aos menores valores de \ac{MAD} obtidos através da metodologia de otimização de parâmetros. Os resultados de classificação para o descritor \ac{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{\ac{NMBE}_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Os resultados mostram que o descritor \ac{NMBE} otimizado ($\operatorname{\ac{NMBE}_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação para os menores valores de \ac{MAD}, o que confirma a hipótese inicial.
 
 Apesar do descritor \ac{NMBE} ter sido originalmente projetado para descrição de formas de neurônios, nesta tese o aplicamos com sucesso em caracterização de folhas de plantas, uma vez que a metodologia de otimização o ajustou ao problema em questão.
 É importante ressaltar que os diferentes algoritmos de otimização, atingiram valores de \ac{MAD} distintos, e portanto conjuntos de escalas otimizadas distintos, os resultados de classificação corroboraram a hipótese e a conclusão anterior, pois tais conjuntos de escalas  permitiram que os descritores fossem capazes de capturar detalhes dos contornos das formas e as diferenciasse apropriadamente. Com isso, observamos que os algoritmos de otimização trazem vantagens à representação multiescala com impacto significativo na caracterização das folhas. 
 
+\begin{table}[]
+	\centering
+	\caption{Valores de \ac{MAD} alcançados, pelos diferentes métodos empregados no ajuste das escalas do descritor \ac{NMBE}, para representação das folhas da base Flavia.}
+	\label{tab:leaves_supervised_results}
+	\begin{tabular}{ll}
+		\toprule[1.5pt]
+		Método de ajuste& \ac{MAD}\\
+		\midrule
+		\ac{SA}  & $0,762$\\
+		\ac{DE}  & $0,783$\\
+		\ac{PSO}&  $0,829$\\
+		\citeonline{Cesar:1996}& $0,867$\\
+		Empírico& $0,969$\\
+		\bottomrule[1.5pt]
+	\end{tabular}
+\end{table}
+
+\begin{figure}[!htb]
+	\caption{\label{fig:leaves_fscore} Resultados de classificação das espécies vegetais da base de imagens Flavia para diferentes estratégias de escolha das escalas do descritor \ac{NMBE}.}
+	\centering
+	\includegraphics[width = 0.9\textwidth]{fscore.jpg}
+\end{figure}
+
+
+\begin{comment}
 \begin{table}[]
 \begin{minipage}{\textwidth}
 \renewcommand\footnoterule{}
@@ -53,6 +78,7 @@ $0,829$\footnote{Using \ac{PSO}}        & $0,86\pm0,03$          & $0,85\pm0,03$
 \end{tabular}}
 \end{minipage}
 \end{table}
+\end{comment}
   
 Os resultados da Tabela \ref{tab:leaves_supervised_results} confirmam que os classificadores que utilizaram descritores gerados a partir de escalas selecionadas arbitrariamente não tiveram desempenho satisfatório, pois alcançaram os menores valores de Precisão e Revocação e os maiores valores da função \ac{MAD}. Portanto, escalas aleatórias levam a uma representação multiescala menos sensível a variações de características das folhas, consequentemente, mais erros de classificação. 
 
@@ -90,7 +116,7 @@ Existem no entanto casos, em que ambos os descritores não foram capazes de disc
 
 A Figura \ref{fig:MatrizU_leaves_256}a mostra a matriz-U obtida para as formas de folhas de plantas da base Flavia representadas pelo descritor \ac{NMBE} otimizado e a Figura \ref{fig:MatrizU_leaves_256}b, pelo descritor \ac{NMBE} não otimizado. A análise exploratória visual dos agrupamentos produzidos pela descrição \ac{NMBE} indica que a descrição otimizada melhora a organização dos agrupamentos. Essa evidência então confirma que a função objetivo \ac{MAD} é adequada para guiar o processo de otimização desse descritor. A visualização das formas nas matrizes-U da Figura \ref{fig:MatrizU_leaves_256}  aponta diferenças entre os dois arranjos promovidos pelos referidos descritores. A cada posição ou elemento da matriz, os valores numéricos foram substituídos pela imagem das folhas correspondentes, estando as cores das folhas em correspondência com o rótulo das classes exibidas na Figura \ref{fig:bases}. Nessas matrizes-U,  estão representadas as $1907$ formas de folhas da base Flavia, sendo cada folha representada por sua descrição multiescala.
 
-Os gráficos representativos da \emph{silhouette} média nas Figuras \ref{fig:MatrizU_leaves_256}a  e \ref{fig:MatrizU_leaves_256}b demonstram que as classes das folhas bem caracterizadas e, portanto, agrupadas adequadamente são as que apresentam valores de \emph{silhouette} média positivos. Por outro lado, as classes de folhas cujo descritor não foi capaz de caracterizar e agrupar adequadamente são as que apresentaram valores negativos de \emph{silhouette} média. Comparando estes resultados, observa-se que na Figura \ref{fig:MatrizU_leaves_256}a há expressiva redução dos valores negativos de \emph{silhouette} média quando se utiliza o descritor $\operatorname{NMBE_{opt}}$. 
+Os gráficos representativos da \emph{silhouette} média nas Figuras \ref{fig:MatrizU_leaves_256}a  e \ref{fig:MatrizU_leaves_256}b demonstram que as classes das folhas bem caracterizadas e, portanto, agrupadas adequadamente são as que apresentam valores de \emph{silhouette} média positivos. Por outro lado, as classes de folhas cujo descritor não foi capaz de caracterizar e agrupar adequadamente são as que apresentaram valores negativos de \emph{silhouette} média. Comparando estes resultados, observa-se que na Figura \ref{fig:MatrizU_leaves_256}a há expressiva redução dos valores negativos de \emph{silhouette} média quando se utiliza o descritor $\operatorname{\ac{NMBE}_{opt}}$. 
 
 \begin{figure}[t]
 
@@ -104,7 +130,7 @@ O quadrado preto inserido na Figura \ref{fig:MatrizU_leaves_256} destaca o desem
 
 
 As Figuras \ref{fig:MatrizU_leaves_II}a, \ref{fig:MatrizU_leaves_II}b and \ref{fig:MatrizU_leaves_II}c exibem as matrizes-U correspondentes aos valores \ac{MAD} dos experimentos na base Flavia utilizando os algoritmos de otimização \ac{SA}, \ac{DE} e \ac{PSO}, respectivamente. Um aspecto interessante a examinar é o fato dos três algoritmos apresentarem diferentes soluções, ou valores de \ac{MAD}. Estas soluções resultaram em diferentes arranjos de folhas e consequentemente diferentes relações entre as estruturas de vizinhança dos grupos ou classes.
-Por exemplo, a dispersão geral dos elementos nas Figuras \ref{fig:MatrizU_leaves_II}a e \ref{fig:MatrizU_leaves_II}b tende a ser muito semelhante uma vez que seus respectivos valores da função objetivo minimizada são bem próximos em magnitude. Ao mesmo tempo, concluímos que o resultado que corresponde ao mais elevado valor de \ac{MAD} ($0,829$) exibe uma dispersão particularmente elevada no centro da Matriz-U (Figura \ref{fig:MatrizU_leaves_II}c). Este é um detalhe que reforça a observação anterior de que o \ac{PSO} convergiu para um mínimo local. 
+Por exemplo, a dispersão geral dos elementos nas Figuras \ref{fig:MatrizU_leaves_II}a e \ref{fig:MatrizU_leaves_II}b tende a ser muito semelhante uma vez que seus respectivos valores da função objetivo minimizada são bem próximos em magnitude. Ao mesmo tempo, concluímos que o resultado que corresponde ao mais elevado valor de \ac{MAD} ($0,829$) exibe uma dispersão particularmente elevada no centro da matriz-U (Figura \ref{fig:MatrizU_leaves_II}c). Este é um detalhe que reforça a observação anterior de que o \ac{PSO} convergiu para um mínimo local. 
 Estes achados apontam para a importante conclusão de que quanto menor o valor de \ac{MAD}, melhor o arranjo dos grupos ou do agrupamento, e consequentemente a qualidade do agrupamento. Por isso, afirmamos que a qualidade dos grupos e o valor de \ac{MAD} são negativamente correlacionados. Nossa análise ainda considera que devam existir outras soluções no espaço de busca, além da solução mínima, que sejam adequadas ao problema em estudo.
 
 \begin{figure}[h!] \caption{\label{fig:MatrizU_leaves_II}Matrizes-U e valores \ac{MAD}s obtidos para a base de imagens Flavia por uso da \ac{NMBE} otimizada pelos algoritmos (a) \ac{SA}, (b) \ac{DE}, (c) \ac{PSO}.}
@@ -125,10 +151,10 @@ A Figura \ref{MDS:Leaves} ilustra as projeções \ac{MDS} para três valores dis
 
 O descritor \ac{IDSC} \cite{Ling:2007:SCU:1191552.1191806} foi otimizado para fins de comparação com o descritor multiescala. Desenvolvido para aplicações de recuperação de formas, o \ac{IDSC} utiliza algoritmos de programação dinâmica, tal como o \ac{DTW} \cite{PalazonGonzalez2012978}, para melhorar a precisão da avaliação de similaridade entre formas. Assim sendo, subsituimos a norma $L_2$ pelo algoritmo \ac{DTW} no cálculo da medida \emph{silhouette}, uma vez que esta última é requerida para a avaliação da função objetivo \ac{MAD} na Equação \ref{eq:mad}. 
 
-A Figura \ref{fig1Ooptimization_graph}a exibe gráficos que permitem a comparação dos resultados dos experimentos realizados para as versões otimizadas ($\operatorname{NMBE_{opt}}$, $\operatorname{IDSC_{opt}}$)
- e não otimizadas ($\operatorname{NMBE}$, $\operatorname{IDSC}$) de ambos descritores. Os gráficos mostram que o ajuste dos parâmetros dos descritores pelo método de otimização melhorou o resultado (taxa) de recuperação de folhas consideravelmente. Observamos ainda que o descritor $\operatorname{IDSC_{opt}}$ superou ambos os descritores $\operatorname{NMBE_{opt}}$ e \ac{NMBE} não otimizado com relação à taxa de recuperação. Logo, podemos afirmar que a otimização de parâmetros melhorou a capacidade de discriminação do  $\operatorname{IDSC_{opt}}$, incorporando ao descritor um mecanismo de extração de informações relevantes de detalhes intrínsecos das formas das folhas. Por outro lado, observamos que o desempenho do \ac{IDSC} não otimizado foi inferior ao do \ac{NMBE} não otimizado. 
+A Figura \ref{fig1Ooptimization_graph}a exibe gráficos que permitem a comparação dos resultados dos experimentos realizados para as versões otimizadas ($\operatorname{\ac{NMBE}_{opt}}$, $\operatorname{\ac{IDSC}_{opt}}$)
+ e não otimizadas ($\operatorname{\ac{NMBE}}$, $\operatorname{\ac{IDSC}}$) de ambos descritores. Os gráficos mostram que o ajuste dos parâmetros dos descritores pelo método de otimização melhorou o resultado (taxa) de recuperação de folhas consideravelmente. Observamos ainda que o descritor $\operatorname{\ac{IDSC}_{opt}}$ superou ambos os descritores $\operatorname{\ac{NMBE}_{opt}}$ e \ac{NMBE} não otimizado com relação à taxa de recuperação. Logo, podemos afirmar que a otimização de parâmetros melhorou a capacidade de discriminação do  $\operatorname{\ac{IDSC}_{opt}}$, incorporando ao descritor um mecanismo de extração de informações relevantes de detalhes intrínsecos das formas das folhas. Por outro lado, observamos que o desempenho do \ac{IDSC} não otimizado foi inferior ao do \ac{NMBE} não otimizado. 
 
-As Figuras \ref{fig1Ooptimization_graph}b e \ref{fig1Ooptimization_graph}c ilustram resultados obtidos de recuperação de dois exemplares da base de imagens de folhas para experimentos realizados com os descritores \ac{NMBE} não otimizado e $\operatorname{NMBE_{opt}}$,  \ac{IDSC} não otimizado com parâmetros ajustados conforme recomendado em \cite{wang2015march} e $\operatorname{IDSC_{opt}}$. Observa-se na Figura \ref{fig1Ooptimization_graph}b que o descritor \ac{NMBE} não otimizado falhou parcialmente na recuperação das formas, enquanto a versão otimizada ($\operatorname{NMBE_{opt}}$) com sucesso recuperou todas as formas. O mesmo comentário se aplica ao descritor $\operatorname{IDSC_{opt}}$, cujos resultados mostram o sucesso da recuperação. Ainda na Figura \ref{fig1Ooptimization_graph}c, o descritor \ac{IDSC} não otimizado não foi capaz de recuperar as amostras corretamente.
+As Figuras \ref{fig1Ooptimization_graph}b e \ref{fig1Ooptimization_graph}c ilustram resultados obtidos de recuperação de dois exemplares da base de imagens de folhas para experimentos realizados com os descritores \ac{NMBE} não otimizado e $\operatorname{\ac{NMBE}_{opt}}$,  \ac{IDSC} não otimizado com parâmetros ajustados conforme recomendado em \cite{wang2015march} e $\operatorname{\ac{IDSC}_{opt}}$. Observa-se na Figura \ref{fig1Ooptimization_graph}b que o descritor \ac{NMBE} não otimizado falhou parcialmente na recuperação das formas, enquanto a versão otimizada ($\operatorname{\ac{NMBE}_{opt}}$) com sucesso recuperou todas as formas. O mesmo comentário se aplica ao descritor $\operatorname{\ac{IDSC}_{opt}}$, cujos resultados mostram o sucesso da recuperação. Ainda na Figura \ref{fig1Ooptimization_graph}c, o descritor \ac{IDSC} não otimizado não foi capaz de recuperar as amostras corretamente.
 
 \begin{figure}[]
 \caption{Experimentos realizados com formas da base de imagens de folhas Flavia (a) taxa de recuperação  obtida com os descritores \ac{NMBE} e \ac{IDSC} originais e suas versões otimizadas, (b) e (c) recuperação de duas amostras de folhas utilizando os descritores \ac{NMBE} e \ac{IDSC} otimizados e não otimizados, respectivamente.\label{fig1Ooptimization_graph}}
@@ -160,7 +186,7 @@ As Figuras \ref{fig1Ooptimization_graph}b e \ref{fig1Ooptimization_graph}c ilust
 \end{figure}
 \end{comment}
 
-A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de desempenho dos descritores $\operatorname{NMBE_{opt}}$ e \ac{NMBE} não otimizado com escalas ajustadas conforme recomendado em \cite{Cesar:1996},  $\operatorname{IDSC_{opt}}$ e o \ac{IDSC} não otimizado. Esses resultados mostram que a taxa de recuperação para ambos os descritores otimizados superou os resultados dos pares correspondentes não otimizados. A melhoria significativa observada nas medidas Bulls-eye reforça a hipótese de que a metodologia de otimização proposta é adequada para ajuste dos descritores em aplicações de recuperação e análise de formas de folhas.
+A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de desempenho dos descritores $\operatorname{\ac{NMBE}_{opt}}$ e \ac{NMBE} não otimizado com escalas ajustadas conforme recomendado em \cite{Cesar:1996},  $\operatorname{\ac{IDSC}_{opt}}$ e o \ac{IDSC} não otimizado. Esses resultados mostram que a taxa de recuperação para ambos os descritores otimizados superou os resultados dos pares correspondentes não otimizados. A melhoria significativa observada nas medidas Bulls-eye reforça a hipótese de que a metodologia de otimização proposta é adequada para ajuste dos descritores em aplicações de recuperação e análise de formas de folhas.
 
 \begin{table}[h!]
 \centering
@@ -168,8 +194,8 @@ A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de de
 \label{table_bull_eyes_leaves}
   \begin{tabular}{cccccccc}
   \toprule[1.5pt]
- $\operatorname{\ac{NMBE}}$ & $\operatorname{NMBE_{opt}}$ & \ac{IDSC}    & $\operatorname{IDSC_{opt}}$\\ \midrule
-     63.86 \%  & 71.16 \%  & 53.38\%    & 77.50\%       \\
+ $\operatorname{\ac{NMBE}}$ & $\operatorname{\ac{NMBE}_{opt}}$ & \ac{IDSC}    & $\operatorname{\ac{IDSC}_{opt}}$\\ \midrule
+     63,86 \%  & 71,16 \%  & 53,38\%    & 77,50\%       \\
   \bottomrule[1.5pt]
   \end{tabular}
 \end{table}
@@ -183,18 +209,18 @@ A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de de
 \centering
 \caption{Complexidade computacional dos métodos de otimização.}
 \label{tbl:complexity}
-  \begin{tabular}{ll}
+  \begin{tabular}{llr}
   \toprule[1.5pt]
- Método & Complexidade\\
+ Método & Complexidade& Custo\\
  \midrule
-   \ac{SA}  & $O(P.N_{iter}.\log{N_{iter}})$    \\
-   \ac{DE}  & $O(N_{pop}.N_{iter}.D)$   \\
-   \ac{PSO}&  $O(N_{pop}.N_{iter}.\log{N_{iter}})$\\
+   \ac{SA}  & $O(P.N_{iter}.\log{N_{iter}})$ & $7.431$    \\
+   \ac{DE}  & $O(N_{pop}.N_{iter}.D)$ & $19.500$  \\
+   \ac{PSO}&  $O(N_{pop}.N_{iter}.\log{N_{iter}})$ & $1.107$\\
   \bottomrule[1.5pt]
   \end{tabular}
 \end{table}
 
-Para fins de comparação dos métodos de otimização, sob o aspecto de custo computacional, assumimos como custo dos algoritmos o número de vezes que a função objetivo é demandada ao longo do processo de otimização. Considerando para cada método de otimização o ajuste de parâmetros adotado, bem como a complexidade computacional correspondente, os custos computacionais calculados para os algoritmos \ac{SA}, \ac{DE} e \ac{PSO} resultaram em $7.4314$, $19.500$ e $1.107$, respectivamente. 
+Para fins de comparação dos métodos de otimização, sob o aspecto de custo computacional, assumimos como custo dos algoritmos o número de vezes que a função objetivo é demandada ao longo do processo de otimização. Considerando para cada método de otimização o ajuste de parâmetros adotado, bem como a complexidade computacional correspondente, os custos computacionais calculados para os algoritmos \ac{SA}, \ac{DE} e \ac{PSO} resultaram em $7.431$, $19.500$ e $1.107$, respectivamente. 
 
 Vale destacar que existe um compromisso entre o custo computacional e a qualidade da solução obtida. Assim sendo a redução do número de amostras de formas, da resolução das imagens e do tamanho da população dos métodos ($N_{pop}$) ameniza o custo computacional, porém estas reduções degradam a qualidade do resultado da otimização. Ademais, o uso de processamento paralelo pode contribuir para a redução do custo computacional, sem degradar a qualidade da solução ótima, entretanto o paralelismo adiciona complexidade aos algoritmos de otimização. 
 

@@ -2,13 +2,13 @@
 \label{chap:MatMet}
 
 O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes dependentes da natureza da aplicação, ou seja,  das características da base de imagens e o propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e dos valores das escalas utilizadas na representação das formas. 
-Esse capítulo apresenta o método \emph{Optimizer Tabajara}, que permite customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. 
+Esse capítulo apresenta um método que permite customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. 
 \textcolor{red}{
 Iniciamos este capítulo apresentando, em linhas gerais, o método proposto (Sessão \ref{sec:met}). Nas sessões subsequentes detalhamos cada etapa envolvida no processo de customização do descritor. 
 }
 
-\section{Optimizer Tabajara\label{sec:met}}
-O método Optimizer Tabajara para otimização dos parâmetros do descritor segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas utilizando métodos de otimização evolutivos para minimizar uma função custo. Esta função corresponde ao \ac{MAD} da \textit{silhouette} dos descritores. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
+\section{Customização de descritores\label{sec:met}}
+O método para customização de descritores segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas ajustando seus parâmetros através de algoritmos de otimização evolutivos. Foi utilizada como função objetivo na otimização o \ac{MAD} da métrica de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
 
 \begin{equation}
 \label{eq:mad}
@@ -196,15 +196,15 @@ Os descritores são então obtidos, a partir dos contornos das formas, pelo mét
 
 Para a etapa de classificação, os descritores  obtidos na etapa anterior são divididos em grupos de amostras de teste/treino, sendo o método utilizado para geração desses grupos o k-fold (k = 10) \cite{Webb:2002}. 
 
-Para cada grupo de testes e treino, os descritores são  transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e pela análise das componentes principais (PCA), para  descorrelacioná-los. Cabe aqui salientar que as matrizes utilizadas nessas transformações são obtidas apenas considerando as amostras selecionadas para treino dos classificadores.
+Para cada grupo de testes e treino, os descritores são  transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e pela \ac{PCA}, para  descorrelacioná-los. Cabe aqui salientar que as matrizes utilizadas nessas transformações são obtidas apenas considerando as amostras selecionadas para treino dos classificadores.
 
-A última sub-etapa da classificação envolve a realização da validação cruzada, com os $10$ grupos de teste e treino gerados \cite{Webb:2002}, para quatro classificadores estatísticos: Naive Bayes (NB) \cite{Fukunaga:1990}, \emph{k}-vizinhos próximos (\ac{kNN}, $k = 5$) \cite{Fukunaga:1990,Webb:2002}, discriminante linear de Fisher (\ac{LDA}) \cite{Webb:2002} e discriminante quadrático (\ac{QDA}) \cite{Fukunaga:1990}. 
+A última sub-etapa da classificação envolve a realização da validação cruzada, com os $10$ grupos de teste e treino gerados \cite{Webb:2002}, para quatro classificadores estatísticos: \ac{NB} \cite{Fukunaga:1990}, \ac{kNN}, \cite{Fukunaga:1990,Webb:2002}, \ac{LDA} \cite{Webb:2002} e \ac{QDA} \cite{Fukunaga:1990}. 
 
 O \ac{LDA} e o \ac{QDA} são classificadores que assumem modelo Gaussiano multivariado dos dados. Como os nomes sugerem,  estes classificadores estabelecem superfícies de decisão lineares e quadráticas, respectivamente. Por serem paramétricos apresentam soluções fechadas, o que os torna simples de serem implementados. Ademais, o \ac{LDA} e o \ac{QDA} são inerentemente adequados para resolução de problemas que envolvam a classificação de múltiplas classes.
 
-Quando se assume, no modelo do classificador \ac{QDA}, que as matrizes de covariância das classes são diagonal e idênticas, que significa assumir classes condicionalmente independentes, o \ac{QDA} se torna o Naive Bayes (\ac{NB}). 
+Quando se assume, no modelo do classificador \ac{QDA}, que as matrizes de covariância das classes são diagonal e idênticas, que significa assumir classes condicionalmente independentes, o \ac{QDA} se torna o \ac{NB}). 
 
-Apesar da aparente simplicidade, o \ac{NB} tem demonstrado desempenho satisfatório em diversas aplicações de reconhecimento de padrões, como a classificação de documentos e a filtragem de spams. Além de sua eficiência computacional, o \ac{NB} requer pequenas quantidades de amostras de treino para estimação de seus parâmetros.
+Apesar da aparente simplicidade, o classificador \ac{NB} tem demonstrado desempenho satisfatório em diversas aplicações de reconhecimento de padrões, como a classificação de documentos e a filtragem de spams. Além de sua eficiência computacional, o \ac{NB} requer pequenas quantidades de amostras de treino para estimação de seus parâmetros.
 
 O \ac{kNN} é um classificador não paramétrico, comumente utilizado em situações onde a superfície de decisão entre classes é irregular. Por não ser paramétrico, este classificador não constrói um modelo de distribuição das classes a partir de amostras de treino, mas infere a classe das amostras de teste diretamente a partir das de treino. Desta forma, a classificação se dá por votação entre os $k$ vizinhos mais próximos à amostra de teste da qual se deseja inferir a classe, sendo atribuído o rótulo da classe que é a mais representativa entre os $k$ pontos vizinhos consultados. Em geral, a métrica de distância utilizada é a euclidiana, porém outras métricas podem ser empregadas. A desvantagem do \ac{kNN} é que a escolha do parâmetro $k$ é extremamente dependente dos dados. Em geral, valores grandes de $k$ aumentam a robustez do classificador a ruídos, mas torna as fronteiras de decisão entre as classes menos evidente.
 
