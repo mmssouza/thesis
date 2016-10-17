@@ -2,13 +2,11 @@
 \label{chap:MatMet}
 
 O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na literatura para a representação computacional de formas a partir do contorno.  Em muitos casos, esses métodos apresentam parâmetros que requerem ajustes dependentes da natureza da aplicação, ou seja,  das características da base de imagens e o propósito ao qual o sistema de reconhecimento se destina. A energia de dobramento multiescala, por exemplo, requer o ajuste do número e dos valores das escalas utilizadas na representação das formas. 
-Esse capítulo apresenta um método que permite customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. 
-\textcolor{red}{
-Iniciamos este capítulo apresentando, em linhas gerais, o método proposto (Sessão \ref{sec:met}). Nas sessões subsequentes detalhamos cada etapa envolvida no processo de customização do descritor. 
-}
+
+Esse capítulo trata do método proposto neste trabalho, que customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. Inicialmente é apresentando, em linhas gerais, o método em questão para em seguida detalhar cada uma das etapas envolvidas tanto no processo de customização dos descritores como na avaliação dos resultados. 
 
 \section{Customização de descritores\label{sec:met}}
-O método para customização de descritores segue o esquema da Figura \ref{fig:Avaliacao}. O objetivo dessa metodologia é melhorar a representação do descritor de formas ajustando seus parâmetros através de algoritmos de otimização evolutivos. Foi utilizada como função objetivo na otimização o \ac{MAD} da métrica de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
+O objetivo do método proposto para customização de descritores, cujo esquema é apresentado na Figura \ref{fig:Avaliacao}, é melhorar a representação do descritor de formas ajustando seus parâmetros através de algoritmos de otimização evolutivos. Foi utilizada como função objetivo na otimização o \ac{MAD} da métrica de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
 
 \begin{equation}
 \label{eq:mad}
@@ -31,7 +29,7 @@ s_i = \frac{b_i - a_i}{\max{(a_i,b_i)}} \in [-1,1],
 
 \noindent sendo $a_i$ a dissimilaridade média entre o objeto $i$ e os demais objetos pertencentes a mesma classe de $a_i$ e $b_i$ é a dissimilaridade média do objeto $i$ e a classe vizinha mais próxima de $i$, excluída sua própria classe. 
 
-Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam que o grau de pertencimento de um objeto à classe que este fora atribuído é alto. Um valor de \textit{silhouette} próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
+Essa métrica pode assumir valores no intervalo $[-1,1]$, sendo que valores negativos indicam que o grau de afinidade de um objeto à classe que este fora atribuído é baixo. Já valores positivos indicam alta afinidade de um objeto à classe que este fora atribuído. Um valor de \textit{silhouette} próximo de zero indica que o objeto está na fronteira entre duas classes e que há, portanto, um grau de incerteza a respeito de qual classes este pertence.
 
 A função objetivo \ac{MAD} assume valores no intervalo $[0,2]$. De forma análoga à \textit{silhouette}, um valor igual a zero indica que a estrutura dos agrupamentos é perfeita, enquanto que valores próximos de $2$ indicam que a estrutura dos agrupamentos é deficiente, com baixa similaridade entre os objetos de mesma classe ou alta similaridade entre os objetos de classes distintas.
 
@@ -42,7 +40,7 @@ Uma vez definida a função custo, o processo de otimização dos parâmetros do
 
 Foram utilizadas nos experimentos três bases públicas de imagens de formas binárias sintéticas e uma base de folhas, cujas características estão apresentadas na Tabela \ref{tbl:bases}. Embora o formato das imagens em cada base seja diferente, estas foram todas convertidas, para fins de padronização, a um padrão comum, no caso o formato PNG. 
 
-\begin{table}[]
+\begin{table}[b]
 	\centering
 	\caption{Características das bases de imagens utilizadas nos experimentos}
 	\label{tbl:bases}
@@ -96,25 +94,25 @@ e por valores propostos na literatura.
 
 \section{Avaliação do descritor}
 
-Nesta tese, o desempenho do descritor customizado é avaliado qualitativa e quantitativamente. Na avaliação qualitativa, dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional} \cite{cox:2000}. Na avaliação quantitativa,  são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (\ac{CBIR}) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
+Nesta tese, o desempenho do descritor customizado é avaliado qualitativa e quantitativamente. Na avaliação qualitativa, dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o escalonamento multidimensional \cite{cox:2000}. Na avaliação quantitativa,  são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (\ac{CBIR}) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
 
 Para fins de comparação,  as avaliações de desempenho qualitativa e quantitativa foram realizadas com as versões dos descritores otimizados pelo método proposto e não otimizados, seja por escolha aleatória dos parâmetros ou por meio de ajuste apresentado em \cite{Costa:1997}.
 
 \subsection{Visualização dos dados}
 
-Algoritmos de visualização de dados produzem projeções bidimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas. Os métodos de visualização empregados neste trabalho são o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o \textit{escalonamento multidimensional (\ac{MDS})} \cite{cox:2000}.
+Algoritmos de visualização de dados produzem projeções bidimensionais das descrições das formas da base de folhas, provendo uma representação gráfica que possibilita a análise da qualidade dos agrupamentos. Assim, consegue-se inferir o quão eficaz o descritor é em organizar espacialmente as formas.
 
-A Figura \ref{fig:projkimia99} mostra a matriz-U para formas da base MPEG-7 CE-Shape-1 data set \cite{855850}. A imagem central é o resultado do processamento de todas as imagens da base descrita pela \ac{NMBE} otimizada. As quatro imagens dos cantos são detalhes da imagem central. 
+A Figura \ref{fig:projkimia99} mostra a matriz-U \cite{Ultsch:1990} para formas da base MPEG-7 CE-Shape-1 data set \cite{855850}. Essa matriz mostra, preservando a topologia do mapa auto-organizável de Kohonen \cite{Kohonen:2001}, a relação de distância entre as estruturas mapeadas. A imagem central é o resultado do processamento de todas as imagens da base descrita pela \ac{NMBE} otimizada. As quatro imagens dos cantos são detalhes da imagem central. 
 
 \begin{figure}[h]
-\caption{\label{fig:projkimia99} Matrizes-U para as formas da base MPEG7 CE-Shape-1.}
+\caption{\label{fig:projkimia99} Matriz-U para as formas da base MPEG7 CE-Shape-1.}
 \centering
 \includegraphics[width=0.8\textwidth]{fig3.eps}
 \end{figure}
 
 Essa ferramenta de visualização identifica quão bem a \ac{NMBE} descreve detalhes sutis das formas de um mesmo agrupamento e de diferentes agrupamentos. Nas imagens de detalhes se observa que as fronteiras entre os agrupamentos (cor cinza) estão evidentes e separam agrupamentos bem definidos. Nesta tese assumimos que agrupamentos bem definidos são aqueles com menor distância dentro das classes e maior distância entre classes.  
 
-As projeções \textit{\ac{MDS}} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo \ac{DE} busca os parâmetros otimizados do descritor (\ac{NMBE}). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho, aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções \ac{MDS} do descritor \ac{NMBE} otimizado utilizando o algoritmo \ac{DE}.  A Figura \ref{fig:optimization_result} demonstra que à medida que os valores de \ac{MAD} decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta figura, quando o método de otimização converge, ou seja \ac{MAD} alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos.
+As projeções \ac{MDS} da Figura \ref{fig:optimization_result} ilustram como os agrupamentos evoluem à medida que o algoritmo \ac{DE} busca os parâmetros otimizados do descritor (\ac{NMBE}). As amostras de formas exibidas pertencem à base Kimia-99 \cite{Sebastian:2004}, a qual contém $99$ imagens. Neste trabalho, aplicamos técnicas de aprendizagem (\textit{manifold learning}) para produzir as projeções \ac{MDS} do descritor \ac{NMBE} otimizado utilizando o algoritmo \ac{DE}.  A Figura \ref{fig:optimization_result} demonstra que à medida que os valores de \ac{MAD} decrescem, as distâncias entre as classes aumentam e consequentemente os agrupamentos das classes se tornam mais evidentes. Nesta figura, quando o método de otimização converge, ou seja \ac{MAD} alcança o menor valor,   os únicos agrupamentos que não estão bem separados são aqueles relacionados às formas de animais quadrúpedes e de mãos.
 
 \begin{figure}[h]
 \caption{\label{fig:optimization_result} Projeções do escalonamento multidimensional das formas da base Kimia-99 \citeonline{Sebastian:2004}. As imagens mostram como os agrupamentos evoluem ao longo do processo de otimização (\ac{DE}), assim como os valores de \ac{MAD} e $R^2$.}
@@ -196,7 +194,7 @@ Os descritores são então obtidos, a partir dos contornos das formas, pelo mét
 
 Para a etapa de classificação, os descritores  obtidos na etapa anterior são divididos em grupos de amostras de teste/treino, sendo o método utilizado para geração desses grupos o k-fold (k = 10) \cite{Webb:2002}. 
 
-Para cada grupo de testes e treino, os descritores são  transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e pela \ac{PCA}, para  descorrelacioná-los. Cabe aqui salientar que as matrizes utilizadas nessas transformações são obtidas apenas considerando as amostras selecionadas para treino dos classificadores.
+Para cada grupo de testes e treino, os descritores são  transformados pelo discriminante linear de Fisher \cite{Webb:2002}, para melhorar a separação inter classes e a coesão intra classe, e pela \ac{PCA}, para  descorrelacioná-los. Foram então escolhidas as componentes principais que maximizam o desempenho da classificação.  Cabe também salientar que as matrizes utilizadas nessas transformações são obtidas apenas considerando as amostras selecionadas para treino dos classificadores.
 
 A última sub-etapa da classificação envolve a realização da validação cruzada, com os $10$ grupos de teste e treino gerados \cite{Webb:2002}, para quatro classificadores estatísticos: \ac{NB} \cite{Fukunaga:1990}, \ac{kNN}, \cite{Fukunaga:1990,Webb:2002}, \ac{LDA} \cite{Webb:2002} e \ac{QDA} \cite{Fukunaga:1990}. 
 

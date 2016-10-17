@@ -2,8 +2,11 @@
 
 \chapter{Fundamentos teóricos\label{chap:FUNDA}}
 
-Este capítulo apresenta os conceitos necessários para a compreensão das técnicas e metodologias propostas neste trabalho, as quais são aplicadas em experimentos de recuperação de imagens pelo conteúdo. Destacamos ainda os métodos de extração de características do contorno das formas para obtenção de descritores. Enfatizamos neste capítulo as técnicas baseadas em assinaturas, em particular a curvatura, a distância ao centroide, a sequência de ângulos e os invariantes integrais. Utilizamos essas assinaturas para propor uma métrica de avaliação de similaridade entre formas. Apresentamos ainda as representações multiescala, a partir da qual desenvolvemos uma nova proposta de descritor multiescala de formas.
+Este capítulo apresenta os conceitos necessários para a compreensão das técnicas utilizadas na metodologia proposta neste trabalho, destacando os métodos de extração de características do contorno das formas, as técnicas de visualização de dados e os métodos de otimização evolutivos.
 
+Inicialmente são apresentados os métodos de extração de características do contorno de formas baseados em assinaturas, em particular a curvatura \cite{Kindratenko:2003}, a curvatura multiescala \cite{149591} e o descritor \ac{NMBE} \cite{Costa:1997}. Este último, cujos parâmetros são ajustados pelo método proposto, é obtido a partir da curvatura multiescala que, por sua vez, é obtida através da curvatura.
+
+São apresentadas também duas técnicas de visualização de dados, as quais são empregadas na avaliação do método de otimização de descritores proposto: o \ac{MDS} \cite{cox:2000} e o \ac{SOM} \cite{Kohonen:2001}. O capítulo finaliza apresentando três métodos de otimização evolutivos utilizados pelo método proposto: \ac{SA}, \ac{DE} e \ac{PSO}. 
 
 \section{\label{chap:CBIR} Sistemas de recuperação de imagens pelo conteúdo}
 
@@ -40,7 +43,7 @@ A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \ac{CBIR} clássic
 \legend{Fonte: \citeonline{Torres:2006}.}
 \end{figure}
  
-Neste trabalho, enfatizamos os processos de extração de características e de avaliação de similaridade em experimentos \ac{CBIR}, sendo esses processos destacados nas subseções a seguir.
+Este trabalho enfatiza os processos de extração de características e de avaliação de similaridade em experimentos \ac{CBIR}, sendo esses processos destacados nas subseções a seguir.
 
 \subsection{Extração de características}
 
@@ -141,7 +144,7 @@ De acordo com \citeonline{Zhang:2004}, a representação das formas envolve a bu
 
 A Figura \ref{fig:folha_contorno1} ilustra as etapas envolvidas no processo de representação de uma forma. Temos nesse caso a segmentação da imagem por limiar seguida da extração do contorno. Com base no contorno, obtém-se uma variedade de representações, na forma de sinais, adequadas para as tarefas de comparação, classificação e reconhecimento de formas.
 
-Neste trabalho  enfatizamos a aplicação de técnicas de processamento de sinais para a obtenção de representações globais do contorno das formas, uma vez que tais técnicas têm sido empregadas com sucesso para esse propósito \cite{Costa:2009}. 
+Este trabalho enfatiza a aplicação de técnicas de processamento de sinais para a obtenção de representações globais do contorno das formas, uma vez que tais técnicas têm sido empregadas com sucesso para esse propósito \cite{Costa:2009}. 
 
 \begin{comment}
 Técnicas baseadas em contorno de formas exploram apenas a região da borda da forma. Há dois tipos de abordagens para extração de características do contorno das formas: global e estrutural. Na abordagem global a forma não é dividida em subpartes e um vetor de características que representa toda a borda é obtido para representar a forma. Na abordagem estrutural a borda da forma é particionada em segmentos, denominados de primitivas mediante algum critério. A representação final é geralmente uma cadeia de caracteres, um grafo ou uma árvore.
@@ -220,7 +223,7 @@ sendo $\big(x^{'}(l) \text{, }y^{'}(l)\big)$ e $\big(x^{''}(l)\text{ , }y^{''}(l
 
 Sob o aspecto computacional, o cálculo da curvatura do contorno de uma forma requer que o mesmo seja espacialmente amostrado e discretizado. Tal processo torna o cálculo das derivadas da Equação \ref{eq:curvatura} sensível ao ruído e inviável, o que limita a aplicação direta da curvatura para a obtenção de descritores. 
 
-A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. Em particular, a  Figura \ref{fig:cir1}a mostra o gráfico da curvatura teórica, ao longo do perímetro $t$ do contorno, obtida analiticamente pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. Na Figura \ref{fig:cir1}c, temos a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $\kappa(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
+A Figura \ref{fig:cir1} ilustra tal efeito para uma imagem de forma circular. Em particular, a  Figura \ref{fig:cir1}a mostra o gráfico da curvatura teórica, ao longo do perímetro $t$ do contorno, obtida analiticamente pela aplicação da Equação \ref{eq:curvatura} ao contorno parametrizado do círculo de mesmo raio ao do círculo da Figura \ref{fig:cir1}b. A Figura \ref{fig:cir1}c ilustra a curvatura obtida computacionalmente a partir do contorno discreto extraído do círculo da Figura \ref{fig:cir1}b. Nota-se que a curvatura da Figura \ref{fig:cir1}a (analítica) tem um valor constante $\kappa(l) = \frac{1}{r}$, sendo $r$ o raio do círculo central, enquanto que a curvatura Figura \ref{fig:cir1}c (computacional) varia significativamente em torno do valor analítico esperado, como mostra a Figura \ref{fig:cir1}. 
 
 \begin{figure}[h!]
   \caption{\label{fig:cir1} Efeito do ruído na estimativa computacional da curvatura para uma forma circular.}
@@ -505,15 +508,15 @@ sendo o perímetro do contorno elevado ao quadrado ($L^2$) uma constante de norm
 \label{eq:kn}
 \end{equation}
 \noindent
-onde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda e $z^{*}[n]$ o conjugado de $z[n]$. 
+onde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda, $z^{*}[n]$ o conjugado de $z[n]$ e $Im(z)$ a coordenada imaginária de $z$. 
 
 A \ac{NMBE} resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
 
 \begin{equation}
-Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{, }s = -N_{2}\: \ldots \: N-N_{2}-1\text{, }N_{2}=floor\big(\frac{N}{2}\big)\text{.}
+Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{, }
 \end{equation}
 
-A transformada inversa é dada por  
+\noindent em que $s = -N_{2}\: \ldots \: N-N_{2}-1$ e $N_{2}= floor\big(\frac{N}{2}\big)$ (maior valor inteiro $\le \frac{N}{2}$)\text{.} A transformada inversa é dada por  
 
 \begin{equation}
 z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac{j2\pi n s}{N}}\text{, }n = 0\: \ldots \: N-1\text{.}
@@ -631,7 +634,7 @@ O \acf{MDS} \cite{cox:2000} consiste em um método para representação de dados
 
 Há dois tipos de algoritmos \ac{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem as mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
-O coeficiente de determinação $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quanto mais próximo de 1 o valor de $R^2$, melhor é o ajuste do modelo aos dados observados.  Sejam $\mathbf{D}=(d_{ij})_{NxM}$ e $\mathbf{\hat{D}}=(\hat{d}_{ij})_{NXO}$ as matrizes de distância simétricas entre $N$ vetores nos espaços de dimensão $M$ e $O$ ($M > O$) respectivamente. O coeficiente de determinação é dado por 
+O coeficiente de determinação $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quanto mais próximo de 1 o valor de $R^2$, melhor é o ajuste do modelo aos dados observados.  Sejam $\mathbf{D}=(d_{ij})_{NxN}$ e $\mathbf{\hat{D}}=(\hat{d}_{ij})_{NXN}$ as matrizes de distância simétricas entre $N$ vetores nos espaços de dimensão $M$ e $O$ ($M > O$) respectivamente. O coeficiente de determinação é dado por 
 \begin{equation}
 R^2= 1-\frac{\sum_{i=1}^N \sum_{j = i}^{N}(\hat{d}_{ij} - d_{ij})^2}{\sum_{i=1}^N\sum_{j=i}^N (d_{ij}-\bar{d})^2}
 \text{,}\:\: R^2 \in [0,1]\text{,}
@@ -639,7 +642,7 @@ R^2= 1-\frac{\sum_{i=1}^N \sum_{j = i}^{N}(\hat{d}_{ij} - d_{ij})^2}{\sum_{i=1}^
 
 \noindent em que $d_{ij}$ é a distância entre as amostras $i$ e $j$ no espaço de dimensão $M$,  $\hat{d}_{ij}$ a distância entre as amostras $i$ e $j$ no espaço de dimensão $O$ e $\bar{d}$ é a distância média no espaço de dimensão $M$.
 
-\subsection{Mapa auto-organizável de Kohonen}
+\subsection{\label{subsec:SOM} Mapa auto-organizável de Kohonen}
 
 O \acf{SOM} \cite{Kohonen:2001} consiste em um tipo de rede neural de aprendizagem não supervisionada. Desenvolvida por \citeonline{Kohonen:1982}, a \ac{SOM} projeta os vetores apresentados em sua entrada de um espaço N-dimensional para um espaço bidimensional, preservando a estrutura topográfica do espaço vetorial de origem. Em outras palavras, se dois vetores encontram-se próximos no espaço de entrada, estes preservarão essa relação de proximidade no espaço de projeção. 
 
@@ -649,17 +652,17 @@ Em seu processo de treinamento, a rede \emph{SOM} agrupa os vetores de entrada a
 
 Sendo uma ferramenta para análise exploratória de dados, esse tipo de rede neural tem sido empregada para visualização de imagens \cite{Strong2011774}, identificação de agrupamentos \cite{Kuroiwa200031}, classificação de texturas \cite{595364}, bem como outras aplicações.
 
-\citeonline{Ultsch:1990} demonstraram que, embora a \ac{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a análise dos agrupamentos estabelecidos. Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir da \ac{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
+\citeonline{Ultsch:1990} demonstraram que, embora a \ac{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a avaliação dos agrupamentos estabelecidos. Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir da \ac{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
 
-A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpretação da informação contida na matriz-U. Neste exemplo a matriz-U é representada por um conjunto de células em níveis de cinza. As estruturas claras rotuladas representam os neurônios da \ac{SOM}, enquanto as demais células representam o grau de separação existente entre as estruturas. Células mais escuras representam maior grau de separação entre as estruturas mapeadas pela matriz. As células mais claras, tais como as que tendem ao branco, representam maior grau de proximidade entre as estruturas mapeadas. 
+A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpretação da informação contida na matriz-U. Neste exemplo a matriz-U (Figura \ref{fig:u-matrix}a ) é representada por um conjunto de células em níveis de cinza. As estruturas rotuladas representam os neurônios da \ac{SOM}, sendo aquelas cujo os rótulos são de mesma cor pertencentes a uma mesma classe. mesmo  a e as demais células o grau de separação existente entre as estruturas. Células mais escuras indicam maior grau de separação entre as estruturas mapeadas pela \ac{SOM}. As células mais claras, tais como as que tendem ao branco, indicam maior grau de proximidade entre as estruturas mapeadas. 
 
 \begin{figure}[]
   \caption{\label{fig:u-matrix} Representação da Matriz-U como imagem em níveis de cinza. As células brancas rotuladas correspondem aos neurônios da rede \ac{SOM}. Células escuras indicam maior separação entre neurônios e células claras indicam maior proximidade entre neurônios.}
   \centering
-  \includegraphics[width=0.4\textwidth]{u-matrix_gray.png}
+  \includegraphics[width=\textwidth]{fig9.jpg}
 \end{figure}
 
-A interpretação visual da  Figura \ref{fig:u-matrix} mostra que as estruturas A4, A5 e A8 estão bem próximas umas das outras, enquanto a estrutura A9 encontra-se afastada das referidas estruturas. Dada a grande separação existente entre as quatro estruturas analisadas e as demais estruturas da matriz (E3,E6, E8,E9 e B9), podemos inferir que as quatro estruturas (A4, A5, A8 e A9) formam um agrupamento. Por outro lado, as estruturas E6, E8, E9 e E10 formam um outro agrupamento, mesmo não estando tão próximas umas das outras como no caso anterior. Quanto às estruturas B9 e E3, estas estão isoladas, ou seja, distantes das demais estruturas da matriz.
+A interpretação visual da  Figura \ref{fig:u-matrix}a mostra que as estruturas A1, A2 e A3 estão bem próximas umas das outras, enquanto a estrutura A9 encontra-se afastada das referidas estruturas. Dada a grande separação existente entre as quatro estruturas analisadas e as demais estruturas da matriz (E3,E6, E8,E9 e B9), podemos inferir que as quatro estruturas (A4, A5, A8 e A9) formam um agrupamento. Por outro lado, as estruturas E6, E8, E9 e E10 formam um outro agrupamento, mesmo não estando tão próximas umas das outras como no caso anterior. Quanto às estruturas B9 e E3, estas estão isoladas, ou seja, distantes das demais estruturas da matriz.
 
 \begin{comment}
 
@@ -706,7 +709,7 @@ Os métodos de otimização evolutivos foram desenvolvidos para lidar com o prob
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
 \subsection{Resfriamento simulado}
 
-O  método de otimização \ac{SA} simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
+O  método de otimização \acf{SA} simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
 
 Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um ruído de natureza estocástica a cada coordenada da solução atual. Na implementação utilizada neste trabalho esse mecanismo corresponde a um ruído branco de variância $0,2$.
 
@@ -753,7 +756,7 @@ $n \gets n + 1$
 
 \subsection{Evolução diferencial}
 
-Analogamente ao \ac{GA} de otimização, o \ac{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos. No entanto, a forma como tais mecanismos são implementados no \ac{DE} difere significativamente em relação ao \ac{GA}. 
+Analogamente ao \ac{GA} de otimização, o algoritmo \acf{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos. No entanto, a forma como tais mecanismos são implementados no \ac{DE} difere significativamente em relação ao \ac{GA}. 
 
 O cruzamento consiste em produzir uma novo indivíduo ($\mathbf{d}$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
 
@@ -808,7 +811,7 @@ O mecanismo de mutação do \ac{DE} utiliza o indivíduo $\boldsymbol{d}$, produ
 \end{comment}
 
 \subsection{Otimização por enxame de partículas}
- O \ac{PSO} é um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \ac{PSO}: a) registra as melhores posições alcançadas por cada partícula ($\mathbf{bpp}$) e a melhor posição globalmente encontrada por todas as partículas do enxame (\mathbf{bgp}); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de $\mathbf{bpp}$ e o segundo a tendência da partícula se movimentar em direção a $\mathbf{bgp}$; c) Atualiza a posição das partículas a partir das suas velocidades.
+ A \acf{PSO} consiste em um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \ac{PSO}: a) registra as melhores posições alcançadas por cada partícula ($\mathbf{bpp}$) e a melhor posição globalmente encontrada por todas as partículas do enxame ($\mathbf{bgp}$); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de $\mathbf{bpp}$ e o segundo a tendência da partícula se movimentar em direção a $\mathbf{bgp}$; c) Atualiza a posição das partículas a partir das suas velocidades.
  
  Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada iteração por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo \ac{PSO} é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}.
   
