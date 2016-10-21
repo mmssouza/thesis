@@ -26,14 +26,16 @@ Neste contexto, observa-se na Figura \ref{fig:converge}c que o \ac{PSO} encontro
 \includegraphics[width = \textwidth]{converge.jpg}
 \end{figure}
 
-A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes resultados obtidos nos experimentos de classificação para diferentes classificadores. Observa-se que os melhores resultados de classificação correspondem aos menores valores de \ac{MAD} obtidos através da metodologia de otimização de parâmetros. Os resultados de classificação para o descritor \ac{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{\ac{NMBE}_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Os resultados mostram que o descritor \ac{NMBE} otimizado ($\operatorname{\ac{NMBE}_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação para os menores valores de \ac{MAD}, o que confirma a hipótese inicial.
+A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes métodos de ajustes de parâmetros utilizados. Observa-se que os parâmetros do descritor ajustados pelo método proposto, para diferentes otimizadores, são os que alcançaram os menores valores de \ac{MAD}, sendo o melhor resultado aquele obtido pelo método de otimização \ac{SA}. Já os parâmetros ajustados tanto empiricamente como pelo método proposto em \cite{Costa:1996}, foram os que apresentaram os maiores valores de \ac{MAD}.
+
+Já a Figura \ref{fig:leaves_fscore} ilustra os resultados de classificação para os diferentes métodos de ajuste de parâmetros investigados. Esses resultados foram obtidos para os parâmetros ajustados  que alcançaram os valores de \ac{MAD} reportados na Tabela \ref{tab:leaves_supervised_results}. Os melhores resultados de classificação correspondem aos menores valores de \ac{MAD} obtidos através da metodologia de otimização de parâmetros. Os resultados de classificação para o descritor \ac{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{\ac{NMBE}_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Os resultados mostram que o descritor \ac{NMBE} otimizado ($\operatorname{\ac{NMBE}_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação para os menores valores de \ac{MAD}, o que confirma a hipótese inicial.
 
 Apesar do descritor \ac{NMBE} ter sido originalmente projetado para descrição de formas de neurônios, nesta tese o aplicamos com sucesso em caracterização de folhas de plantas, uma vez que a metodologia de otimização o ajustou ao problema em questão.
 É importante ressaltar que os diferentes algoritmos de otimização, atingiram valores de \ac{MAD} distintos, e portanto conjuntos de escalas otimizadas distintos, os resultados de classificação corroboraram a hipótese e a conclusão anterior, pois tais conjuntos de escalas  permitiram que os descritores fossem capazes de capturar detalhes dos contornos das formas e as diferenciasse apropriadamente. Com isso, observa-se que os algoritmos de otimização trazem vantagens à representação multiescala com impacto significativo na caracterização das folhas. 
 
 \begin{table}[]
 	\centering
-	\caption{Valores de \ac{MAD} alcançados, pelos diferentes métodos empregados no ajuste das escalas do descritor \ac{NMBE}, para representação das folhas da base Flavia.}
+	\caption{Valores de \ac{MAD} alcançados, pelos diferentes métodos de ajuste das escalas do descritor \ac{NMBE}, para representação das folhas da base Flavia.}
 	\label{tab:leaves_supervised_results}
 	\begin{tabular}{ll}
 		\toprule[1.5pt]
@@ -42,7 +44,7 @@ Apesar do descritor \ac{NMBE} ter sido originalmente projetado para descrição 
 		\ac{SA}  & $0,762$\\
 		\ac{DE}  & $0,783$\\
 		\ac{PSO}&  $0,829$\\
-		\citeonline{Cesar:1996}& $0,867$\\
+		\citeonline{Costa:1997}& $0,867$\\
 		Empírico& $0,969$\\
 		\bottomrule[1.5pt]
 	\end{tabular}
@@ -186,7 +188,7 @@ As Figuras \ref{fig1Ooptimization_graph}b e \ref{fig1Ooptimization_graph}c ilust
 \end{figure}
 \end{comment}
 
-A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de desempenho dos descritores $\operatorname{\ac{NMBE}_{opt}}$ e \ac{NMBE} não otimizado com escalas ajustadas conforme recomendado em \cite{Cesar:1996},  $\operatorname{\ac{IDSC}_{opt}}$ e o \ac{IDSC} não otimizado. Esses resultados mostram que a taxa de recuperação para ambos os descritores otimizados superou os resultados dos pares correspondentes não otimizados. A melhoria significativa observada nas medidas Bulls-eye reforça a hipótese de que a metodologia de otimização proposta é adequada para ajuste dos descritores em aplicações de recuperação e análise de formas de folhas.
+A Tabela \ref{table_bull_eyes_leaves} apresenta o resultado da avaliação de desempenho dos descritores $\operatorname{\ac{NMBE}_{opt}}$ e \ac{NMBE} não otimizado com escalas ajustadas conforme recomendado por \citeonline{Costa:1997},  $\operatorname{\ac{IDSC}_{opt}}$ e o \ac{IDSC} não otimizado. Esses resultados mostram que a taxa de recuperação para ambos os descritores otimizados superou os resultados dos pares correspondentes não otimizados. A melhoria significativa observada nas medidas Bulls-eye reforça a hipótese de que a metodologia de otimização proposta é adequada para ajuste dos descritores em aplicações de recuperação e análise de formas de folhas.
 
 \begin{table}[h!]
 \centering

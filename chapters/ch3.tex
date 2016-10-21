@@ -5,7 +5,7 @@ O Capítulo \ref{chap:FUNDA} apresentou alguns dos métodos encontrados na liter
 
 Esse capítulo trata do método proposto neste trabalho, que customizar descritores multiescala à base de imagens de formas melhorando o desempenho em classificação supervisionada e não supervisionada. Inicialmente é apresentando, em linhas gerais, o método em questão para em seguida detalhar cada uma das etapas envolvidas tanto no processo de customização dos descritores como na avaliação dos resultados. 
 
-\section{Customização de descritores\label{sec:met}}
+\section{Customização dos descritores\label{sec:met}}
 O objetivo do método proposto para customização de descritores, cujo esquema é apresentado na Figura \ref{fig:Avaliacao}, é melhorar a representação do descritor de formas ajustando seus parâmetros através de algoritmos de otimização evolutivos. Foi utilizada como função objetivo na otimização o \ac{MAD} da métrica de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. O que motivou a escolha dessa função objetivo é sua robustez a \textit{outliers} \cite{Rousseeuw:1987:2}, sendo sua equação definida por
 
 \begin{equation}
@@ -84,6 +84,7 @@ Exemplares extraídos da base pública de imagens de folhas intitulada Flavia \c
 	\includegraphics[width= 0.6\textwidth]{folhas.eps}
 \end{figure}
 
+\begin{comment}
 \textcolor{red}{
 \section{Extração de características\label{sec:EA}}
 Aqui vou comentar os dois métodos de extração de características no qual vou aplicar a metodologia (IDSC e NMBE).
@@ -91,7 +92,7 @@ Vou também comentar como será feita a avaliação da
 validade do método proposto (comparação do desempenho com o ajuste de parâmetros obtido através de otimização e valores dos parâmetros sugeridos na literatura.
 e por valores propostos na literatura.
 }
-
+\end{comment}
 \section{Avaliação do descritor}
 
 Nesta tese, o desempenho do descritor customizado é avaliado qualitativa e quantitativamente. Na avaliação qualitativa, dois algoritmos de visualização de dados são utilizados: o mapa auto-organizável de Kohonen \cite{Kohonen:2001} e o escalonamento multidimensional \cite{cox:2000}. Na avaliação quantitativa,  são analisadas as métricas de avaliação Precisão e Revocação \cite{Paula:2013} obtidas em experimentos de classificação supervisionada, a medida \textit{Bulls-eye} \cite{Alajlan20117,Ling:2007:SCU:1191552.1191806}, classicamente utilizada em experimentos de recuperação de formas (\ac{CBIR}) e a medida de avaliação de agrupamentos \textit{silhouette} \cite{Rousseeuw:1987}. 
