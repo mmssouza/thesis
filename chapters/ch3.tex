@@ -147,10 +147,10 @@ em ${a}_{i}$ e ${b}_{i}$ correspondem às $i$-ésimas componentes dos vetores $a
 %Com a medida de similaridade avalia-se o grau de correspondência existente entre o vetor de características da forma de consulta e os vetores associados a cada uma das formas da base. 
 
 
-Na avaliação do desempenho destes experimentos, empregamos duas medidas que são  o número total de acertos por posição recuperada e a medida \textit{Bulls-eye} \cite{Ling:2007:SCU:1191552.1191806,Latecki2000}.
+Na avaliação do desempenho destes experimentos, empregamos duas medidas que são  o número total de acertos por posição recuperada e a medida \textit{Bulls-eye} \cite{Ling:2007:SCU:1191552.1191806,855850}.
 A primeira medida consiste no número total de ocorrências de formas da mesma classe que a forma de consulta em cada posição recuperada.  Em diversos trabalhos de recuperação de formas pelo conteúdo, o número total de acertos por posição recuperada é calculado para a base Kimia-99 \cite{Bernier:2003}. Para esta base, que contém 99 formas igualmente distribuídas em 9 classes, ou seja é uma base balanceada, são realizadas 99 recuperações das 11 formas mais similares à imagem de consulta. Como resultado espera-se obter um total de 99 formas recuperadas corretamente para cada posição recuperada.
 
-A medida  \textit{Bulls-eye} \cite{Latecki2000} originalmente foi definida para avaliar o desempenho de descritores de forma em experimentos \ac{CBIR} com a base de imagens MPEG-7, podendo ser adaptada para outras bases. Esta medida também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Seu cálculo  para a base MPEG-7 CE-Shape-1 é obtido da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes à mesma classe da forma de consulta dentre as $40$ primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas por forma}$.
+A medida  \textit{Bulls-eye} \cite{855850} originalmente foi definida para avaliar o desempenho de descritores de forma em experimentos \ac{CBIR} com a base de imagens MPEG-7, podendo ser adaptada para outras bases. Esta medida também é utilizada na literatura para a comparação de diferentes métodos de recuperação de formas. Seu cálculo  para a base MPEG-7 CE-Shape-1 é obtido da seguinte maneira: tomando-se cada forma dessa base de imagens como elemento de consulta, contabiliza-se o número de recuperações pertencentes à mesma classe da forma de consulta dentre as $40$ primeiras posições recuperadas. Como resultado calcula-se a percentagem da quantidade máxima de recuperações corretas possíveis de se alcançar, sendo esta última quantidade $28000 = 1400\text{ formas} \times 20\text{ recuperações corretas por forma}$.
 
 
 %
@@ -182,14 +182,14 @@ A etapa de pré-processamento é aplicada às imagens das folhas da base Flavia,
 
 A preparação das imagens elimina os ruídos inerentes ao processo de aquisição das imagens das folhas. Essa sub-etapa é um tratamento preliminar, que é realizado para garantir um bom resultado de segmentação. Esse tratamento preliminar começa com a extração de um dos três canais de cor RGB da imagem, sendo o canal G o que foi extraído para segmentação. A razão dessa escolha é que este canal incorpora boa parte da informação contida nas imagens de interesse, que correspondem apenas a imagens de folhas verdes. 
 
-O próximo passo consiste na aplicação de um filtro bilateral \cite{Gonzalez:2006} às imagens para homogeneizar as intensidades dos pixels.  Além de favorecer a segmentação, este tipo de filtro tem a propriedade de preservar as bordas das formas, que é onde se encontra a informação de interesse para a extração dos atributos (Seção \ref{sec:EA}). 
+O próximo passo consiste na aplicação de um filtro bilateral \cite{Gonzalez:2006} às imagens para homogeneizar as intensidades dos pixels.  Além de favorecer a segmentação, este tipo de filtro tem a propriedade de preservar as bordas das formas, que é onde se encontra a informação de interesse para a extração dos atributos. 
 
 Finalizando o pré-processamento, a segmentação por limiar \cite{Gonzalez:2006} é aplicada às imagens tratadas, estando assim as imagens preparadas para a próxima etapa, que é a extração de características.
 
 \subsubsection*{Extração de características}
 
 Antes da etapa de extração de características, obtém-se as coordenadas paramétricas do contorno das formas segmentadas através do seguidor de bordas proposto por \citeonline{Suzuki198532}.
-Os descritores são então obtidos, a partir dos contornos das formas, pelo método de extração de atributos descrito na Seção \ref{sec:EA}. 
+Os descritores são então obtidos, a partir dos contornos das formas, pelos métodos de extração de atributos descritos na Seção \ref{chap:contour}. 
 
 \subsubsection*{Classificação}
 

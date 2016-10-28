@@ -478,7 +478,7 @@ oct_l = (\sqrt{2})^l;\text{ }l = 1,\ldots,S
 
 \noindent em que $S$ é o número de escalas, $l$ a l-ésima escala calculada $\sigma_{min} = \sigma_1$ a menor escala e $\sigma_{max} = \sigma_S$ a maior escala.
 
-\subsection*{Energia de dobramento multiescala normalizada\label{subsec:BE}}
+\subsubsection*{Energia de dobramento multiescala normalizada\label{subsec:BE}}
 
 \citeonline{Young:1974} propuseram a energia de dobramento como uma medida de complexidade para análise de formas biológicas. Conceitualmente, esta é definida como sendo a energia necessária para se modificar uma forma, através de deformações, ao seu estado de menor energia, ou seja, um círculo com o mesmo perímetro da forma.
 
@@ -522,7 +522,7 @@ Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \t
 z[n] = F^{-1}\big\{Z[s]\big\} = \sum\limits_{s = -N_{2}}^{N-N_{2}-1}Z[s]e^{\frac{j2\pi n s}{N}}\text{, }n = 0\: \ldots \: N-1\text{.}
 \end{equation}
 
-No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa baixas gaussiano $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
+No domínio $s$ o contorno é suavizado multiplicando-se, elemento a elemento, $Z[s]$ pela transformada de Fourier da versão discreta do filtro passa-baixas gaussiano $g_\sigma[n] = \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{n^2}{2\sigma^2}}\text{, } 
 n = 0 \: \ldots \: N-1$:
 
 \begin{equation}
@@ -564,7 +564,7 @@ D_f = 2 - \lim_{r \to 0}  \frac{\log{A(r)}}{\log{r}}.
 \label{eq:df}
 \end{equation}
 
-A derivada da curva log-log, representada através de $N$ valores discretos de raios $r_i>0$ determina a \ac{DFM}:
+A derivada da curva log-log, representada através de $N$ valores discretos de raios $r_i>0$, determina a \ac{DFM}:
 
 \begin{equation}
 DFM = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big), 
@@ -642,7 +642,7 @@ R^2= 1-\frac{\sum_{i=1}^N \sum_{j = i}^{N}(\hat{d}_{ij} - d_{ij})^2}{\sum_{i=1}^
 
 \noindent em que $d_{ij}$ é a distância entre as amostras $i$ e $j$ no espaço de dimensão $M$,  $\hat{d}_{ij}$ a distância entre as amostras $i$ e $j$ no espaço de dimensão $O$ e $\bar{d}$ é a distância média no espaço de dimensão $M$.
 
-\subsection{\label{subsec:SOM} Mapa auto-organizável de Kohonen}
+\subsection{\label{subsec:SOM}Mapa auto-organizável de Kohonen}
 
 O \acf{SOM} \cite{Kohonen:2001} consiste em um tipo de rede neural de aprendizagem não supervisionada. Desenvolvida por \citeonline{Kohonen:1982}, a \ac{SOM} projeta os vetores apresentados em sua entrada de um espaço N-dimensional para um espaço bidimensional, preservando a estrutura topográfica do espaço vetorial de origem. Em outras palavras, se dois vetores encontram-se próximos no espaço de entrada, estes preservarão essa relação de proximidade no espaço de projeção. 
 
@@ -659,12 +659,12 @@ A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpre
 \begin{figure}[t]
   \caption{\label{fig:u-matrix} Representação da Matriz-U como imagem em níveis de cinza. As células brancas rotuladas correspondem aos neurônios da rede \ac{SOM}. Células escuras indicam maior separação entre neurônios e células claras indicam maior proximidade entre neurônios.}
   \centering
-  \includegraphics[width=0.65\textwidth,clip,trim=0 5 180 5]{fig9.jpg}
+  \includegraphics[width=0.65\textwidth,clip,trim=0 35 180 5]{fig9.jpg}
 \end{figure}
 
-Nesta matriz, a rede \ac{SOM} mapeou as três estruturas da classe vermelha ($A_1$, $A_2$ e $A_3$) com pouca separação inter-classes, uma vez que não há regiões escuras no entorno das mesmas. Já a estrutura $A_4$, que também pertence a classe vermelha, encontra-se mais afastada das estruturas referidas anteriormente, pois há uma barreira mais escura a separando das demais. Há também uma grande barreira que separa as classes entre si. As quatro estruturas da classe vermelha, por exemplo, estão bem separadas das demais, pertencentes a classe azul ($B_1$, $B_2$, $B_3$ e $B_4$) e verde ($C_1$).
+Nesta matriz, a rede \ac{SOM} mapeou as três estruturas da classe vermelha ($A_1$, $A_2$ e $A_3$) com pouca separação inter-classes, uma vez que não há regiões escuras no entorno das mesmas. A estrutura $A_4$, que também pertence a classe vermelha, encontra-se mais afastada das estruturas referidas anteriormente, pois há uma barreira mais escura a separando das demais. Há também uma grande barreira que separa as classes entre si. As quatro estruturas da classe vermelha, por exemplo, estão bem separadas das demais, pertencentes a classe azul ($B_1$, $B_2$, $B_3$ e $B_4$) e verde ($C_1$).
 
-A mesma análise realizada para classe vermelha vale para a classe azul, embora haja maior separação intra-classe entre as estruturas desta última, como no caso da estrutura $B_4$, que encontra-se bem afastada das demais de sua classe. Já a estrutura $C_1$, da classe verde, encontra-se bem separada de todas as demais, uma vez que há uma barreira escura em todo seu entorno. 
+A mesma análise realizada para classe vermelha vale para a classe azul, embora haja maior separação intra-classe entre as estruturas desta última, como no caso da estrutura $B_4$, que encontra-se bem afastada das demais de sua classe. A estrutura $C_1$, da classe verde, encontra-se bem separada de todas as demais, uma vez que há uma barreira escura em todo seu entorno. 
 
 \begin{comment}
 

@@ -26,7 +26,7 @@ Neste contexto, observa-se na Figura \ref{fig:converge}c que o \ac{PSO} encontro
 \includegraphics[width = \textwidth]{converge.jpg}
 \end{figure}
 
-A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes métodos de ajustes de parâmetros utilizados. Observa-se que os parâmetros do descritor ajustados pelo método proposto, para diferentes otimizadores, são os que alcançaram os menores valores de \ac{MAD}, sendo o melhor resultado aquele obtido pelo método de otimização \ac{SA}. Já os parâmetros ajustados tanto empiricamente como pelo método proposto em \cite{Costa:1996}, foram os que apresentaram os maiores valores de \ac{MAD}.
+A análise corrente tem como hipótese o fato de que as escalas otimizadas e o valor ótimo de \ac{MAD}, que estão inter-relacionadas, implicam em melhorias na taxa de acerto da classificação das espécies vegetais. A Tabela \ref{tab:leaves_supervised_results} exibe os diversos valores de \ac{MAD} e os correspondentes métodos de ajustes de parâmetros utilizados. Observa-se que os parâmetros do descritor ajustados pelo método proposto, para diferentes otimizadores, são os que alcançaram os menores valores de \ac{MAD}, sendo o melhor resultado aquele obtido pelo método de otimização \ac{SA}. Já os parâmetros ajustados tanto empiricamente como pelo método proposto em \cite{Costa:1997}, foram os que apresentaram os maiores valores de \ac{MAD}.
 
 Já a Figura \ref{fig:leaves_fscore} ilustra os resultados de classificação para os diferentes métodos de ajuste de parâmetros investigados. Esses resultados foram obtidos para os parâmetros ajustados  que alcançaram os valores de \ac{MAD} reportados na Tabela \ref{tab:leaves_supervised_results}. Os melhores resultados de classificação correspondem aos menores valores de \ac{MAD} obtidos através da metodologia de otimização de parâmetros. Os resultados de classificação para o descritor \ac{NMBE}, com as escalas ajustadas conforme sugerido por \citeonline{Costa:1997} ($\operatorname{\ac{NMBE}_{orig}}$), resultou em um desempenho intermediário quando comparado aos resultados para escalas otimizadas e escolhidas arbitrariamente. Os resultados mostram que o descritor \ac{NMBE} otimizado ($\operatorname{\ac{NMBE}_{opt}}$) melhorou o desempenho de todos os classificadores avaliados, uma vez que este alcançou as maiores taxas de Precisão e Revocação para os menores valores de \ac{MAD}, o que confirma a hipótese inicial.
 
@@ -97,13 +97,13 @@ Nesta seção utilizamos técnicas de visualização de dados multidimensionais,
 %\end{figure}
 
 \begin{figure}[t]
- \caption{\label{fig:nmbe_dfm_99} Resultados dos descritores \ac{NMBE} e \ac{DFM} para a base Kimia-99. (a) Matriz-U obtida com o descritor \ac{NMBE} e respectiva \textit{Silhouette} média por classe. (b) Matriz-U obtida com o descritor \ac{DFM} e respectiva \textit{Silhouette} média por classe.}
+ \caption{\label{fig:nmbe_dfm_99} Resultados dos descritores \ac{NMBE} e \ac{DFM} para a base Kimia-99. (a) Matriz-U obtida com o descritor \ac{NMBE} e respectiva \textit{silhouette} média por classe. (b) Matriz-U obtida com o descritor \ac{DFM} e respectiva \textit{silhouette} média por classe.}
   \centering
   \includegraphics[width=\textwidth]{nmbe_dfm_99.jpg}
 \end{figure}
 
 \begin{figure}[t]
- \caption{\label{fig:nmbe_dfm_216} Resultados dos descritores \ac{NMBE} e \ac{DFM} para a base Kimia-216. (a) Matriz-U obtida com o descritor \ac{NMBE} e respectiva \textit{Silhouette} média por classe. (b) Matriz-U obtida com o descritor \ac{DFM} e respectiva \textit{Silhouette} média por classe.}
+ \caption{\label{fig:nmbe_dfm_216} Resultados dos descritores \ac{NMBE} e \ac{DFM} para a base Kimia-216. (a) Matriz-U obtida com o descritor \ac{NMBE} e respectiva \textit{silhouette} média por classe. (b) Matriz-U obtida com o descritor \ac{DFM} e respectiva \textit{silhouette} média por classe.}
   \centering
   \includegraphics[width=\textwidth]{nmbe_dfm_216.jpg}
 \end{figure}
@@ -122,7 +122,7 @@ Os gráficos representativos da \emph{silhouette} média nas Figuras \ref{fig:Ma
 
 \begin{figure}[t]
 
-\caption{\label{fig:MatrizU_leaves_256} Matrizes-U e a \emph{silhouette} média para as descrições das folhas da base Flavia com o descritor \ac{NMBE} (a) optimizado e (b) não otimizado.}
+\caption{\label{fig:MatrizU_leaves_256} Matrizes-U e \emph{silhouettes} média para as descrições das folhas da base Flavia com o descritor \ac{NMBE} (a) optimizado e (b) não otimizado.}
 \centering
 \includegraphics[width=\textwidth]{Umat_leaves.jpg}
 
@@ -151,7 +151,7 @@ A Figura \ref{MDS:Leaves} ilustra as projeções \ac{MDS} para três valores dis
 
 \section{Recuperação de imagens baseada em conteúdo}
 
-O descritor \ac{IDSC} \cite{Ling:2007:SCU:1191552.1191806} foi otimizado para fins de comparação com o descritor multiescala. Desenvolvido para aplicações de recuperação de formas, o \ac{IDSC} utiliza algoritmos de programação dinâmica, tal como o \ac{DTW} \cite{PalazonGonzalez2012978}, para melhorar a precisão da avaliação de similaridade entre formas. Assim sendo, substituiu-se a norma $L_2$ pelo algoritmo \ac{DTW} no cálculo da medida \emph{silhouette}, uma vez que esta última é requerida para a avaliação da função objetivo \ac{MAD} na Equação \ref{eq:mad}. 
+O descritor \ac{IDSC} \cite{Ling:2007:SCU:1191552.1191806} foi otimizado para fins de comparação com o descritor multiescala. Desenvolvido para aplicações de recuperação de formas, o \ac{IDSC} utiliza algoritmos de programação dinâmica, tal como o \ac{DTW} \cite{palazon2012dynamic}, para melhorar a precisão da avaliação de similaridade entre formas. Assim sendo, substituiu-se a norma $L_2$ pelo algoritmo \ac{DTW} no cálculo da medida \emph{silhouette}, uma vez que esta última é requerida para a avaliação da função objetivo \ac{MAD} na Equação \ref{eq:mad}. 
 
 A Figura \ref{fig1Ooptimization_graph}a exibe gráficos que permitem a comparação dos resultados dos experimentos realizados para as versões otimizadas ($\operatorname{\ac{NMBE}_{opt}}$, $\operatorname{\ac{IDSC}_{opt}}$)
  e não otimizadas ($\operatorname{\ac{NMBE}}$, $\operatorname{\ac{IDSC}}$) de ambos descritores. Os gráficos mostram que o ajuste dos parâmetros dos descritores pelo método de otimização melhorou o resultado (taxa) de recuperação de folhas consideravelmente. Observa-se ainda que o descritor $\operatorname{\ac{IDSC}_{opt}}$ superou ambos os descritores $\operatorname{\ac{NMBE}_{opt}}$ e \ac{NMBE} não otimizado com relação à taxa de recuperação. Logo, pode-se afirmar que a otimização de parâmetros melhorou a capacidade de discriminação do  $\operatorname{\ac{IDSC}_{opt}}$, incorporando ao descritor um mecanismo de extração de informações relevantes de detalhes intrínsecos das formas das folhas. Por outro lado, observa-se que o desempenho do \ac{IDSC} não otimizado foi inferior ao do \ac{NMBE} não otimizado. 
@@ -230,33 +230,33 @@ Vale destacar que existe um compromisso entre o custo computacional e a qualidad
 
 \begin{comment}
 \begin{figure}
- \caption{\label{fig:edif99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edif99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediferencial99.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edif216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edif216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediferencial216.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edis99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edis99} (a) Matriz-U para as formas da base Kimia99 representadas com o descritor entropia multiescala. (b) silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediscreta99.png}
 \end{figure}
 
 \begin{figure}
- \caption{\label{fig:edis216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) Silhouette média por classe aferida a partir do descritor}
+ \caption{\label{fig:edis216} (a) Matriz-U para as formas da base Kimia216 representadas com o descritor entropia multiescala. (b) silhouette média por classe aferida a partir do descritor}
   \centering
   \includegraphics[width=\textwidth]{ediscreta216.png}
 \end{figure}
 
 \subsection{\ac{NMBE} e \ac{DFM}}
-Os experimentos de avaliação de desempenho dos descritores produziram como saída as matrizes-U que estão apresentadas na Figuras \ref{fig:nmbe_som_map}, \ref{fig:mfd_som_map} e  \ref{fig:som_kimia_216}. Nas Figuras \ref{fig:nmbe_som_map} e \ref{fig:mfd_som_map}, as regiões delimitadas com linhas tracejadas correspondem as classes de formas com os maiores valores médios da medida Silhouette (Figuras \ref{fig:silhouette}a e \ref{fig:silhouette}b). Nesses casos pode-se deduzir que ambos os descritores foram capazes de caracterizar corretamente estas classes de formas.
+Os experimentos de avaliação de desempenho dos descritores produziram como saída as matrizes-U que estão apresentadas na Figuras \ref{fig:nmbe_som_map}, \ref{fig:mfd_som_map} e  \ref{fig:som_kimia_216}. Nas Figuras \ref{fig:nmbe_som_map} e \ref{fig:mfd_som_map}, as regiões delimitadas com linhas tracejadas correspondem as classes de formas com os maiores valores médios da medida silhouette (Figuras \ref{fig:silhouette}a e \ref{fig:silhouette}b). Nesses casos pode-se deduzir que ambos os descritores foram capazes de caracterizar corretamente estas classes de formas.
 
-Já os grupos delimitados com linhas contínuas referem-se às classes de formas com os menores valores de Silhouette média. De fato, as formas dessas classes aparecem nas matrizes-U dispersas em sub-grupos, que é um indicativo que ambos os descritores falharam em caracterizá-las adequadamente.
+Já os grupos delimitados com linhas contínuas referem-se às classes de formas com os menores valores de silhouette média. De fato, as formas dessas classes aparecem nas matrizes-U dispersas em sub-grupos, que é um indicativo que ambos os descritores falharam em caracterizá-las adequadamente.
   
 As Figuras \ref{fig:dude_tool_mfd} e \ref{fig:dude_tool_nmbe} mostram objetos das classes de formas de humanos e ferramentas. Ambos os descritores foram capazes de discriminar os objetos das referidas classes, como evidenciado nos gráficos apresentados. As matrizes-U (Figuras \ref{fig:nmbe_som_map} e \ref{fig:mfd_som_map}) também confirmam esse resultado exibindo, para essas classes de formas, homogeneidade intra-classe e separabilidade inter-classes. Logo, concluímos que estes descritores são efetivos em representar formas para o reconhecimento de padrões em aplicações \ac{CBIR}.
 
@@ -293,7 +293,7 @@ Os demais resultados de recuperação de formas, apresentados na Figura \ref{fig
 Outro aspecto importante de ser observado é que  grupos de formas com similaridades grosseiras encontram-se mapeados próximos uns dos outros na matriz-U. Formas alongadas, por exemplo, estão organizadas na parte inferior esquerda da Figura \ref{fig:som_kimia_216}a, enquanto formas arredondadas encontram-se na parte superior. Outros exemplos incluem os seguintes grupos: chaves e crianças (esquerda da figura), carros e tijolos, tartarugas e pássaros, cálices e sepulturas. 
 
 \begin{figure}[h!]
-  \caption{\label{fig:silhouette} Silhouette média por classe aferida, com a base Kimia-99, para os descritores (a) Dimensão fractal multiescala; (b) Energia de dobramento multiescala.}
+  \caption{\label{fig:silhouette} silhouette média por classe aferida, com a base Kimia-99, para os descritores (a) Dimensão fractal multiescala; (b) Energia de dobramento multiescala.}
   \centering
   \includegraphics[width=0.5\textwidth]{resultado_silhouette.eps}
 \end{figure}
@@ -316,11 +316,11 @@ A visualização de dados obtida para características extraídas com o descrito
 
 As células escuras formam contornos que delimitam fronteiras existentes entre agrupamentos de formas, pois estas células indicam a existência duma relação de separação entre as formas em suas vizinhanças. Já as células em linhas claras indicam maior proximidade entre as formas e suas vizinhanças.
 
-Podemos inferir que o descritor representou adequadamente as formas das classes de humanos, arraias, peixes, ferramentas e coelhos. Isso porque, nestes casos, o descritor apresentou uma representação compacta, agrupando próximas as formas de uma mesma classe, e propiciando separabilidade entre os agrupamentos estabelecidos. A medida Silhouette média por classe, apresentada na Figura \ref{fig:edif99}b, corrobora nossas observações, pois as referidas classes são as que apresentam os valores de Silhouette média mais positivos e com pequeno desvio padrão.  
+Podemos inferir que o descritor representou adequadamente as formas das classes de humanos, arraias, peixes, ferramentas e coelhos. Isso porque, nestes casos, o descritor apresentou uma representação compacta, agrupando próximas as formas de uma mesma classe, e propiciando separabilidade entre os agrupamentos estabelecidos. A medida silhouette média por classe, apresentada na Figura \ref{fig:edif99}b, corrobora nossas observações, pois as referidas classes são as que apresentam os valores de silhouette média mais positivos e com pequeno desvio padrão.  
 
-Por outro lado, o descritor falhou em representar as formas das classes de animais quadrúpedes, aviões e extra terrestres. Isso porque, nesses casos, não se consegue identificar na matriz-U fronteiras claras que estabeleçam um único agrupamento das formas de uma mesma classe. Em outras palavras, formas dessas classes encontram-se separadas umas das outras ou dispersas em sub-grupos delimitados por pequenas fronteiras. Esses casos são os que apresentam a medida Silhouette média por classe com os menores valores e os maiores desvios padrão. 
+Por outro lado, o descritor falhou em representar as formas das classes de animais quadrúpedes, aviões e extra terrestres. Isso porque, nesses casos, não se consegue identificar na matriz-U fronteiras claras que estabeleçam um único agrupamento das formas de uma mesma classe. Em outras palavras, formas dessas classes encontram-se separadas umas das outras ou dispersas em sub-grupos delimitados por pequenas fronteiras. Esses casos são os que apresentam a medida silhouette média por classe com os menores valores e os maiores desvios padrão. 
 
-Já na Figura \ref{fig:edif216}a temos a visualização da matriz-U para as características extraídas das formas da base Kimia-216. Nesta observamos, bem delimitados por linhas escuras, diversos agrupamentos  representados corretamente pelo descritor. Dentre esses, destacamos os agrupamentos cujas fronteiras de separação intra-classe são de baixo contraste e cujas fronteiras de separação inter-classe são bem contrastadas (faces, garfos, sepulturas, cálices e crianças). Esses são os  agrupamentos que apresentaram os maiores valores de \emph{Silhouette} média na Figura \ref{fig:edif216}b, o que é um resultado esperado, uma vez que o descritor representou as formas desses grupos de forma compacta e em agrupamentos bem separados.
+Já na Figura \ref{fig:edif216}a temos a visualização da matriz-U para as características extraídas das formas da base Kimia-216. Nesta observamos, bem delimitados por linhas escuras, diversos agrupamentos  representados corretamente pelo descritor. Dentre esses, destacamos os agrupamentos cujas fronteiras de separação intra-classe são de baixo contraste e cujas fronteiras de separação inter-classe são bem contrastadas (faces, garfos, sepulturas, cálices e crianças). Esses são os  agrupamentos que apresentaram os maiores valores de \emph{silhouette} média na Figura \ref{fig:edif216}b, o que é um resultado esperado, uma vez que o descritor representou as formas desses grupos de forma compacta e em agrupamentos bem separados.
 
 \begin{figure}
 \caption{\label{fig:edif_som_map} Matriz-U para as formas da base Kimia99 representadas com o descritor Entropia diferencial da curvatura multiescala.}
@@ -329,7 +329,7 @@ Já na Figura \ref{fig:edif216}a temos a visualização da matriz-U para as cara
  \end{figure}
 
 \begin{figure}
-\caption{\label{fig:silhouette_ediferencial} Silhouette média por classe aferida, com a base Kimia-99, para o descritor entropia diferencial da curvatura multiescala.}
+\caption{\label{fig:silhouette_ediferencial} silhouette média por classe aferida, com a base Kimia-99, para o descritor entropia diferencial da curvatura multiescala.}
   \centering
   \includegraphics[width=0.75\textwidth]{ediferencial_silhouette_N5.png}
 \end{figure}
