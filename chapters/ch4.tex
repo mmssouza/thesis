@@ -15,7 +15,7 @@ Com o método de otimização proposto, realizamos experimentos de classificaç�
 
 
 
-\section{\emph{Classificação de formas e sua relação com  a função objetivo}}
+\section{Classificação de formas e sua relação com  a função objetivo}
 Nos experimentos realizados para comparação dos algoritmos de otimização, avaliamos inicialmente aspectos  relacionados à  convergência dos algoritmos de otimização e a relação entre os resultados de classificação e as funções \ac{MAD}s obtidas por diferentes estratégias. Além disso investigamos o custo computacional dos mesmos. A Figura \ref{fig:converge} ilustra a convergência de cada um dos três algoritmos de otimização para $30$ repetições realizadas em um subconjunto da base de formas de folhas de plantas. Os resultados obtidos indicam que a otimização realizada pelo \ac{PSO} requereu um pequeno número de iterações para convergir a uma solução ótima, quando comparado aos algoritmos \ac{SA} e \ac{DE}. Uma vez que a convergência está relacionada com o número de iterações necessárias para se atingir uma solução ótima, um menor número de iterações implica em exploração deficiente do espaço de busca, ou seja, em convergência prematura \citeonline{Andries:2007}. Nestes casos, o método de otimização apresenta tendência de ficar preso a mínimos locais, encontrando assim soluções sub-ótimas para o problema. Por outro lado, a convergência mais lenta permite ao algoritmo explorar melhor o espaço de busca, aumentando portanto a chance deste convergir para um mínimo global, ou seja, uma solução ótima \citeonline{Andries:2007}.
  
 Neste contexto, observa-se na Figura \ref{fig:converge}c que o \ac{PSO} encontrou soluções sub-ótimas com maior frequência, alcançando valores médios da função \ac{MAD}  igual a $0,805 \pm 0,006$.  Com relação aos algoritmos \ac{SA} e \ac{DE}, estes alcançaram os menores valores médios de \ac{MAD} : $0,795 \pm 0,006$ e $0,798 \pm 0,004$, respectivamente. Esses resultados demonstram que os algoritmos \ac{SA} e \ac{DE} foram mais eficazes que o \ac{PSO} em encontrar soluções ótimas. No entanto, o custo para alcançar tais soluções torna-se maior. A Seção \ref{sec:comp_cost} aborda com mais detalhes as questões relativas ao custo computacional dos algoritmos de otimização utilizados.
@@ -84,7 +84,7 @@ $0,829$\footnote{Using \ac{PSO}}        & $0,86\pm0,03$          & $0,85\pm0,03$
   
 Os resultados da Tabela \ref{tab:leaves_supervised_results} confirmam que os classificadores que utilizaram descritores gerados a partir de escalas selecionadas arbitrariamente não tiveram desempenho satisfatório, pois alcançaram os menores valores de Precisão e Revocação e os maiores valores da função \ac{MAD}. Portanto, escalas aleatórias levam a uma representação multiescala menos sensível a variações de características das folhas, consequentemente, mais erros de classificação. 
 
-\section{\emph{Análise exploratória visual de agrupamentos}}
+\section{Análise exploratória visual de agrupamentos}
 
 Nesta seção utilizamos técnicas de visualização de dados multidimensionais, como \ac{MDS} e matriz-U, para observar os resultados dos descritores multiescala \ac{NMBE} e \ac{DFM}. O uso dessas técnicas suportam a análise do comportamento dos descritores a partir de suas relações com os agrupamentos observados em um espaço bidimensional. 
 

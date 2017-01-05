@@ -32,9 +32,10 @@
 	% -- opções da classe memoir --
 	12pt,				% tamanho da fonte
 	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
-	twoside,			% para impressão em verso e anverso. Oposto a oneside
+	oneside,			% para impressão em verso e anverso. Oposto a oneside
 	a4paper,			% tamanho do papel. 
 	% -- opções da classe abntex2 --
+	sumario=abnt-6027-2012,
 	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
 	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
 	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
@@ -73,7 +74,7 @@
 % Pacotes de citações
 % ---
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-\usepackage[alf,abnt-etal-list=0]{abntex2cite}	% Citações padrão ABNT
+\usepackage[alf,abnt-etal-list=0,abnt-emphasize=bf, recuo=0cm, abnt-etal-cite=2]{abntex2cite}	% Citações padrão ABNT
 
 % --- 
 % CONFIGURAÇÕES DE PACOTES
@@ -82,18 +83,23 @@
 % ---
 % Configurações do pacote backref
 % Usado sem a opção hyperpageref de backref
-\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+%\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
 % Texto padrão antes do número das páginas
-\renewcommand{\backref}{}
+%\renewcommand{\backref}{}
 % Define os textos da citação
-\renewcommand*{\backrefalt}[4]{
-	\ifcase #1 %
-		Nenhuma citação no texto.%
-	\or
-		Citado na página #2.%
-	\else
-		Citado #1 vezes nas páginas #2.%
-	\fi}%
+%\renewcommand*{\backrefalt}[4]{
+%	\ifcase #1 %
+%		Nenhuma citação no texto.%
+%	\or
+%		Citado na página #2.%
+%	\else
+%		Citado #1 vezes nas páginas #2.%
+%	\fi}%
+
+\renewcommand{\ABNTEXsubsectionfont}{\normalfont\sffamily\itshape}
+\renewcommand{\bibname}{REFERÊNCIAS}
+\renewcommand{\listfigurename}{LISTA DE ILUSTRAÇÕES}
+\renewcommand{\listtablename}{LISTA DE TABELAS}
 % ---
 % --- 
 % CAPA NO PADRÃO DA UFC
@@ -193,10 +199,10 @@
 	    pdfcreator={LaTeX with abnTeX2},
 		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
 		colorlinks=true,       		% false: boxed links; true: colored links
-    	linkcolor=blue,          	% color of internal links
-    	citecolor=blue,        		% color of links to bibliography
-    	filecolor=magenta,      		% color of file links
-		urlcolor=blue,
+    	linkcolor=black,          	% color of internal links
+    	citecolor=black,        		% color of links to bibliography
+    	filecolor=black,      		% color of file links
+		urlcolor=black,
 		bookmarksdepth=4
 }
 \makeatother
@@ -254,10 +260,12 @@
 % com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
 % com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
 % o conteúdo de implementação deste arquivo pelo comando abaixo:
-%
-% \begin{fichacatalografica}
-%     \includepdf{fig_ficha_catalografica.pdf}
-% \end{fichacatalografica}
+
+ \begin{fichacatalografica}
+     \includepdf{ficha_catalog.pdf}
+     \cleardoublepage
+ \end{fichacatalografica}
+\begin{comment}
 \begin{fichacatalografica}
 	\vspace*{\fill}					% Posição vertical
 	\hrule							% Linha horizontal
@@ -295,6 +303,7 @@
 	\hrule
 	\cleardoublepage	
 \end{fichacatalografica}
+\end{comment}
 % ---
 
 % ---
@@ -337,11 +346,9 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
 % do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
 % imagem da página assinada pela banca com o comando abaixo:
 
- \includepdf{images/folha_aprova.pdf}
-  \cleardoublepage
+% \includepdf{images/folha_aprova.pdf}
+%  \cleardoublepage
   
-\begin{comment}
-
 \begin{folhadeaprovacao}
 
   \begin{center}
@@ -359,7 +366,7 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
     \vspace*{\fill}
    \end{center}
         
-   Aprovada em: \underline{\hspace{0.5cm}}/\underline{\hspace{0.5cm}}/\underline{\hspace{2cm}}.
+   Aprovada em: 29/07/2016.
 
    \assinatura{\imprimirorientador  (Orientadora) \\ Universidade Federal do Ceará (UFC)} 
    \assinatura{Prof. Dr. Victor Hugo Costa de Albuquerque \\ Universidade de Fortaleza (UNIFOR)}
@@ -367,9 +374,9 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
    Instituto Federal do Ceará (IFCE)}
    \assinatura{Prof. Dr. Francisco Nivando Bezerra\\ Instituto Federal do Ceará (IFCE)}
    \assinatura{Prof. Dr. Walter da Cruz Freitas Júnior\\ Universidade Federal do Ceará(UFC)}
-\cleardoublepage
+
 \end{folhadeaprovacao}
-\end{comment}
+%\cleardoublepage
 % ---
 
 % ---
@@ -386,7 +393,7 @@ Zootecnia, Universidade de São Paulo, São Paulo, 2011.
 % ---
 % Agradecimentos
 % ---
-\begin{agradecimentos}
+\begin{agradecimentos}[AGRADECIMENTOS]
 Aos colegas do LABVIS pelo companherismo e pela ajuda no desenvolvimento deste trabalho.
 Ao Renato Vasconcelos, secretário da Pós-Graduação em Engenharia de Teleinformática.
 Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pelo desafio imposto à realização deste trabalho.
@@ -423,22 +430,22 @@ Ao Colegiado do curso de Pós-Graduação em Engenharia de Teleinformática, pel
 
 % resumo em português
 \setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
-\begin{resumo}
+\begin{resumo}[RESUMO]
 \input{chapters/Resumo.tex}
 \vspace{\onelineskip}
 \noindent\\ 
 \textbf{Palavras-chaves}: 
- Visão computacional. Reconhecimento de padrões. Análise de formas. Descritores multiescala. Ajuste de parâmetros. Otimização evolucionária.  
+ Visão computacional. Reconhecimento de padrões. Análise de formas. Descritores multiescala. Otimização evolucionária.  
 \end{resumo}
 
 % resumo em inglês
-\begin{resumo}[Abstract]
+\begin{resumo}[ABSTRACT]
 \begin{otherlanguage*}{english}
 \input{chapters/Abstract.tex} 
 \vspace{\onelineskip}
 \noindent\\ 
 \textbf{Key-words}: 
-Computational vision. Pattern recognition. Shape analysis.  Multiscale descriptors. Parameters setting. Evolutionary optimization.  
+Computational vision. Pattern recognition. Shape analysis.  Multiscale descriptors. Evolutionary optimization.  
  \end{otherlanguage*}
 \end{resumo}
 
@@ -512,9 +519,10 @@ Computational vision. Pattern recognition. Shape analysis.  Multiscale descripto
 % ---
 % inserir o sumario
 % ---
+{\bfseries
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
-\cleardoublepage
+\cleardoublepage}
 % ---
 
 
