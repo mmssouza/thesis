@@ -1,0 +1,224 @@
+
+% Para utilizar este template siga o tutorial disponível em http://www.biblioteca.ufc.br/images/arquivos/instrucoes_modelos/tutorial_sharelatex.pdf
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Você dever criar uma conta no ShareLatex. Depois, %%
+%% vá nas opções no canto esquerdo superior da tela  %%
+%% e clique em "Copiar Projeto". Dê um novo nome pa- %%
+%% ra o projeto.                                     %%
+%%                                                   %%
+%% Os principais desenvolvedores deste template são: %%
+%%                                                   %%
+%%            Ednardo Moreira Rodrigues              %%
+%%     (Doutorando em Engenharia Elétrica - UFC)     %%
+%%                      &                            %%
+%%            Alan Batista de Oliveira               %%
+%%     (Graduando em Engenharia Elétrica - UFC)      %%
+%%                                                   %%
+%% Revisão:                                          %%
+%%                                                   %%
+%% - Eliene Maria Vieira de Moura;                   %%
+%% - Francisco Edvander Pires Santos;                %%
+%% - Izabel Lima dos Santos;                         %%
+%% - Juliana Soares Lima;                            %%
+%% - Kalline Yasmin Soares Feitosa.                  %%
+%%                                                   %%
+%% Grande parte do trabalho foi adaptado do template %%
+%% da UECE elaborado por:                            %%
+%% Thiago Nascimento  (UECE)                         %%
+%% Project available on:                             %%
+%% https://github.com/thiagodnf/uecetex2             %%
+%%                                                   %%
+%% "Dúvidas, esclarecimentos ou sugestões podem ser  %%
+%% enviadas para o e-mail da Comissão de Serviços da %%
+%% Biblioteca Universitária: csbu@ufc.br."           %%
+%%                                                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[        
+    a4paper,          % Tamanho da folha A4
+    12pt,             % Tamanho da fonte 12pt
+    chapter=TITLE,    % Todos os capitulos devem ter caixa alta
+    section=Title,    % Todas as secoes devem ter caixa alta somente na primeira letra
+    subsection=Title, % Todas as subsecoes devem ter caixa alta somente na primeira letra
+    oneside,          % Usada para impressao em apenas uma face do papel
+    english,          % Hifenizacoes em ingles
+    spanish,          % Hifenizacoes em espanhol
+    brazil,           % Ultimo idioma eh o idioma padrao do documento
+    fleqn             % Coloca as equações alinhadas a esquerda
+]{abntex2}
+
+\input{lib/preambulo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          Configuracoes do ufctex                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Opcoes disponiveis
+
+%\trabalhoacademico{tccgraduacao}
+%\trabalhoacademico{tccespecializacao}
+%\trabalhoacademico{dissertacao}
+\trabalhoacademico{tese}
+
+% Define se o trabalho eh uma qualificacao
+% Coloque 'nao' para versao final do trabalho
+
+\ehqualificacao{nao}
+
+% Remove as bordas vermelhas e verdes do PDF gerado
+% Coloque 'sim' pare remover
+
+\removerbordasdohyperlink{sim} 
+
+% Adiciona a cor Azul a todos os hyperlinks
+
+\cordohyperlink{nao}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          Informação sobre a IES                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ies{Universidade Federal do Ceará}
+\iessigla{UFC}
+\centro{Centro de Tecnologia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        Informação para TCC de Graduacao %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graduacaoem{Engenharia Xxxxxxx}
+\habilitacao{bacharel} % Pode colocar tambem 'licenciada'
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Informação para TCC de Especializacao       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\especializacaoem{Descargas Atmosféricas}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%         Informação para Dissertacao             %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\programamestrado{Programa de Pós-Graduação em Xxxxxxx}
+\nomedomestrado{Mestrado Acadêmico em Xxxxxxx}
+\mestreem{Engenharia Xxxxxx}
+\areadeconcentracaomestrado{Engenharia Xxxxxx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%               Informação para Tese              %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\programadoutorado{Programa de Pós-Graduação em Engenharia de Teleinformática}
+\nomedodoutorado{Doutorado em Engenharia de Teleinformática}
+\doutorem{Engenharia de Teleinformática}
+\areadeconcentracaodoutorado{Engenharia de Teleinformática}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Informacoes relacionadas ao trabalho     %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\autor{Marcelo Marques Simões de Souza}
+\titulo{Um método para otimização de descritores multiescala em análise de formas}
+\data{2016}
+\local{Fortaleza}
+
+% Exemplo: \dataaprovacao{01 de Janeiro de 2012}
+\dataaprovacao{29 de Julho de 2016}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%     Informação sobre o Orientador       %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\orientador{Prof. Dr. Fátima Nelsizeuma Sombra de Medeiros}
+\orientadories{Universidade Federal do Ceará (UFC)}
+\orientadorcentro{Centro de Tecnologia (CT)}
+\orientadorfeminino{sim} % Coloque 'sim' se for do sexo feminino
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      Informação sobre o Co-orientador   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Deixe o nome do coorientador em branco para remover do documento
+
+\coorientador{}
+\coorientadories{Universidade Co-orientador (SIGLA)}
+\coorientadorcentro{Centro do Co-orientador (SIGLA)}
+\coorientadorfeminino{nao} % Coloque 'sim' se for do sexo feminino
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      Informação sobre a banca           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Exemplo de uso:
+% \membrodabancadois{Prof. Dr. Fulano de Tal}
+% \membrodabancadoisies{Universidade Federal do Ceará - UFC}
+
+\membrodabancadois{Prof. Dr. Victor Hugo Costa de Albuquerque}
+%\membrodabancadoiscentro{}
+\membrodabancadoisies{Universidade de Fortaleza (UNIFOR)}
+\membrodabancatres{Prof. Dr. Auzuir Ripardo Alexandria}
+%\membrodabancatrescentro{}
+\membrodabancatresies{Instituto Federal do Ceará (IFCE)}
+\membrodabancaquatro{Prof. Dr. Francisco Nivando Bezerra}
+%\membrodabancaquatrocentro{}
+\membrodabancaquatroies{Instituto Federal do Ceará (IFCE)}
+\membrodabancacinco{Prof. Dr. Walter da Cruz Freitas Júnior}
+\membrodabancacincocentro{Centro de Tecnologia (CT)}
+\membrodabancacincoies{Universidade Federal do Ceará (UFC)}
+%\membrodabancaseis{Prof. Dr. Xxxxxxx Xxxxxx Xxxxxxx}
+%\membrodabancaseiscentro{}
+%\membrodabancaseisies{Universidade do Membro da Banca Seis (SIGLA)}
+
+\begin{document}	
+	% Elementos pré-textuais
+	\imprimircapa
+	\imprimirfolhaderosto{}
+	\imprimirfichacatalografica{elementos-pre-textuais/ficha-catalografica}
+	%\imprimirerrata{elementos-pre-textuais/errata}
+	\imprimirfolhadeaprovacao
+	\imprimirdedicatoria{elementos-pre-textuais/dedicatoria}
+	\imprimiragradecimentos{elementos-pre-textuais/agradecimentos}
+	\imprimirepigrafe{elementos-pre-textuais/epigrafe}
+	\imprimirresumo{elementos-pre-textuais/resumo}
+	\imprimirabstract{elementos-pre-textuais/abstract}
+	\imprimirlistadeilustracoes
+	\imprimirlistadetabelas
+	%\imprimirlistadequadros
+	%\imprimirlistadealgoritmos
+	%\imprimirlistadecodigosfonte
+	\imprimirlistadeabreviaturasesiglas
+	%\imprimirlistadesimbolos{elementos-pre-textuais/lista-de-simbolos}   
+	\imprimirsumario
+	
+	%Elementos textuais
+	\textual
+	\input{elementos-pre-textuais/lista-de-acron.tex}
+	
+    \input{chapters/Introduction.tex}
+    %\chapterstyle{default}
+    \input{chapters/ch2.tex}
+    \input{chapters/ch3.tex}
+    \input{chapters/ch4.tex}
+    \input{chapters/ch5.tex}
+	%\input{elementos-textuais/introducao}
+	%\input{elementos-textuais/fundamentacao-teorica}
+	%\input{elementos-textuais/metodologia}
+	%\input{elementos-textuais/resultados}
+	%\input{elementos-textuais/conclusao}
+	
+	%Elementos pós-textuais	
+	\postextual
+	\bibliography{tese,manifold,leaves}
+%	\imprimirglossario	
+	%\imprimirapendices
+		% Adicione aqui os apendices do seu trabalho
+	%	\input{elementos-pos-textuais/apendices/historico-de-mudancas}
+	%	\input{elementos-pos-textuais/apendices/lorem-ipsum}
+	%\imprimiranexos
+		% Adicione aqui os anexos do seu trabalho
+	%	\input{elementos-pos-textuais/anexos/exemplo-de-anexo}		
+	%	\input{elementos-pos-textuais/anexos/dinamica-das-classes-sociais}
+	%\imprimirindice
+
+\end{document}
