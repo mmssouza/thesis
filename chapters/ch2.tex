@@ -1,33 +1,33 @@
-% !TeX root = ../main.tex
+% !TeX root = ../documento.tex
 
 \chapter{Fundamentos teóricos\label{chap:FUNDA}}
 
 Este capítulo apresenta os conceitos necessários para a compreensão das técnicas utilizadas na metodologia proposta neste trabalho, destacando os métodos de extração de características do contorno das formas, as técnicas de visualização de dados e os métodos de otimização evolutivos.
 
-Inicialmente são apresentados os métodos de extração de características do contorno de formas baseados em assinaturas, em particular a curvatura \cite{Kindratenko:2003}, a curvatura multiescala \cite{149591} e o descritor \ac{NMBE} \cite{Costa:1997}. Este último, cujos parâmetros são ajustados pelo método proposto, é obtido a partir da curvatura multiescala que, por sua vez, é obtida através da curvatura.
+Inicialmente são apresentados os métodos de extração de características do contorno de formas baseados em assinaturas, em particular a curvatura \cite{Kindratenko:2003}, a curvatura multiescala \cite{149591} e o descritor \gls{NMBE} \cite{Costa:1997}. Este último, cujos parâmetros são ajustados pelo método proposto, é obtido a partir da curvatura multiescala que, por sua vez, é obtida através da curvatura.
 
-São apresentadas também duas técnicas de visualização de dados, as quais são empregadas na avaliação do método de otimização de descritores proposto: o \ac{MDS} \cite{cox:2000} e o \ac{SOM} \cite{Kohonen:2001}. O capítulo finaliza apresentando três métodos de otimização evolutivos utilizados pelo método proposto: \ac{SA}, \ac{DE} e \ac{PSO}. 
+São apresentadas também duas técnicas de visualização de dados, as quais são empregadas na avaliação do método de otimização de descritores proposto: o \gls{MDS} \cite{cox:2000} e o \gls{SOM} \cite{Kohonen:2001}. O capítulo finaliza apresentando três métodos de otimização evolutivos utilizados pelo método proposto: \gls{SA}, \gls{DE} e \gls{PSO}. 
 
 \section{\label{chap:CBIR} Sistemas de recuperação de imagens pelo conteúdo}
 
 A disseminação dos sistemas de \textit{hardware} embarcado com capacidade de coletar, armazenar e disponibilizar imagens digitais em redes de computadores, ampliou a demanda por aplicações de visão computacional em áreas como a medicina, indústria, segurança, biologia, entre outras. Dentre estas  demandas destacam-se as ferramentas efetivas de gerenciamento de informação multimídia que facilitam a organização e a busca automática desse tipo de conteúdo. 
 
-Busca de imagens em grandes bases de dados multimídia é um dos serviços importantes disponibilizados pelos sistemas de gerenciamento de informação na atualidade. O método clássico para se prover tal serviço emprega a rotulação textual por palavras-chave. Nessa abordagem, o usuário realiza buscas fornecendo informações textuais ao sistema. Esse último recupera a informação multimídia empregando métodos tradicionais de buscas textuais por palavras-chave. Atualmente, essa abordagem tem se tornado inviável devido ao grande volume de informação multimídia disponível na internet, o que torna o processo de anotação textual demasiadamente dispendioso. Ademais o processo de descrição textual é impreciso e sujeito a erros, uma vez que diferentes indivíduos tendem a interpretar e descrever uma mesma imagem subjetivamente e, portanto, empregando diferentes palavras-chave na descrição. Os sistemas  \ac{CBIR} foram propostos em resposta a essas dificuldades. Nesses sistemas, o processo de busca utiliza o conteúdo visual das imagens ao invés da rotulação textual. 
+Busca de imagens em grandes bases de dados multimídia é um dos serviços importantes disponibilizados pelos sistemas de gerenciamento de informação na atualidade. O método clássico para se prover tal serviço emprega a rotulação textual por palavras-chave. Nessa abordagem, o usuário realiza buscas fornecendo informações textuais ao sistema. Esse último recupera a informação multimídia empregando métodos tradicionais de buscas textuais por palavras-chave. Atualmente, essa abordagem tem se tornado inviável devido ao grande volume de informação multimídia disponível na internet, o que torna o processo de anotação textual demasiadamente dispendioso. Ademais o processo de descrição textual é impreciso e sujeito a erros, uma vez que diferentes indivíduos tendem a interpretar e descrever uma mesma imagem subjetivamente e, portanto, empregando diferentes palavras-chave na descrição. Os sistemas de \acrfull{CBIR} foram propostos em resposta a essas dificuldades. Nesses sistemas, o processo de busca utiliza o conteúdo visual das imagens ao invés da rotulação textual. 
 
-\subsection{Arquitetura dos sistemas de \acl{CBIR}}
+\subsection{Arquitetura dos sistemas de recuperação de imagens pelo conteúdo}
 
-Sistemas \ac{CBIR} empregam o conteúdo visual das imagens para formar uma base de dados de representações na forma de vetores de características. A busca é então realizada com o usuário fornecendo ao sistema uma imagem, ou figura de consulta, a qual também é representada vetorialmente. Assim, através da avaliação da similaridade existente entre as representações da imagem de consulta e das imagens da base, o sistema procura retornar ao usuário as imagens que sejam do seu interesse. Dependendo das particularidades da aplicação, esse padrão de consulta, que corresponde também a uma imagem, pode ser um esboço, um modelo ou uma cópia exata do que se deseja procurar \cite{Smeulders:2000}.
+Sistemas de \gls{CBIR} empregam o conteúdo visual das imagens para formar uma base de dados de representações na forma de vetores de características. A busca é então realizada com o usuário fornecendo ao sistema uma imagem, ou figura de consulta, a qual também é representada vetorialmente. Assim, através da avaliação da similaridade existente entre as representações da imagem de consulta e das imagens da base, o sistema procura retornar ao usuário as imagens que sejam do seu interesse. Dependendo das particularidades da aplicação, esse padrão de consulta, que corresponde também a uma imagem, pode ser um esboço, um modelo ou uma cópia exata do que se deseja procurar \cite{Smeulders:2000}.
 
 \begin{comment}
 Sistemas \emph{CBIR} realizam buscas em bases multimídia utilizando o conteúdo visual das imagens, visando recuperar imagens que sejam do interesse do usuário mediante um padrão de consulta especificado. O campo das pesquisas em recuperação de imagens pelo conteúdo é vasto e relativamente recente.
 \end{comment}
 
 
-A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \ac{CBIR} clássico, sendo este composto pelos seguintes componentes \cite{Torres:2006}:
+A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema de \gls{CBIR} clássico, sendo este composto pelos seguintes componentes \cite{Torres:2006}:
 
 \begin{alineas}
 \item Módulo de interação com usuário: através desse módulo o usuário fornece como entrada ao sistema uma imagem de consulta e visualiza, como saída, os resultados das buscas. É também através desse módulo que são realizadas a inserção e a remoção de imagens da base de imagens, sendo esse último processo, destacado em linhas tracejadas, realizado pelo administrador do sistema;  
-\item Módulo de processamento de busca: esse módulo engloba grande parte da funcionalidade do sistema \ac{CBIR}, sendo esse composto pelos seguintes submódulos:
+\item Módulo de processamento de busca: esse módulo engloba grande parte da funcionalidade do sistema \gls{CBIR}, sendo esse composto pelos seguintes submódulos:
 \begin{alineas}
 \item Extração de características: contempla os algoritmos computacionais responsáveis em obter uma representação matemática, na forma de vetor de características, dos atributos visuais das imagens como cor, textura e forma;
 \item Avaliação de similaridade: contempla o método empregado para a avaliação do grau de similaridade existente entre as imagens a partir de suas respectivas representações vetoriais;
@@ -38,18 +38,18 @@ A Figura \ref{fig:cbir} apresenta a arquitetura de um sistema \ac{CBIR} clássic
 
 \begin{figure} 
 \centering
-\caption{\label{fig:cbir} Arquitetura de um sistema \ac{CBIR}.}
+\caption{\label{fig:cbir} Arquitetura de um sistema de CBIR.}
 \includegraphics[width=0.65\textwidth]{cbir.eps}
 \legend{Fonte: \citeonline{Torres:2006}.}
 \end{figure}
  
-Este trabalho enfatiza os processos de extração de características e de avaliação de similaridade em experimentos \ac{CBIR}, sendo esses processos destacados nas subseções a seguir.
+Este trabalho enfatiza os processos de extração de características e de avaliação de similaridade em experimentos \gls{CBIR}, sendo esses processos destacados nas subseções a seguir.
 
 \subsection{Extração de características}
 
-O processo de extração de características das imagens é fundamental para os sistemas \ac{CBIR}, e se dá através de operações de processamento de imagens para extrair informação que seja semanticamente relevante dos atributos da imagem para a realização das buscas por similaridade de conteúdo. Os atributos comumente empregados nesse processo são a cor, a textura, a forma e a localização espacial dos elementos constituintes de uma imagem. Alguns métodos de representação de formas por transformação empregam transformada de Fourier \cite{Costa:1997,ShuPanWu2015}. Em \ac{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. 
+O processo de extração de características das imagens é fundamental para os sistemas \gls{CBIR}, e se dá através de operações de processamento de imagens para extrair informação que seja semanticamente relevante dos atributos da imagem para a realização das buscas por similaridade de conteúdo. Os atributos comumente empregados nesse processo são a cor, a textura, a forma e a localização espacial dos elementos constituintes de uma imagem. Alguns métodos de representação de formas por transformação empregam transformada de Fourier \cite{Costa:1997,ShuPanWu2015}. Em \gls{CBIR}, o custo computacional das buscas deve levar em consideração o custo de se aplicar a transformada à forma de consulta. 
 
-A cor é o atributo mais empregado em extração de características em \ac{CBIR}, pois a mesma permite discriminar uma ampla gama de imagens. Quando se utiliza esse atributo deve-se considerar que o registro da cor em uma imagem varia consideravelmente com a orientação da superfície imageada, o posicionamento da câmera, a posição da fonte de iluminação e a maneira como a luz interage com os objetos imageados \cite{Smeulders:2000}. Ademais, a percepção humana da cor é um assunto complexo que ainda não está completamente elucidado \cite{Smeulders:2000}. De acordo com \citeonline{Torres:2006}, as técnicas de descrição por cores podem ser agrupadas em duas grandes classes dependendo se a informação de cor é codificada correlacionada com a sua distribuição espacial ou não. 
+A cor é o atributo mais empregado em extração de características em \gls{CBIR}, pois a mesma permite discriminar uma ampla gama de imagens. Quando se utiliza esse atributo deve-se considerar que o registro da cor em uma imagem varia consideravelmente com a orientação da superfície imageada, o posicionamento da câmera, a posição da fonte de iluminação e a maneira como a luz interage com os objetos imageados \cite{Smeulders:2000}. Ademais, a percepção humana da cor é um assunto complexo que ainda não está completamente elucidado \cite{Smeulders:2000}. De acordo com \citeonline{Torres:2006}, as técnicas de descrição por cores podem ser agrupadas em duas grandes classes dependendo se a informação de cor é codificada correlacionada com a sua distribuição espacial ou não. 
 
 \begin{comment}Esses mesmos autores exemplificam como técnicas que não levam em consideração a distribuição espacial das cores os histogramas e os momentos de cores. 
 \end{comment}
@@ -58,7 +58,7 @@ Atributos de textura são úteis na recuperação de imagens de satélites, bem 
 
 Informação relativa à localização espacial dos elementos de uma imagem permite, por exemplo, recuperar imagens fotográficas de paisagens externas, aonde distingue-se a localização do céu na região superior da imagem. Ademais, imagens fotográficas também tendem a apresentar em seu centro alguma informação significativa que difere do entorno da imagem, sendo essa informação útil no processo de recuperação de imagens de fotografias de pessoas, animais, etc \cite{Liu:2007}.
 
-A forma é uma característica intrínseca das imagens que é amplamente explorada pelo sistema de visão dos primatas para o reconhecimento de objetos. Progressos significativos têm sido alcançados no desenvolvimentos de sistemas \ac{CBIR} a partir desse atributo \cite{Smeulders:2000,Liu:2007}. Dentre as abordagens empregadas na obtenção de representações a partir das formas, a mais popular é a que as representa através de vetores de características invariantes \cite{Ullman:1996}. Tal representação permite que a similaridade entre as formas seja avaliada através de medidas de distância entre vetores. Além de depender da qualidade da segmentação dos objetos, por si só, a representação por vetores de características é pouco discriminativa \cite{Ullman:1996}, restringindo a sua aplicação em \ac{CBIR} a problemas expecíficos.
+A forma é uma característica intrínseca das imagens que é amplamente explorada pelo sistema de visão dos primatas para o reconhecimento de objetos. Progressos significativos têm sido alcançados no desenvolvimentos de sistemas \gls{CBIR} a partir desse atributo \cite{Smeulders:2000,Liu:2007}. Dentre as abordagens empregadas na obtenção de representações a partir das formas, a mais popular é a que as representa através de vetores de características invariantes \cite{Ullman:1996}. Tal representação permite que a similaridade entre as formas seja avaliada através de medidas de distância entre vetores. Além de depender da qualidade da segmentação dos objetos, por si só, a representação por vetores de características é pouco discriminativa \cite{Ullman:1996}, restringindo a sua aplicação em \gls{CBIR} a problemas expecíficos.
 
 Na representação estrutural, as formas são divididas em um conjunto de partes constituintes, sendo cada parte representada individualmente através de vetores de características. O descritor é composto a partir desses vetores e da relação existente entre as partes, representadas através de estruturas de dados como grafos, árvores ou cadeias de caracteres. Uma vez que esses métodos comparam as formas a partir das suas estruturas, esses conseguem uma boa acurácia, porém a um custo computacional elevado.
 
@@ -79,7 +79,7 @@ Na representação estrutural, as formas são divididas em um conjunto de partes
 
 
 
-O descritor do contorno da forma \ac{SC} \cite{Belongie:2002} avalia a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
+O descritor do contorno da forma \acrfull{SC} \cite{Belongie:2002} avalia a similaridade entre formas por correspondência de pontos. Esse descritor caracteriza a distribuição dos demais pontos do contorno em relação a um ponto de referência para cada ponto do contorno tomado como referência. 
 Os métodos que usam correspondência, ou alinhamento, representam as formas diretamente no domínio espacial. Esses métodos determinam o grau de similaridade entre duas formas tentando alinhá-las de modo a medir a diferença residual existente entre as mesmas.
 
 
@@ -180,7 +180,7 @@ Na Figura \ref{fig:folha_contorno}, estão representados os sinais obtidos para 
 %\legend{Fonte: próprio autor}
 \end{figure}
 
-Outra representação paramétrica para o contorno é obtida compondo-se um sinal complexo $\mathbf{z}[n] = \mathbf{x}[n] + j\mathbf{y}[n]$, $j = \sqrt{-1}$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$. Essa representação é conveniente quando se deseja realizar extração de características do contorno através de operações de processamento de sinais. A Figura \ref{fig:folha_complex} ilustra o módulo e a fase da representação complexa do contorno da folha da Figura \ref{fig:folha_contorno1}. 
+Outra representação paramétrica para o contorno é obtida compondo-se um sinal complexo $\mathbf{z}[n] = \mathbf{x}[n] + j\mathbf{y}[n]$, $j = \sqrt{-1}$, $n \in {\{0\:\text{,}\:1\:\text{,}\:\dotsc\:\text{,}\:N-1\}}$. Essa representação é conveniente quando se deseja realizar extração de características do contorno através de operações de processamento de sinais. A Figura \ref{fig:folha_contorno} ilustra o módulo e a fase da representação complexa do contorno da folha da Figura \ref{fig:folha_contorno1}. 
 
 %\begin{figure} 
 %\caption{\label{fig:folha_complex} Representação paramétrica do contorno da forma da folha na imagem da Figura \ref{fig:folha_contorno1} como sinal complexo.}
@@ -389,7 +389,7 @@ Inspirados na técnica de \citeonline{Witkin:1983} e \citeonline{Koenderink:1984
 A Figura \ref{fig:kk_cont} ilustra o efeito da suavização do contorno para diferentes valores do fator de escala. Observa-se nesta figura que, à medida que o fator de escala aumenta, o grau de suavização também aumenta e, consequentemente, mais informações de detalhes são eliminadas do contorno suavizado. Esse efeito permite obter uma representação do contorno em diferentes níveis de detalhes.
 
 \begin{figure}[h!]
-  \caption{\label{fig:kk_cont} Efeito da suavização sobre o contorno da forma para diferentes valores de escala }
+  \caption{\label{fig:kk_cont} Efeito da suavização sobre o contorno da forma para diferentes valores de escala.}
   \centering
   \includegraphics[width=\textwidth]{kk735.jpg}
  \end{figure}
@@ -494,7 +494,7 @@ sendo $L$ o perímetro do contorno e a integral calculada ao longo do compriment
 A energia de dobramento multiescala é obtida a partir da curvatura multiescala repetindo-se o cálculo da equação \ref{eq:be} para diferentes níveis de suavização do contorno. Isso resulta em um vetor de características composto por escalares decorrentes da curvatura multiescala para cada uma das escalas empregadas na suavização do contorno e cálculo da curvatura. 
 \end{comment}
 
-A \acl{NMBE} foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese, investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo. Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a \ac{NMBE} é dada por: 
+A \acrfull{NMBE} foi introduzida por \citeonline{Costa:1997} para a análise de formas de neurônios. Nesta tese, investigamos sua utilização como um descritor de propósito geral em recuperação de formas pelo conteúdo. Para um contorno discreto, com $N$ pontos, representado na forma complexa $z[n] = x[n]+jy[n] \text{,} \quad n \quad \epsilon \quad [0, \quad 1, \quad \ldots \quad , \quad N-1]$, a \gls{NMBE} é dada por: 
 
 \begin{equation}
 E_{be} = \frac{L^{2}}{N}\sum_{n=0}^{N-1}\kappa^{2}[n]\text{,}
@@ -510,7 +510,7 @@ sendo o perímetro do contorno elevado ao quadrado ($L^2$) uma constante de norm
 \noindent
 onde $z^{'}[n]$ e $z^{''}[n]$ correspondem as derivadas primeira e segunda, $z^{*}[n]$ o conjugado de $z[n]$ e $Im(z)$ a coordenada imaginária de $z$. 
 
-A \ac{NMBE} resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
+A \gls{NMBE} resulta da versão discreta da curvatura multiescala. Podemos calcular as derivadas primeira e segunda do contorno discreto suavizado ($z_\sigma'[n]$ e $z_\sigma''[n]$) através das propriedades da derivada da convolução ou da transformada de Fourier \cite{Costa:1997}. No caso discreto, a transformada de Fourier de $z[n]$ é dada por:  
 
 \begin{equation}
 Z[s] = F\big\{z[n]\big\} = \sum\limits_{n=0}^{N-1}z[n]e^{\frac{-j2\pi ns}{N}} \text{, }
@@ -556,15 +556,15 @@ NMBE = (\log{E_{\sigma_{1}}}\text{, }\log{E_{\sigma_{2}}}\text{, }\ldots \text{ 
 As raízes conceituais da geometria fractal foram introduzidas por \citeonline{Mandelbrot:2000} para descrever os objetos que as definições tradicionais da geometria euclidiana não consegue descrever. A dimensão fractal é definida a partir de um número não inteiro que quantifica a complexidade de um objeto, sob os aspectos de fragmentação e auto-similaridade \cite{Mandelbrot:2000}. Complexidade é uma propriedade importante dos objetos que informa quanto espaço este ocupa \cite{Costa:2009}. 
 
 
-A \ac{DFM} estima a complexidade das formas através de uma curva que representa as mudanças na complexidade à medida que a escala de visualização da forma varia \cite{Florindo:2012}.
- O método empregado para estimar a dimensão fractal e a \ac{DFM} nesta tese é o método de Minkowski-Bouligand \cite{Costa:2009}. Este método dilata a forma sob análise utilizando como elemento estruturante um disco de raio $r > 0$, sucessivamente. A inclinação da interpolação linear da curva $\log{A(r)}$ versus $\log{r}$, sendo $A(r)$ a área total dilatada para o elemento estruturante de raio $r$, determina a estimativa da dimensão fractal $D_f$ como sendo:
+A \gls{DFM} estima a complexidade das formas através de uma curva que representa as mudanças na complexidade à medida que a escala de visualização da forma varia \cite{Florindo:2012}.
+ O método empregado para estimar a dimensão fractal e a \gls{DFM} nesta tese é o método de Minkowski-Bouligand \cite{Costa:2009}. Este método dilata a forma sob análise utilizando como elemento estruturante um disco de raio $r > 0$, sucessivamente. A inclinação da interpolação linear da curva $\log{A(r)}$ versus $\log{r}$, sendo $A(r)$ a área total dilatada para o elemento estruturante de raio $r$, determina a estimativa da dimensão fractal $D_f$ como sendo:
 
 \begin{equation}
 D_f = 2 - \lim_{r \to 0}  \frac{\log{A(r)}}{\log{r}}.
 \label{eq:df}
 \end{equation}
 
-A derivada da curva log-log, representada através de $N$ valores discretos de raios $r_i>0$, determina a \ac{DFM}:
+A derivada da curva log-log, representada através de $N$ valores discretos de raios $r_i>0$, determina a \gls{DFM}:
 
 \begin{equation}
 DFM = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big), 
@@ -578,20 +578,20 @@ DFM = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 Um problema dos algoritmos empregados na extração de características que foram abordados nesse capítulo é a elevada dimensionalidade da representação vetorial obtida. Além de dificultar compreender a organização dos dados, essa elevada dimensionalidade acarreta em maior complexidade do sistema computacional que deve lidar com essa informação. 
 
-Através de técnicas de redução de dimensionalidade é possível gerar visualizações gráficas dos dados que permitem compreender melhor sua estrutura. Este capítulo apresenta duas técnicas de visualização de dados que foram empregadas neste trabalho na avaliação da capacidade discriminativa dos descritores do contorno de formas: \acf{MDS} e \acf{SOM}.
+Através de técnicas de redução de dimensionalidade é possível gerar visualizações gráficas dos dados que permitem compreender melhor sua estrutura. Este capítulo apresenta duas técnicas de visualização de dados que foram empregadas neste trabalho na avaliação da capacidade discriminativa dos descritores do contorno de formas: \acrfull{MDS} e \acrfull{SOM}.
 
 %Essas técnicas foram aplicadas aos descritores energia de dobramento multiescala, dimensão fractal multiescala, entropia diferencial multiescala e entropia discreta multiescala. Limitamos esse estudo a tais descritores porque os mesmos representam as formas através de vetores de características de mesma dimensão, que é um requisito para a aplicação das técnicas de visualização estudadas.
 
 %Essas técnicas tem em comum a propriedade de projetar os dados de dimensionalidade elevada em um espaço bidimensional. 
 
 \begin{comment}
-\subsection{\ac{PCA}}
+\subsection{\gls{PCA}}
 
 O propósito da análise das componentes principais é obter um conjunto de variáveis não correlacionadas, em ordem decrescente de importância, a partir da combinação linear das variáveis originais. Sob o aspecto geométrico, esse processo de combinar linearmente as variáveis pode ser entendido como realizar a rotação dos eixos do sistema de coordenadas original, a fim de se encontrar um novo sistema de coordenadas ortogonal em que as variáveis transformadas apresentem máxima variância. 
 
 Desde que a maior parte da variância esteja concentrada nas primeiras componentes das variáveis transformadas, consegue-se obter através dessa técnica uma representação com um número reduzido de variáveis.
 
-\ac{PCA} é uma técnica não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  Sendo a transformação \ac{PCA} linear, temos que \cite{Gonzalez:2006}
+\gls{PCA} é uma técnica não supervisionada, pois não leva em consideração informação a priori dos agrupamentos, ou rótulos, dos dados.  Sendo a transformação \gls{PCA} linear, temos que \cite{Gonzalez:2006}
 
 \begin{equation}\label{eq:PCA1}
 \mathbf{y}=\mathbf{A}^T\mathbf{x}
@@ -630,9 +630,9 @@ Selecionar dentre as componentes somente aquelas de maior variância, implica em
 
 \subsection{Escalonamento multimensional}
 
-O \acf{MDS} \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial multidimensional para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou dissimilaridade dos dados como distâncias no espaço geométrico.
+O \gls{MDS} \cite{cox:2000} consiste em um método para representação de dados de um espaço inicial multidimensional para um espaço de dimensão reduzida, preservando as relações de distâncias existentes no espaço inicial. Esse algoritmo modela a similaridade ou dissimilaridade dos dados como distâncias no espaço geométrico.
 
-Há dois tipos de algoritmos \ac{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem as mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
+Há dois tipos de algoritmos \gls{MDS}: o métrico e o não métrico. No primeiro, a matriz de similaridade de entrada é construída a partir de uma métrica de distância que respeita a desigualdade triangular. Assim, as distâncias entre dois pontos no espaço de dimensão reduzida são ajustadas para serem as mais próximas possível daquelas encontradas no espaço de dimensão inicial. Em sua versão não métrica, o algoritmo tenta preservar a ordem das distâncias, procurando uma relação monotônica não paramétrica entre as proximidades das distâncias do espaço de dimensão reduzida e as similaridades no espaço de dimensão inicial.
 
 O coeficiente de determinação $R^2$ mede o ajuste da representação dos dados em um espaço de menor dimensão. Este coeficiente indica, em porcentagem, o ajuste do modelo aos dados observados. Assim, quanto mais próximo de 1 o valor de $R^2$, melhor é o ajuste do modelo aos dados observados.  Sejam $\mathbf{D}=(d_{ij})_{NxN}$ e $\mathbf{\hat{D}}=(\hat{d}_{ij})_{NXN}$ as matrizes de distância simétricas entre $N$ vetores nos espaços de dimensão $M$ e $O$ ($M > O$) respectivamente. O coeficiente de determinação é dado por 
 \begin{equation}
@@ -644,7 +644,7 @@ R^2= 1-\frac{\sum_{i=1}^N \sum_{j = i}^{N}(\hat{d}_{ij} - d_{ij})^2}{\sum_{i=1}^
 
 \subsection{\label{subsec:SOM}Mapa auto-organizável de Kohonen}
 
-O \acf{SOM} \cite{Kohonen:2001} consiste em um tipo de rede neural de aprendizagem não supervisionada. Desenvolvida por \citeonline{Kohonen:1982}, a \ac{SOM} projeta os vetores apresentados em sua entrada de um espaço N-dimensional para um espaço bidimensional, preservando a estrutura topográfica do espaço vetorial de origem. Em outras palavras, se dois vetores encontram-se próximos no espaço de entrada, estes preservarão essa relação de proximidade no espaço de projeção. 
+O \gls{SOM} \cite{Kohonen:2001} consiste em um tipo de rede neural de aprendizagem não supervisionada. Desenvolvida por \citeonline{Kohonen:1982}, a \gls{SOM} projeta os vetores apresentados em sua entrada de um espaço N-dimensional para um espaço bidimensional, preservando a estrutura topográfica do espaço vetorial de origem. Em outras palavras, se dois vetores encontram-se próximos no espaço de entrada, estes preservarão essa relação de proximidade no espaço de projeção. 
 
 \begin{comment}
 Em seu processo de treinamento, a rede \emph{SOM} agrupa os vetores de entrada através de um processo de aprendizado competitivo mantendo a estrutura topológica do espaço vetorial de entrada.
@@ -652,17 +652,17 @@ Em seu processo de treinamento, a rede \emph{SOM} agrupa os vetores de entrada a
 
 Sendo uma ferramenta para análise exploratória de dados, esse tipo de rede neural tem sido empregada para visualização de imagens \cite{Strong2011774}, identificação de agrupamentos \cite{Kuroiwa200031}, classificação de texturas \cite{595364}, bem como outras aplicações.
 
-\citeonline{Ultsch:1990} demonstraram que, embora a \ac{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a avaliação dos agrupamentos estabelecidos. Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir da \ac{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
+\citeonline{Ultsch:1990} demonstraram que, embora a \gls{SOM} organize os vetores em agrupamentos, esta não representa as distâncias entre os mesmos de maneira fidedigna. Isso torna a análise direta do mapa de projeções não adequada para a avaliação dos agrupamentos estabelecidos. Para contornar esse problema, os referidos autores desenvolveram um método bidimensional de representação conhecido como matriz unificada de distâncias ou matriz-U. Obtida a partir da \gls{SOM} essa matriz mostra, preservando a topologia, a relação de distância entre as estruturas mapeadas \cite{Ultsch:1990}. 
 
-A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpretação da informação contida na matriz-U. Neste exemplo a matriz-U é representada por um conjunto de células em níveis de cinza. As estruturas rotuladas representam os neurônios da \ac{SOM} com maior ativação para um dado padrão apresentado à rede durante o treinamento. Estruturas cujos rótulos são de mesma cor correspondem aos padrões pertencentes a uma mesma classe, enquanto as demais células, em níveis de cinza, representam o grau de separação existente entre os padrões. Assim, células mais escuras implicam em maior separação entre as estruturas mapeadas, enquanto células mais claras indicam maior grau de proximidade. 
+A Figura \ref{fig:u-matrix} tem por objetivo auxiliar na compreensão e interpretação da informação contida na matriz-U. Neste exemplo a matriz-U é representada por um conjunto de células em níveis de cinza. As estruturas rotuladas representam os neurônios da \gls{SOM} com maior ativação para um dado padrão apresentado à rede durante o treinamento. Estruturas cujos rótulos são de mesma cor correspondem aos padrões pertencentes a uma mesma classe, enquanto as demais células, em níveis de cinza, representam o grau de separação existente entre os padrões. Assim, células mais escuras implicam em maior separação entre as estruturas mapeadas, enquanto células mais claras indicam maior grau de proximidade. 
 
 \begin{figure}[t]
-  \caption{\label{fig:u-matrix} Representação da Matriz-U como imagem em níveis de cinza. As células brancas rotuladas correspondem aos neurônios da rede \ac{SOM}. Células escuras indicam maior separação entre neurônios e células claras indicam maior proximidade entre neurônios.}
+  \caption{\label{fig:u-matrix} Representação da Matriz-U como imagem em níveis de cinza. As células brancas rotuladas correspondem aos neurônios da rede SOM. Células escuras indicam maior separação entre neurônios e células claras indicam maior proximidade entre neurônios.}
   \centering
   \includegraphics[width=0.65\textwidth,clip,trim=0 35 180 5]{fig9.jpg}
 \end{figure}
 
-Nesta matriz, a rede \ac{SOM} mapeou as três estruturas da classe vermelha ($A_1$, $A_2$ e $A_3$) com pouca separação inter-classes, uma vez que não há regiões escuras no entorno das mesmas. A estrutura $A_4$, que também pertence a classe vermelha, encontra-se mais afastada das estruturas referidas anteriormente, pois há uma barreira mais escura a separando das demais. Há também uma grande barreira que separa as classes entre si. As quatro estruturas da classe vermelha, por exemplo, estão bem separadas das demais, pertencentes a classe azul ($B_1$, $B_2$, $B_3$ e $B_4$) e verde ($C_1$).
+Nesta matriz, a rede \gls{SOM} mapeou as três estruturas da classe vermelha ($A_1$, $A_2$ e $A_3$) com pouca separação inter-classes, uma vez que não há regiões escuras no entorno das mesmas. A estrutura $A_4$, que também pertence a classe vermelha, encontra-se mais afastada das estruturas referidas anteriormente, pois há uma barreira mais escura a separando das demais. Há também uma grande barreira que separa as classes entre si. As quatro estruturas da classe vermelha, por exemplo, estão bem separadas das demais, pertencentes a classe azul ($B_1$, $B_2$, $B_3$ e $B_4$) e verde ($C_1$).
 
 A mesma análise realizada para classe vermelha vale para a classe azul, embora haja maior separação intra-classe entre as estruturas desta última, como no caso da estrutura $B_4$, que encontra-se bem afastada das demais de sua classe. A estrutura $C_1$, da classe verde, encontra-se bem separada de todas as demais, uma vez que há uma barreira escura em todo seu entorno. 
 
@@ -707,11 +707,11 @@ MFD = \big(D_f(t_1)\text{, }D_f(t_2)\text{, }\ldots\text{ , }D_f(t_N)\big),
 
 Problemas de otimização, que consistem em encontrar mínimo e máximo de uma função objetivo de múltiplas variáveis, ocorrem com frequência em diversas áreas do conhecimento, como engenharia, economia e ciências. Métodos clássicos como Newton-Rapson e suas variantes, funcionam muito bem no caso de funções convexas, em que a função objetivo é diferenciável e com um único ótimo global, porém tais condições não são encontradas em diversos problemas. 
 
-Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções não convexas e não diferenciáveis. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: \acl{DE} \cite{Storn:1007}, \acl{PSO}  \cite{Yuhui:1998} e \acl{SA} \cite{Andries:2007}.
+Os métodos de otimização evolutivos foram desenvolvidos para lidar com o problema de otimização de funções não convexas e não diferenciáveis. Inspirados nos processos biológicos evolutivos, esses métodos utilizam de metaheurísticas e uma população de soluções candidatas para realizar buscas no espaço de pesquisa pela solução ótima. Esta seção apresenta três algoritmos metaheurísticos de otimização que foram utilizados nesta tese no ajuste de parâmetros dos descritores multiescala: \acrfull{SA} \cite{Andries:2007}, \acrfull{DE} \cite{Storn:1007} e \acrfull{PSO}  \cite{Yuhui:1998}.
 %This paper investigates three optimization algorithms to search for the best solution that minimizes the objective function MAD: the simulated annealing (SA) \cite{Andries:2007}, differential evolution (DE) \cite{Storn:1007} and particle swarm (PSO) \cite{Yuhui:1998}. 
 \subsection{Resfriamento simulado}
 
-O  método de otimização \acf{SA} simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
+O  método de otimização \gls{SA} simula o processo termodinâmico de aquecimento e resfriamento de um metal. O mecanismo desse método para exploração do espaço de busca consiste numa variável de temperatura que determina a probabilidade de aceitação de uma solução pior àquela encontrada até o momento, sendo que quanto maior for a temperatura, maior será essa probabilidade. Soluções melhores que a solução atual são sempre aceitas pelo algoritmo, enquanto que a probabilidade de aceitar soluções piores decresce exponencialmente à medida que o algoritmo interage.  
 
 Na exploração do espaço de busca, esse algoritmo também requer um mecanismo de perturbação da solução atual, que consiste em adicionar ou subtrair, com uma dada probabilidade $P_r$, um ruído de natureza estocástica a cada coordenada da solução atual. Na implementação utilizada neste trabalho esse mecanismo corresponde a um ruído branco de variância $0,2$.
 
@@ -758,7 +758,7 @@ $n \gets n + 1$
 
 \subsection{Evolução diferencial}
 
-Analogamente ao \ac{GA} de otimização, o algoritmo \acf{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos. No entanto, a forma como tais mecanismos são implementados no \ac{DE} difere significativamente em relação ao \ac{GA}. 
+Analogamente ao \gls{GA} de otimização, o algoritmo \gls{DE} \cite{Storn:1996} emprega mecanismos de cruzamento e mutação de espécies para evoluir uma população de $N$ indivíduos. No entanto, a forma como tais mecanismos são implementados no \gls{DE} difere significativamente em relação ao \gls{GA}. 
 
 O cruzamento consiste em produzir uma novo indivíduo ($\mathbf{d}$) a partir de três indivíduos distintos sorteados da população $\boldsymbol{\sigma_1}$, $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$ que sejam diferentes do individuo atualmente em evolução $(\boldsymbol{\sigma_k}$). Para a variante do algoritmo \emph{DE/rand/1} \cite{Storn:1996}, a regra de cruzamento é  
 
@@ -770,7 +770,7 @@ O cruzamento consiste em produzir uma novo indivíduo ($\mathbf{d}$) a partir de
 
 \noindent sendo o parâmetro $\beta$ um fator de amplificação da diferença entre os vetores $\boldsymbol{\sigma_2}$ e $\boldsymbol{\sigma_3}$.
 
-O mecanismo de mutação do \ac{DE} utiliza o indivíduo $\boldsymbol{d}$, produzido pela Equação \ref{eq:de}, para perturbar o vetor de solução candidata atualmente em evolução $\boldsymbol{\sigma_k}$. Assim, com probabilidade de mutação $P_r$, substitui-se cada coordenada de $\boldsymbol{\sigma_k}$ pela coordenada de $\boldsymbol{d}$ correspondente.
+O mecanismo de mutação do \gls{DE} utiliza o indivíduo $\boldsymbol{d}$, produzido pela Equação \ref{eq:de}, para perturbar o vetor de solução candidata atualmente em evolução $\boldsymbol{\sigma_k}$. Assim, com probabilidade de mutação $P_r$, substitui-se cada coordenada de $\boldsymbol{\sigma_k}$ pela coordenada de $\boldsymbol{d}$ correspondente.
 
 \begin{comment}
 \begin{algorithm}[ht]
@@ -813,9 +813,9 @@ O mecanismo de mutação do \ac{DE} utiliza o indivíduo $\boldsymbol{d}$, produ
 \end{comment}
 
 \subsection{Otimização por enxame de partículas}
- A \acf{PSO} consiste em um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \ac{PSO}: a) registra as melhores posições alcançadas por cada partícula ($\mathbf{bpp}$) e a melhor posição globalmente encontrada por todas as partículas do enxame ($\mathbf{bgp}$); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de $\mathbf{bpp}$ e o segundo a tendência da partícula se movimentar em direção a $\mathbf{bgp}$; c) Atualiza a posição das partículas a partir das suas velocidades.
+ A \gls{PSO} consiste em um algoritmo bio-inspirado que evolui uma população de $N$ partículas que se movimentam no espaço de busca a uma dada velocidade. A cada iteração o \gls{PSO}: a) registra as melhores posições alcançadas por cada partícula ($\mathbf{bpp}$) e a melhor posição globalmente encontrada por todas as partículas do enxame ($\mathbf{bgp}$); b) corrige a velocidade das partículas considerando dois fatores de atração $c_1$ e $c_2$. O primeiro fator controla a tendência da partícula procurar a solução ótima nas redondezas de $\mathbf{bpp}$ e o segundo a tendência da partícula se movimentar em direção a $\mathbf{bgp}$; c) Atualiza a posição das partículas a partir das suas velocidades.
  
- Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada iteração por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo \ac{PSO} é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}.
+ Para melhorar a convergência a um mínimo global, as partículas são desaceleradas exponencialmente  a cada iteração por um fator de inércia $\omega$ \cite{Yuhui:1998}. O ajuste dos parâmetros do algoritmo \gls{PSO} é um aspecto importante a ser considerado. Um estudo das características de convergência do algoritmo, bem como recomendações de ajuste dos parâmetros com base nessas características  é encontrado em \cite{Jiang20078}.
   
  \begin{comment} 
 \begin{algorithm}[ht]

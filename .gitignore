@@ -1,9 +1,16 @@
 *.log
 *-eps-converted-to.pdf
 main.pdf
+documento.pdf
 *.aux
 *.bbl
 *.blg
+*.glg
+*.glo
+*.gls
+*.ilg
+*.ind
+*.ist
 *.brf
 *.idx
 *.lof
